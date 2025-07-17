@@ -1,50 +1,47 @@
 # Namespaces
 
-{{#include ../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../banners/hacktricks-training.md\}}
 
 ### **PID namespace**
 
-{{#ref}}
-pid-namespace.md
-{{#endref}}
+\{{#ref\}}\
+pid-namespace.md\
+\{{#endref\}}
 
 ### **Mount namespace**
 
-{{#ref}}
-mount-namespace.md
-{{#endref}}
+\{{#ref\}}\
+mount-namespace.md\
+\{{#endref\}}
 
 ### **Network namespace**
 
-{{#ref}}
-network-namespace.md
-{{#endref}}
+\{{#ref\}}\
+network-namespace.md\
+\{{#endref\}}
 
 ### **IPC Namespace**
 
-{{#ref}}
-ipc-namespace.md
-{{#endref}}
+\{{#ref\}}\
+ipc-namespace.md\
+\{{#endref\}}
 
 ### **UTS namespace**
 
-{{#ref}}
-uts-namespace.md
-{{#endref}}
+\{{#ref\}}\
+uts-namespace.md\
+\{{#endref\}}
 
 ### Time Namespace
 
-{{#ref}}
-time-namespace.md
-{{#endref}}
+\{{#ref\}}\
+time-namespace.md\
+\{{#endref\}}
 
 ### User namespace
 
-{{#ref}}
-user-namespace.md
-{{#endref}}
+\{{#ref\}}\
+user-namespace.md\
+\{{#endref\}}
 
-{{#include ../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../banners/hacktricks-training.md\}}

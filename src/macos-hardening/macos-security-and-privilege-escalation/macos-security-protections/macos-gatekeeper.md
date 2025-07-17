@@ -1,7 +1,6 @@
 # macOS Gatekeeper / Quarantine / XProtect
 
-{{#include ../../../banners/hacktricks-training.md}}
-
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Gatekeeper
 
@@ -56,7 +55,7 @@ Upon the user's first installation or execution of the software, the existence o
 
 ### spctl & syspolicyd
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that from Sequoia version, **`spctl`** doesn't allow to modify Gatekeeper configuration anymore.
 
 **`spctl`** is the CLI tool to enumerate and interact with Gatekeeper (with the `syspolicyd` daemon via XPC messages). For example, it's possible to see the **status** of GateKeeper with:
@@ -66,7 +65,7 @@ Upon the user's first installation or execution of the software, the existence o
 spctl --status
 ```
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that GateKeeper signature checks are performed only to **files with the Quarantine attribute**, not to every file.
 
 GateKeeper will check if according to the **preferences & the signature** a binary can be executed:
@@ -109,9 +108,9 @@ cdhash H"8d0d90ff23c3071211646c4c9c607cdb601cb18f"|1|0|GKE
 
 These are hashes that from:
 
-- `/var/db/SystemPolicyConfiguration/gke.bundle/Contents/Resources/gke.auth`
-- `/var/db/gke.bundle/Contents/Resources/gk.db`
-- `/var/db/gkopaque.bundle/Contents/Resources/gkopaque.db`
+* `/var/db/SystemPolicyConfiguration/gke.bundle/Contents/Resources/gke.auth`
+* `/var/db/gke.bundle/Contents/Resources/gk.db`
+* `/var/db/gkopaque.bundle/Contents/Resources/gkopaque.db`
 
 Or you could list the previous info with:
 
@@ -168,11 +167,11 @@ Upon **downloading** an application or file, specific macOS **applications** suc
 
 In the case where the **quarantine flag is not present** (as with files downloaded via some BitTorrent clients), Gatekeeper's **checks may not be performed**. Thus, users should exercise caution when opening files downloaded from less secure or unknown sources.
 
-> [!NOTE] > **Checking** the **validity** of code signatures is a **resource-intensive** process that includes generating cryptographic **hashes** of the code and all its bundled resources. Furthermore, checking certificate validity involves doing an **online check** to Apple's servers to see if it has been revoked after it was issued. For these reasons, a full code signature and notarization check is **impractical to run every time an app is launched**.
+> \[!NOTE] > **Checking** the **validity** of code signatures is a **resource-intensive** process that includes generating cryptographic **hashes** of the code and all its bundled resources. Furthermore, checking certificate validity involves doing an **online check** to Apple's servers to see if it has been revoked after it was issued. For these reasons, a full code signature and notarization check is **impractical to run every time an app is launched**.
 >
 > Therefore, these checks are **only run when executing apps with the quarantined attribute.**
 
-> [!WARNING]
+> \[!WARNING]\
 > This attribute must be **set by the application creating/downloading** the file.
 >
 > However, files that are sandboxed will have this attribute set to every file they create. And non sandboxed apps can set it themselves, or specify the [**LSFileQuarantineEnabled**](https://developer.apple.com/documentation/bundleresources/information_property_list/lsfilequarantineenabled?language=objc) key in the **Info.plist** which will make the system set the `com.apple.quarantine` extended attribute on the files created,
@@ -216,7 +215,7 @@ com.apple.quarantine: 00C1;607842eb;Brave;F643CD5F-6071-46AB-83AB-390BA944DEC5
 # F643CD5F-6071-46AB-83AB-390BA944DEC5 -- UID assigned to the file downloaded
 ```
 
-Actually a process "could set quarantine flags to the files it creates" (I already tried to apply the USER_APPROVED flag in a created file but it won't apply it):
+Actually a process "could set quarantine flags to the files it creates" (I already tried to apply the USER\_APPROVED flag in a created file but it won't apply it):
 
 <details>
 
@@ -314,8 +313,8 @@ This Kext will hook via MACF several calls in order to traps all file lifecycle 
 
 It also uses a couple of MIBs:
 
-- `security.mac.qtn.sandbox_enforce`: Enforce quarantine along Sandbox
-- `security.mac.qtn.user_approved_exec`: Querantined procs can only execute approved files
+* `security.mac.qtn.sandbox_enforce`: Enforce quarantine along Sandbox
+* `security.mac.qtn.user_approved_exec`: Querantined procs can only execute approved files
 
 ### XProtect
 
@@ -333,16 +332,16 @@ system_profiler SPInstallHistoryDataType 2>/dev/null | grep -A 4 "XProtectPlistC
 
 XProtect is located on. SIP protected location at **/Library/Apple/System/Library/CoreServices/XProtect.bundle** and inside the bundle you can find information XProtect uses:
 
-- **`XProtect.bundle/Contents/Resources/LegacyEntitlementAllowlist.plist`**: Allows code with those cdhashes to use legacy entitlements.
-- **`XProtect.bundle/Contents/Resources/XProtect.meta.plist`**: List of plugins and extensions that are disallowed to load via BundleID and TeamID or indicating a minimum version.
-- **`XProtect.bundle/Contents/Resources/XProtect.yara`**: Yara rules to detect malware.
-- **`XProtect.bundle/Contents/Resources/gk.db`**: SQLite3 database with hashes of blocked applications and TeamIDs.
+* **`XProtect.bundle/Contents/Resources/LegacyEntitlementAllowlist.plist`**: Allows code with those cdhashes to use legacy entitlements.
+* **`XProtect.bundle/Contents/Resources/XProtect.meta.plist`**: List of plugins and extensions that are disallowed to load via BundleID and TeamID or indicating a minimum version.
+* **`XProtect.bundle/Contents/Resources/XProtect.yara`**: Yara rules to detect malware.
+* **`XProtect.bundle/Contents/Resources/gk.db`**: SQLite3 database with hashes of blocked applications and TeamIDs.
 
 Note that there is another App in **`/Library/Apple/System/Library/CoreServices/XProtect.app`** related to XProtect that isn't involved with the Gatekeeper process.
 
 ### Not Gatekeeper
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that Gatekeeper **isn't executed every time** you execute an application, just _**AppleMobileFileIntegrity**_ (AMFI) will only **verify executable code signatures** when you execute an app that has been already executed and verified by Gatekeeper.
 
 Therefore, previously it was possible to execute an app to cache it with Gatekeeper, then **modify not executables files of the application** (like Electron asar or NIB files) and if no other protections were in place, the application was **executed** with the **malicious** additions.
@@ -461,19 +460,15 @@ aa archive -d s/ -o app.aar
 
 ### uchg (from this [talk](https://codeblue.jp/2023/result/pdf/cb23-bypassing-macos-security-and-privacy-mechanisms-from-gatekeeper-to-system-integrity-protection-by-koh-nakagawa.pdf))
 
-- Create a directory containing an app.
-- Add uchg to the app.
-- Compress the app to a tar.gz file.
-- Send the tar.gz file to a victim.
-- The victim opens the tar.gz file and runs the app.
-- Gatekeeper does not check the app.
+* Create a directory containing an app.
+* Add uchg to the app.
+* Compress the app to a tar.gz file.
+* Send the tar.gz file to a victim.
+* The victim opens the tar.gz file and runs the app.
+* Gatekeeper does not check the app.
 
 ### Prevent Quarantine xattr
 
 In an ".app" bundle if the quarantine xattr is not added to it, when executing it **Gatekeeper won't be triggered**.
 
-
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

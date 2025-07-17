@@ -1,6 +1,6 @@
 # macOS XPC
 
-{{#include ../../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -68,7 +68,7 @@ The ones in **`LaunchDameons`** are run by root. So if an unprivileged process c
 
 ## XPC Objects
 
-- **`xpc_object_t`**
+* **`xpc_object_t`**
 
 Every XPC message is a dictionary object that simplifies the serialization and deserialization. Moreover, `libxpc.dylib` declares most of the data types so it's possible to make that the received data is of the expected type. In the C API every object is a `xpc_object_t` (and it's type can be checked using `xpc_get_type(object)`).\
 Moreover, the function `xpc_copy_description(object)` can be used to get a string representation of the object that can be useful for debugging purposes.\
@@ -77,10 +77,10 @@ These objects also have some methods to call like `xpc_<object>_copy`, `xpc_<obj
 The `xpc_object_t` are created calling `xpc_<objetType>_create` function, which internally calls `_xpc_base_create(Class, Size)` where it's indicated the type of the class of the object (one of `XPC_TYPE_*`) and the size of it (some extra 40B will be added to the size for metadata). Which means that the data of the object will start at the offset 40B.\
 Therefore, the `xpc_<objectType>_t` is kind of a subclass of the `xpc_object_t` which would be a subclass of `os_object_t*`.
 
-> [!WARNING]
+> \[!WARNING]\
 > Note that it should be the developer who uses `xpc_dictionary_[get/set]_<objectType>` to get or set the type and real value of a key.
 
-- **`xpc_pipe`**
+* **`xpc_pipe`**
 
 A **`xpc_pipe`** is a FIFO pipe that processes can use to communicate (the communication use Mach messages).\
 It's possible to create a XPC server calling `xpc_pipe_create()` or `xpc_pipe_create_from_port()` to create it using a specific Mach port. Then, to receive messages it's possible to call `xpc_pipe_receive` and `xpc_pipe_try_receive`.
@@ -89,12 +89,12 @@ Note that the **`xpc_pipe`** object is a **`xpc_object_t`** with information in 
 
 An example of a **`xpc_pipe`** is the **bootstrap pip**e created by **`launchd`** making possible sharing Mach ports.
 
-- **`NSXPC*`**
+* **`NSXPC*`**
 
 These are Objective-C high level objects which allows the abstraction of XPC connections.\
 Moreover, it's easier to debug these objects with DTrace than the previous ones.
 
-- **`GCD Queues`**
+* **`GCD Queues`**
 
 XPC uses GCD to pass messages, moreover it generates certain dispatch queues like `xpc.transactionq`, `xpc.io`, `xpc-events.add-listenerq`, `xpc.service-instance`...
 
@@ -126,17 +126,17 @@ Applications can **subscribe** to different event **messages**, enabling them to
 
 When a process tries to call a method from via an XPC connection, the **XPC service should check if that process is allowed to connect**. Here are the common ways to check that and the common pitfalls:
 
-{{#ref}}
-macos-xpc-connecting-process-check/
-{{#endref}}
+\{{#ref\}}\
+macos-xpc-connecting-process-check/\
+\{{#endref\}}
 
 ## XPC Authorization
 
 Apple also allows apps to **configure some rights and how to get them** so if the calling process have them it would be **allowed to call a method** from the XPC service:
 
-{{#ref}}
-macos-xpc-authorization.md
-{{#endref}}
+\{{#ref\}}\
+macos-xpc-authorization.md\
+\{{#endref\}}
 
 ## XPC Sniffer
 
@@ -157,8 +157,8 @@ Another possible tool to use is [**XPoCe2**](https://newosxbook.com/tools/XPoCe2
 
 ## XPC Communication C Code Example
 
-{{#tabs}}
-{{#tab name="xpc_server.c"}}
+\{{#tabs\}}\
+\{{#tab name="xpc\_server.c"\}}
 
 ```c
 // gcc xpc_server.c -o xpc_server
@@ -214,9 +214,9 @@ int main(int argc, const char *argv[]) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="xpc_client.c"}}
+\{{#tab name="xpc\_client.c"\}}
 
 ```c
 // gcc xpc_client.c -o xpc_client
@@ -247,9 +247,9 @@ int main(int argc, const char *argv[]) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="xyz.hacktricks.service.plist"}}
+\{{#tab name="xyz.hacktricks.service.plist"\}}
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -272,8 +272,8 @@ int main(int argc, const char *argv[]) {
 </plist>
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ```bash
 # Compile the server & client
@@ -297,8 +297,8 @@ sudo rm /Library/LaunchDaemons/xyz.hacktricks.service.plist /tmp/xpc_server
 
 ## XPC Communication Objective-C Code Example
 
-{{#tabs}}
-{{#tab name="oc_xpc_server.m"}}
+\{{#tabs\}}\
+\{{#tab name="oc\_xpc\_server.m"\}}
 
 ```objectivec
 // gcc -framework Foundation oc_xpc_server.m -o oc_xpc_server
@@ -350,9 +350,9 @@ int main(void) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="oc_xpc_client.m"}}
+\{{#tab name="oc\_xpc\_client.m"\}}
 
 ```objectivec
 // gcc -framework Foundation oc_xpc_client.m -o oc_xpc_client
@@ -377,9 +377,9 @@ int main(void) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="xyz.hacktricks.svcoc.plist"}}
+\{{#tab name="xyz.hacktricks.svcoc.plist"\}}
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -402,8 +402,8 @@ int main(void) {
 </plist>
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ```bash
 # Compile the server & client
@@ -483,7 +483,4 @@ It's possible to get information about remote services using the cli tool `/usr/
 The communication between BridgeOS and the host occurs through a dedicated IPv6 interface. The `MultiverseSupport.framework` allows to establish sockets whose `fd` will be used for communicating.\
 It's possible to find thee communications using `netstat`, `nettop` or the open source option, `netbottom`.
 
-{{#include ../../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../../banners/hacktricks-training.md\}}

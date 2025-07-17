@@ -1,6 +1,6 @@
 # Firmware Analysis
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## **Introduction**
 
@@ -10,14 +10,14 @@ Firmware is essential software that enables devices to operate correctly by mana
 
 **Gathering information** is a critical initial step in understanding a device's makeup and the technologies it uses. This process involves collecting data on:
 
-- The CPU architecture and operating system it runs
-- Bootloader specifics
-- Hardware layout and datasheets
-- Codebase metrics and source locations
-- External libraries and license types
-- Update histories and regulatory certifications
-- Architectural and flow diagrams
-- Security assessments and identified vulnerabilities
+* The CPU architecture and operating system it runs
+* Bootloader specifics
+* Hardware layout and datasheets
+* Codebase metrics and source locations
+* External libraries and license types
+* Update histories and regulatory certifications
+* Architectural and flow diagrams
+* Security assessments and identified vulnerabilities
 
 For this purpose, **open-source intelligence (OSINT)** tools are invaluable, as is the analysis of any available open-source software components through manual and automated review processes. Tools like [Coverity Scan](https://scan.coverity.com) and [Semmle’s LGTM](https://lgtm.com/#explore) offer free static analysis that can be leveraged to find potential issues.
 
@@ -25,17 +25,17 @@ For this purpose, **open-source intelligence (OSINT)** tools are invaluable, as 
 
 Obtaining firmware can be approached through various means, each with its own level of complexity:
 
-- **Directly** from the source (developers, manufacturers)
-- **Building** it from provided instructions
-- **Downloading** from official support sites
-- Utilizing **Google dork** queries for finding hosted firmware files
-- Accessing **cloud storage** directly, with tools like [S3Scanner](https://github.com/sa7mon/S3Scanner)
-- Intercepting **updates** via man-in-the-middle techniques
-- **Extracting** from the device through connections like **UART**, **JTAG**, or **PICit**
-- **Sniffing** for update requests within device communication
-- Identifying and using **hardcoded update endpoints**
-- **Dumping** from the bootloader or network
-- **Removing and reading** the storage chip, when all else fails, using appropriate hardware tools
+* **Directly** from the source (developers, manufacturers)
+* **Building** it from provided instructions
+* **Downloading** from official support sites
+* Utilizing **Google dork** queries for finding hosted firmware files
+* Accessing **cloud storage** directly, with tools like [S3Scanner](https://github.com/sa7mon/S3Scanner)
+* Intercepting **updates** via man-in-the-middle techniques
+* **Extracting** from the device through connections like **UART**, **JTAG**, or **PICit**
+* **Sniffing** for update requests within device communication
+* Identifying and using **hardcoded update endpoints**
+* **Dumping** from the bootloader or network
+* **Removing and reading** the storage chip, when all else fails, using appropriate hardware tools
 
 ## Analyzing the firmware
 
@@ -54,9 +54,9 @@ If you don't find much with those tools check the **entropy** of the image with 
 
 Moreover, you can use these tools to extract **files embedded inside the firmware**:
 
-{{#ref}}
-../../generic-methodologies-and-resources/basic-forensic-methodology/partitions-file-systems-carving/file-data-carving-recovery-tools.md
-{{#endref}}
+\{{#ref\}}\
+../../generic-methodologies-and-resources/basic-forensic-methodology/partitions-file-systems-carving/file-data-carving-recovery-tools.md\
+\{{#endref\}}
 
 Or [**binvis.io**](https://binvis.io/#/) ([code](https://code.google.com/archive/p/binvis/)) to inspect the file.
 
@@ -97,21 +97,21 @@ Alternatively, the following command could also be run.
 
 `$ dd if=DIR850L_REVB.bin bs=1 skip=$((0x1A0094)) of=dir.squashfs`
 
-- For squashfs (used in the example above)
+* For squashfs (used in the example above)
 
 `$ unsquashfs dir.squashfs`
 
 Files will be in "`squashfs-root`" directory afterwards.
 
-- CPIO archive files
+* CPIO archive files
 
 `$ cpio -ivd --no-absolute-filenames -F <bin>`
 
-- For jffs2 filesystems
+* For jffs2 filesystems
 
 `$ jefferson rootfsfile.jffs2`
 
-- For ubifs filesystems with NAND flash
+* For ubifs filesystems with NAND flash
 
 `$ ubireader_extract_images -u UBI -s <start_offset> <bin>`
 
@@ -156,17 +156,17 @@ With the filesystem extracted, the search for security flaws begins. Attention i
 
 **Key locations** and **items** to inspect include:
 
-- **etc/shadow** and **etc/passwd** for user credentials
-- SSL certificates and keys in **etc/ssl**
-- Configuration and script files for potential vulnerabilities
-- Embedded binaries for further analysis
-- Common IoT device web servers and binaries
+* **etc/shadow** and **etc/passwd** for user credentials
+* SSL certificates and keys in **etc/ssl**
+* Configuration and script files for potential vulnerabilities
+* Embedded binaries for further analysis
+* Common IoT device web servers and binaries
 
 Several tools assist in uncovering sensitive information and vulnerabilities within the filesystem:
 
-- [**LinPEAS**](https://github.com/carlospolop/PEASS-ng) and [**Firmwalker**](https://github.com/craigz28/firmwalker) for sensitive information search
-- [**The Firmware Analysis and Comparison Tool (FACT)**](https://github.com/fkie-cad/FACT_core) for comprehensive firmware analysis
-- [**FwAnalyzer**](https://github.com/cruise-automation/fwanalyzer), [**ByteSweep**](https://gitlab.com/bytesweep/bytesweep), [**ByteSweep-go**](https://gitlab.com/bytesweep/bytesweep-go), and [**EMBA**](https://github.com/e-m-b-a/emba) for static and dynamic analysis
+* [**LinPEAS**](https://github.com/carlospolop/PEASS-ng) and [**Firmwalker**](https://github.com/craigz28/firmwalker) for sensitive information search
+* [**The Firmware Analysis and Comparison Tool (FACT)**](https://github.com/fkie-cad/FACT_core) for comprehensive firmware analysis
+* [**FwAnalyzer**](https://github.com/cruise-automation/fwanalyzer), [**ByteSweep**](https://gitlab.com/bytesweep/bytesweep), [**ByteSweep-go**](https://gitlab.com/bytesweep/bytesweep-go), and [**EMBA**](https://github.com/e-m-b-a/emba) for static and dynamic analysis
 
 ### Security Checks on Compiled Binaries
 
@@ -222,36 +222,33 @@ Operating systems like [AttifyOS](https://github.com/adi0x90/attifyos) and [Embe
 
 ## Prepared OSs to analyze Firmware
 
-- [**AttifyOS**](https://github.com/adi0x90/attifyos): AttifyOS is a distro intended to help you perform security assessment and penetration testing of Internet of Things (IoT) devices. It saves you a lot of time by providing a pre-configured environment with all the necessary tools loaded.
-- [**EmbedOS**](https://github.com/scriptingxss/EmbedOS): Embedded security testing operating system based on Ubuntu 18.04 preloaded with firmware security testing tools.
+* [**AttifyOS**](https://github.com/adi0x90/attifyos): AttifyOS is a distro intended to help you perform security assessment and penetration testing of Internet of Things (IoT) devices. It saves you a lot of time by providing a pre-configured environment with all the necessary tools loaded.
+* [**EmbedOS**](https://github.com/scriptingxss/EmbedOS): Embedded security testing operating system based on Ubuntu 18.04 preloaded with firmware security testing tools.
 
 ## Vulnerable firmware to practice
 
 To practice discovering vulnerabilities in firmware, use the following vulnerable firmware projects as a starting point.
 
-- OWASP IoTGoat
-  - [https://github.com/OWASP/IoTGoat](https://github.com/OWASP/IoTGoat)
-- The Damn Vulnerable Router Firmware Project
-  - [https://github.com/praetorian-code/DVRF](https://github.com/praetorian-code/DVRF)
-- Damn Vulnerable ARM Router (DVAR)
-  - [https://blog.exploitlab.net/2018/01/dvar-damn-vulnerable-arm-router.html](https://blog.exploitlab.net/2018/01/dvar-damn-vulnerable-arm-router.html)
-- ARM-X
-  - [https://github.com/therealsaumil/armx#downloads](https://github.com/therealsaumil/armx#downloads)
-- Azeria Labs VM 2.0
-  - [https://azeria-labs.com/lab-vm-2-0/](https://azeria-labs.com/lab-vm-2-0/)
-- Damn Vulnerable IoT Device (DVID)
-  - [https://github.com/Vulcainreo/DVID](https://github.com/Vulcainreo/DVID)
+* OWASP IoTGoat
+  * [https://github.com/OWASP/IoTGoat](https://github.com/OWASP/IoTGoat)
+* The Damn Vulnerable Router Firmware Project
+  * [https://github.com/praetorian-code/DVRF](https://github.com/praetorian-code/DVRF)
+* Damn Vulnerable ARM Router (DVAR)
+  * [https://blog.exploitlab.net/2018/01/dvar-damn-vulnerable-arm-router.html](https://blog.exploitlab.net/2018/01/dvar-damn-vulnerable-arm-router.html)
+* ARM-X
+  * [https://github.com/therealsaumil/armx#downloads](https://github.com/therealsaumil/armx#downloads)
+* Azeria Labs VM 2.0
+  * [https://azeria-labs.com/lab-vm-2-0/](https://azeria-labs.com/lab-vm-2-0/)
+* Damn Vulnerable IoT Device (DVID)
+  * [https://github.com/Vulcainreo/DVID](https://github.com/Vulcainreo/DVID)
 
 ## References
 
-- [https://scriptingxss.gitbook.io/firmware-security-testing-methodology/](https://scriptingxss.gitbook.io/firmware-security-testing-methodology/)
-- [Practical IoT Hacking: The Definitive Guide to Attacking the Internet of Things](https://www.amazon.co.uk/Practical-IoT-Hacking-F-Chantzis/dp/1718500904)
+* [https://scriptingxss.gitbook.io/firmware-security-testing-methodology/](https://scriptingxss.gitbook.io/firmware-security-testing-methodology/)
+* [Practical IoT Hacking: The Definitive Guide to Attacking the Internet of Things](https://www.amazon.co.uk/Practical-IoT-Hacking-F-Chantzis/dp/1718500904)
 
 ## Trainning and Cert
 
-- [https://www.attify-store.com/products/offensive-iot-exploitation](https://www.attify-store.com/products/offensive-iot-exploitation)
+* [https://www.attify-store.com/products/offensive-iot-exploitation](https://www.attify-store.com/products/offensive-iot-exploitation)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

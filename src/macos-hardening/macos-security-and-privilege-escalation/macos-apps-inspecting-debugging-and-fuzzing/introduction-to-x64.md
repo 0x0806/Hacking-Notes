@@ -1,6 +1,6 @@
 # Introduction to x64
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## **Introduction to x64**
 
@@ -23,8 +23,8 @@ x64 expands upon the x86 architecture, featuring **16 general-purpose registers*
 
 The x64 calling convention varies between operating systems. For instance:
 
-- **Windows**: The first **four parameters** are passed in the registers **`rcx`**, **`rdx`**, **`r8`**, and **`r9`**. Further parameters are pushed onto the stack. The return value is in **`rax`**.
-- **System V (commonly used in UNIX-like systems)**: The first **six integer or pointer parameters** are passed in registers **`rdi`**, **`rsi`**, **`rdx`**, **`rcx`**, **`r8`**, and **`r9`**. The return value is also in **`rax`**.
+* **Windows**: The first **four parameters** are passed in the registers **`rcx`**, **`rdx`**, **`r8`**, and **`r9`**. Further parameters are pushed onto the stack. The return value is in **`rax`**.
+* **System V (commonly used in UNIX-like systems)**: The first **six integer or pointer parameters** are passed in registers **`rdi`**, **`rsi`**, **`rdx`**, **`rcx`**, **`r8`**, and **`r9`**. The return value is also in **`rax`**.
 
 If the function has more than six inputs, the **rest will be passed on the stack**. **RSP**, the stack pointer, has to be **16 bytes aligned**, which means that the address it points to must be divisible by 16 before any call happens. This means that normally we would need to ensure that RSP is properly aligned in our shellcode before we make a function call. However, in practice, system calls work many times even if this requirement is not met.
 
@@ -36,22 +36,22 @@ Swift have its own **calling convention** that can be found in [**https://github
 
 x64 instructions have a rich set, maintaining compatibility with earlier x86 instructions and introducing new ones.
 
-- **`mov`**: **Move** a value from one **register** or **memory location** to another.
-  - Example: `mov rax, rbx` — Moves the value from `rbx` to `rax`.
-- **`push`** and **`pop`**: Push or pop values to/from the **stack**.
-  - Example: `push rax` — Pushes the value in `rax` onto the stack.
-  - Example: `pop rax` — Pops the top value from the stack into `rax`.
-- **`add`** and **`sub`**: **Addition** and **subtraction** operations.
-  - Example: `add rax, rcx` — Adds the values in `rax` and `rcx` storing the result in `rax`.
-- **`mul`** and **`div`**: **Multiplication** and **division** operations. Note: these have specific behaviors regarding operand usage.
-- **`call`** and **`ret`**: Used to **call** and **return from functions**.
-- **`int`**: Used to trigger a software **interrupt**. E.g., `int 0x80` was used for system calls in 32-bit x86 Linux.
-- **`cmp`**: **Compare** two values and set the CPU's flags based on the result.
-  - Example: `cmp rax, rdx` — Compares `rax` to `rdx`.
-- **`je`, `jne`, `jl`, `jge`, ...**: **Conditional jump** instructions that change control flow based on the results of a previous `cmp` or test.
-  - Example: After a `cmp rax, rdx` instruction, `je label` — Jumps to `label` if `rax` is equal to `rdx`.
-- **`syscall`**: Used for **system calls** in some x64 systems (like modern Unix).
-- **`sysenter`**: An optimized **system call** instruction on some platforms.
+* **`mov`**: **Move** a value from one **register** or **memory location** to another.
+  * Example: `mov rax, rbx` — Moves the value from `rbx` to `rax`.
+* **`push`** and **`pop`**: Push or pop values to/from the **stack**.
+  * Example: `push rax` — Pushes the value in `rax` onto the stack.
+  * Example: `pop rax` — Pops the top value from the stack into `rax`.
+* **`add`** and **`sub`**: **Addition** and **subtraction** operations.
+  * Example: `add rax, rcx` — Adds the values in `rax` and `rcx` storing the result in `rax`.
+* **`mul`** and **`div`**: **Multiplication** and **division** operations. Note: these have specific behaviors regarding operand usage.
+* **`call`** and **`ret`**: Used to **call** and **return from functions**.
+* **`int`**: Used to trigger a software **interrupt**. E.g., `int 0x80` was used for system calls in 32-bit x86 Linux.
+* **`cmp`**: **Compare** two values and set the CPU's flags based on the result.
+  * Example: `cmp rax, rdx` — Compares `rax` to `rdx`.
+* **`je`, `jne`, `jl`, `jge`, ...**: **Conditional jump** instructions that change control flow based on the results of a previous `cmp` or test.
+  * Example: After a `cmp rax, rdx` instruction, `je label` — Jumps to `label` if `rax` is equal to `rdx`.
+* **`syscall`**: Used for **system calls** in some x64 systems (like modern Unix).
+* **`sysenter`**: An optimized **system call** instruction on some platforms.
 
 ### **Function Prologue**
 
@@ -180,8 +180,8 @@ int main(int argc, char **argv) {
 
 Taken from [**here**](https://github.com/daem0nc0re/macOS_ARM64_Shellcode/blob/master/shell.s) and explained.
 
-{{#tabs}}
-{{#tab name="with adr"}}
+\{{#tabs\}}\
+\{{#tab name="with adr"\}}
 
 ```armasm
 bits 64
@@ -198,9 +198,9 @@ r_cmd64:                      ; the call placed a pointer to db (argv[2])
     syscall
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="with stack"}}
+\{{#tab name="with stack"\}}
 
 ```armasm
 bits 64
@@ -218,8 +218,8 @@ _main:
     syscall
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 #### Read with cat
 
@@ -441,7 +441,4 @@ dup2:
     syscall
 ```
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

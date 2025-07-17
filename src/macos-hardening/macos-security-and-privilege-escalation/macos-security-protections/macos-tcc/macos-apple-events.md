@@ -1,6 +1,6 @@
 # macOS Apple Events
 
-{{#include ../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -12,13 +12,11 @@ Every application that can receive events will checking with this daemon providi
 
 Sandboxed applications requires privileges like `allow appleevent-send` and `(allow mach-lookup (global-name "com.apple.coreservices.appleevents))` in order to be able to send events. Noten that entitlements like `com.apple.security.temporary-exception.apple-events` could restrict who have access to send events which will need entitlements like `com.apple.private.appleevents`.
 
-> [!TIP]
+> \[!TIP]\
 > It's possible to use the env variable **`AEDebugSends`** in order to log informtion about the message sent:
 >
 > ```bash
 > AEDebugSends=1 osascript -e 'tell application "iTerm" to activate'
 > ```
 
-{{#include ../../../../banners/hacktricks-training.md}}
-
-
+\{{#include ../../../../banners/hacktricks-training.md\}}

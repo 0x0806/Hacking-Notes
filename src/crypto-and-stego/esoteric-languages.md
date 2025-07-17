@@ -1,6 +1,6 @@
 # Esoteric languages
 
-{{#include ../banners/hacktricks-training.md}}
+\{{#include ../banners/hacktricks-training.md\}}
 
 ## [Esolangs Wiki](https://esolangs.org/wiki/Main_Page)
 
@@ -52,9 +52,9 @@ Take it to the top
 Whisper my world
 ```
 
-{{#ref}}
-https://codewithrockstar.com/
-{{#endref}}
+\{{#ref\}}\
+https://codewithrockstar.com/\
+\{{#endref\}}
 
 ## PETOOH
 
@@ -68,5 +68,4 @@ kOkOkOkOkO Kukarek Kukarek kOkOkOkOkOkOkO
 Kukarek
 ```
 
-{{#include ../banners/hacktricks-training.md}}
-
+\{{#include ../banners/hacktricks-training.md\}}

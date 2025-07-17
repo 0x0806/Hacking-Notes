@@ -1,7 +1,6 @@
 # LAPS
 
-{{#include ../../banners/hacktricks-training.md}}
-
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -101,7 +100,7 @@ crackmapexec ldap 10.10.10.10 -u user -p password --kdcHost 10.10.10.10 -M laps
 
 This will dump all the passwords that the user can read, allowing you to get a better foothold with a different user.
 
-## ** Using LAPS Password **
+## \*\* Using LAPS Password \*\*
 
 ```
 xfreerdp /v:192.168.1.1:3389  /u:Administrator
@@ -126,7 +125,7 @@ Get-DomainObject -Identity computer-21 -Properties ms-mcs-admpwdexpirationtime
 Set-DomainObject -Identity wkstn-2 -Set @{"ms-mcs-admpwdexpirationtime"="232609935231523081"}
 ```
 
-> [!WARNING]
+> \[!WARNING]\
 > The password will still reset if an **admin** uses the **`Reset-AdmPwdPassword`** cmdlet; or if **Do not allow password expiration time longer than required by policy** is enabled in the LAPS GPO.
 
 ### Backdoor
@@ -137,10 +136,6 @@ Then, just compile the new `AdmPwd.PS.dll` and upload it to the machine in `C:\T
 
 ## References
 
-- [https://4sysops.com/archives/introduction-to-microsoft-laps-local-administrator-password-solution/](https://4sysops.com/archives/introduction-to-microsoft-laps-local-administrator-password-solution/)
+* [https://4sysops.com/archives/introduction-to-microsoft-laps-local-administrator-password-solution/](https://4sysops.com/archives/introduction-to-microsoft-laps-local-administrator-password-solution/)
 
-
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

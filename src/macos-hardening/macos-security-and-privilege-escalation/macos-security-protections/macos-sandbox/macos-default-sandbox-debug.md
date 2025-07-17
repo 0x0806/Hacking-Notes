@@ -1,6 +1,6 @@
 # macOS Default Sandbox Debug
 
-{{#include ../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../banners/hacktricks-training.md\}}
 
 In this page you can find how to create an app to launch arbitrary commands from inside the default macOS sandbox:
 
@@ -64,8 +64,8 @@ EOF
 
 3. Define the entitlements
 
-{{#tabs}}
-{{#tab name="sandbox"}}
+\{{#tabs\}}\
+\{{#tab name="sandbox"\}}
 
 ```bash
 cat << EOF > entitlements.plist
@@ -80,9 +80,9 @@ cat << EOF > entitlements.plist
 EOF
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="sandbox + downloads"}}
+\{{#tab name="sandbox + downloads"\}}
 
 ```bash
 cat << EOF > entitlements.plist
@@ -99,8 +99,8 @@ cat << EOF > entitlements.plist
 EOF
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 4. Sign the app (you need to create a certificate in the keychain)
 
@@ -112,7 +112,4 @@ codesign --entitlements entitlements.plist -s "YourIdentity" SandboxedShellApp.a
 codesign --remove-signature SandboxedShellApp.app
 ```
 
-{{#include ../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../banners/hacktricks-training.md\}}

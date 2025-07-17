@@ -1,16 +1,14 @@
 # Silver Ticket
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Silver ticket
 
 The **Silver Ticket** attack involves the exploitation of service tickets in Active Directory (AD) environments. This method relies on **acquiring the NTLM hash of a service account**, such as a computer account, to forge a Ticket Granting Service (TGS) ticket. With this forged ticket, an attacker can access specific services on the network, **impersonating any user**, typically aiming for administrative privileges. It's emphasized that using AES keys for forging tickets is more secure and less detectable.
 
-> [!WARNING]
-> Silver Tickets are less detectable than Golden Tickets because they only require the **hash of the service account**, not the krbtgt account. However, they are limited to the specific service they target. Moreover, just stealing the password of a user.
-Moreover, if you compromise an **account's password with a SPN** you can use that password to create a Silver Ticket impersonating any user to that service.
+> \[!WARNING]\
+> Silver Tickets are less detectable than Golden Tickets because they only require the **hash of the service account**, not the krbtgt account. However, they are limited to the specific service they target. Moreover, just stealing the password of a user.\
+> Moreover, if you compromise an **account's password with a SPN** you can use that password to create a Silver Ticket impersonating any user to that service.
 
 For ticket crafting, different tools are employed based on the operating system:
 
@@ -58,17 +56,17 @@ The CIFS service is highlighted as a common target for accessing the victim's fi
 
 Using **Rubeus** you may **ask for all** these tickets using the parameter:
 
-- `/altservice:host,RPCSS,http,wsman,cifs,ldap,krbtgt,winrm`
+* `/altservice:host,RPCSS,http,wsman,cifs,ldap,krbtgt,winrm`
 
 ### Silver tickets Event IDs
 
-- 4624: Account Logon
-- 4634: Account Logoff
-- 4672: Admin Logon
+* 4624: Account Logon
+* 4634: Account Logoff
+* 4672: Admin Logon
 
 ## Persistence
 
-To avoid machines from rotating their password every 30 days set  `HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange = 1` or you could set `HKLM\SYSTEM\CurrentControlSet\Services\NetLogon\Parameters\MaximumPasswordAge` to a bigger value than 30days to indicate the rotation perdiod when the machines password should be rotated.
+To avoid machines from rotating their password every 30 days set `HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange = 1` or you could set `HKLM\SYSTEM\CurrentControlSet\Services\NetLogon\Parameters\MaximumPasswordAge` to a bigger value than 30days to indicate the rotation perdiod when the machines password should be rotated.
 
 ## Abusing Service tickets
 
@@ -86,9 +84,9 @@ copy afile.txt \\vulnerable.computer\C$\Windows\Temp
 
 You will also be able to obtain a shell inside the host or execute arbitrary commands using **psexec**:
 
-{{#ref}}
-../lateral-movement/psexec-and-winexec.md
-{{#endref}}
+\{{#ref\}}\
+../lateral-movement/psexec-and-winexec.md\
+\{{#endref\}}
 
 ### HOST
 
@@ -122,9 +120,9 @@ wmic remote.computer.local list full /format:list
 
 Find **more information about wmiexec** in the following page:
 
-{{#ref}}
-../lateral-movement/wmiexec.md
-{{#endref}}
+\{{#ref\}}\
+../lateral-movement/wmiexec.md\
+\{{#endref\}}
 
 ### HOST + WSMAN (WINRM)
 
@@ -136,11 +134,11 @@ New-PSSession -Name PSC -ComputerName the.computer.name; Enter-PSSession PSC
 
 Check the following page to learn **more ways to connect with a remote host using winrm**:
 
-{{#ref}}
-../lateral-movement/winrm.md
-{{#endref}}
+\{{#ref\}}\
+../lateral-movement/winrm.md\
+\{{#endref\}}
 
-> [!WARNING]
+> \[!WARNING]\
 > Note that **winrm must be active and listening** on the remote computer to access it.
 
 ### LDAP
@@ -153,20 +151,14 @@ mimikatz(commandline) # lsadump::dcsync /dc:pcdc.domain.local /domain:domain.loc
 
 **Learn more about DCSync** in the following page:
 
-{{#ref}}
-dcsync.md
-{{#endref}}
-
+\{{#ref\}}\
+dcsync.md\
+\{{#endref\}}
 
 ## References
 
-- [https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-silver-tickets](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-silver-tickets)
-- [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
-- [https://techcommunity.microsoft.com/blog/askds/machine-account-password-process/396027](https://techcommunity.microsoft.com/blog/askds/machine-account-password-process/396027)
+* [https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-silver-tickets](https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-silver-tickets)
+* [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
+* [https://techcommunity.microsoft.com/blog/askds/machine-account-password-process/396027](https://techcommunity.microsoft.com/blog/askds/machine-account-password-process/396027)
 
-
-
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

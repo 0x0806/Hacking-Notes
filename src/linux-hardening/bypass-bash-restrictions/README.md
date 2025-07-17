@@ -1,6 +1,6 @@
 # Bypass Linux Restrictions
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Common Limitations Bypasses
 
@@ -330,24 +330,21 @@ ln /f*
 
 If you are inside a filesystem with the **read-only and noexec protections** or even in a distroless container, there are still ways to **execute arbitrary binaries, even a shell!:**
 
-{{#ref}}
-bypass-fs-protections-read-only-no-exec-distroless/
-{{#endref}}
+\{{#ref\}}\
+bypass-fs-protections-read-only-no-exec-distroless/\
+\{{#endref\}}
 
 ## Chroot & other Jails Bypass
 
-{{#ref}}
-../privilege-escalation/escaping-from-limited-bash.md
-{{#endref}}
+\{{#ref\}}\
+../privilege-escalation/escaping-from-limited-bash.md\
+\{{#endref\}}
 
 ## References & More
 
-- [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection#exploits](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection#exploits)
-- [https://github.com/Bo0oM/WAF-bypass-Cheat-Sheet](https://github.com/Bo0oM/WAF-bypass-Cheat-Sheet)
-- [https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0](https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0)
-- [https://www.secjuice.com/web-application-firewall-waf-evasion/](https://www.secju
+* [https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection#exploits](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection#exploits)
+* [https://github.com/Bo0oM/WAF-bypass-Cheat-Sheet](https://github.com/Bo0oM/WAF-bypass-Cheat-Sheet)
+* [https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0](https://medium.com/secjuice/web-application-firewall-waf-evasion-techniques-2-125995f3e7b0)
+* \[https://www.secjuice.com/web-application-firewall-waf-evasion/]\(https://www.secju
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

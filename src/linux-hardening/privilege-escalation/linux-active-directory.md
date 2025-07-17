@@ -1,6 +1,6 @@
 # Linux Active Directory
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 A linux machine can also be present inside an Active Directory environment.
 
@@ -14,17 +14,17 @@ If you have access over an AD in linux (or bash in Windows) you can try [https:/
 
 You can also check the following page to learn **other ways to enumerate AD from linux**:
 
-{{#ref}}
-../../network-services-pentesting/pentesting-ldap.md
-{{#endref}}
+\{{#ref\}}\
+../../network-services-pentesting/pentesting-ldap.md\
+\{{#endref\}}
 
 ### FreeIPA
 
 FreeIPA is an open-source **alternative** to Microsoft Windows **Active Directory**, mainly for **Unix** environments. It combines a complete **LDAP directory** with an MIT **Kerberos** Key Distribution Center for management akin to Active Directory. Utilizing the Dogtag **Certificate System** for CA & RA certificate management, it supports **multi-factor** authentication, including smartcards. SSSD is integrated for Unix authentication processes. Learn more about it in:
 
-{{#ref}}
-../freeipa-pentesting.md
-{{#endref}}
+\{{#ref\}}\
+../freeipa-pentesting.md\
+\{{#endref\}}
 
 ## Playing with tickets
 
@@ -32,9 +32,9 @@ FreeIPA is an open-source **alternative** to Microsoft Windows **Active Director
 
 In this page you are going to find different places were you could **find kerberos tickets inside a linux host**, in the following page you can learn how to transform this CCache tickets formats to Kirbi (the format you need to use in Windows) and also how to perform a PTT attack:
 
-{{#ref}}
-../../windows-hardening/active-directory-methodology/pass-the-ticket.md
-{{#endref}}
+\{{#ref\}}\
+../../windows-hardening/active-directory-methodology/pass-the-ticket.md\
+\{{#endref\}}
 
 ### CCACHE ticket reuse from /tmp
 
@@ -119,11 +119,8 @@ crackmapexec 10.XXX.XXX.XXX -u 'ServiceAccount$' -H "HashPlaceholder" -d "YourDO
 
 ## References
 
-- [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
-- [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
-- [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
+* [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
+* [https://github.com/TarlogicSecurity/tickey](https://github.com/TarlogicSecurity/tickey)
+* [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md#linux-active-directory)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

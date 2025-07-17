@@ -1,6 +1,6 @@
 # SPI
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -42,7 +42,7 @@ binwalk -e <filename>
 
 The can be .bin or .rom as per the tools and configurations used.
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that firmware extraction is a delicate process and requires a lot of patience. Any mishandling can potentially corrupt the firmware or even erase it completely and make the device unusable. It is recommended to study the specific device before attempting to extract the firmware.
 
 ### Bus Pirate + flashrom
@@ -64,7 +64,4 @@ In Windows or Linux you can use the program [**`flashrom`**](https://www.flashro
 flashrom -VV -c "W25Q64.V" -p buspirate_spi:dev=COM3 -r flash_content.img
 ```
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

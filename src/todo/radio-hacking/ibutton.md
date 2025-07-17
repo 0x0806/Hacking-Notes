@@ -1,6 +1,6 @@
 # iButton
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Intro
 
@@ -34,15 +34,12 @@ For information about how these keys works check the page [https://blog.flipperz
 
 iButtons can be attacked with Flipper Zero:
 
-{{#ref}}
-flipper-zero/fz-ibutton.md
-{{#endref}}
+\{{#ref\}}\
+flipper-zero/fz-ibutton.md\
+\{{#endref\}}
 
 ## References
 
-- [https://blog.flipperzero.one/taming-ibutton/](https://blog.flipperzero.one/taming-ibutton/)
+* [https://blog.flipperzero.one/taming-ibutton/](https://blog.flipperzero.one/taming-ibutton/)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

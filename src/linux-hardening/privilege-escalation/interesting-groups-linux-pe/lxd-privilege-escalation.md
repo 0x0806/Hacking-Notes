@@ -1,6 +1,6 @@
 # lxd/lxc Group - Privilege escalation
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 If you belong to _**lxd**_ **or** _**lxc**_ **group**, you can become root
 
@@ -8,8 +8,8 @@ If you belong to _**lxd**_ **or** _**lxc**_ **group**, you can become root
 
 ### Method 1
 
-You can download an alpine image to use with lxd from a trusted repository.
-Canonical publishes daily builds in their site: [https://images.lxd.canonical.com/images/alpine/3.18/amd64/default/](https://images.lxd.canonical.com/images/alpine/3.18/amd64/default/)
+You can download an alpine image to use with lxd from a trusted repository.\
+Canonical publishes daily builds in their site: [https://images.lxd.canonical.com/images/alpine/3.18/amd64/default/](https://images.lxd.canonical.com/images/alpine/3.18/amd64/default/)\
 Just grab both **lxd.tar.xz** and **rootfs.squashfs** from the newest build. (Directory name is the date).
 
 Alternativelly you can install in your machine this distro builder: [https://github.com/lxc/distrobuilder](https://github.com/lxc/distrobuilder) (follow the instructions of the github):
@@ -54,7 +54,7 @@ lxc list
 lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=true
 ```
 
-> [!CAUTION]
+> \[!CAUTION]\
 > If you find this error _**Error: No storage pool found. Please create a new storage pool**_\
 > Run **`lxd init`** and set-up all options on default. Then **repeat** the previous chunk of commands
 
@@ -90,7 +90,4 @@ lxc init myimage mycontainer -c security.privileged=true
 lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
 ```
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

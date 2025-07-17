@@ -1,6 +1,6 @@
 # macOS Sensitive Locations & Interesting Daemons
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Passwords
 
@@ -21,7 +21,7 @@ An alternative one-liner which will dump creds of all non-service accounts in ha
 sudo bash -c 'for i in $(find /var/db/dslocal/nodes/Default/users -type f -regex "[^_]*"); do plutil -extract name.0 raw $i | awk "{printf \$0\":\$ml\$\"}"; for j in {iterations,salt,entropy}; do l=$(k=$(plutil -extract ShadowHashData.0 raw $i) && base64 -d <<< $k | plutil -extract SALTED-SHA512-PBKDF2.$j raw -); if [[ $j == iterations ]]; then echo -n $l; else base64 -d <<< $l | xxd -p -c 0 | awk "{printf \"$\"\$0}"; fi; done; echo ""; done'
 ```
 
-Another way to obtain the `ShadowHashData` of a user is by using `dscl`: `` sudo dscl . -read /Users/`whoami` ShadowHashData ``
+Another way to obtain the `ShadowHashData` of a user is by using `dscl`: ``sudo dscl . -read /Users/`whoami` ShadowHashData``
 
 ### /etc/master.passwd
 
@@ -42,7 +42,7 @@ security dump-keychain -d #Dump all the info, included secrets (the user will be
 
 ### [Keychaindump](https://github.com/juuso/keychaindump)
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Based on this comment [juuso/keychaindump#10 (comment)](https://github.com/juuso/keychaindump/issues/10#issuecomment-751218760) it looks like these tools aren't working anymore in Big Sur.
 
 ### Keychaindump Overview
@@ -65,14 +65,14 @@ sudo ./keychaindump
 
 [**Chainbreaker**](https://github.com/n0fate/chainbreaker) can be used to extract the following types of information from an OSX keychain in a forensically sound manner:
 
-- Hashed Keychain password, suitable for cracking with [hashcat](https://hashcat.net/hashcat/) or [John the Ripper](https://www.openwall.com/john/)
-- Internet Passwords
-- Generic Passwords
-- Private Keys
-- Public Keys
-- X509 Certificates
-- Secure Notes
-- Appleshare Passwords
+* Hashed Keychain password, suitable for cracking with [hashcat](https://hashcat.net/hashcat/) or [John the Ripper](https://www.openwall.com/john/)
+* Internet Passwords
+* Generic Passwords
+* Private Keys
+* Public Keys
+* X509 Certificates
+* Secure Notes
+* Appleshare Passwords
 
 Given the keychain unlock password, a master key obtained using [volafox](https://github.com/n0fate/volafox) or [volatility](https://github.com/volatilityfoundation/volatility), or an unlock file such as SystemKey, Chainbreaker will also provide plaintext passwords.
 
@@ -268,11 +268,8 @@ It's also possible to get information about the daemon and connections using:
 
 These are notifications that the user should see in the screen:
 
-- **`CFUserNotification`**: These API provides a way to show in the screen a pop-up with a message.
-- **The Bulletin Board**: This shows in iOS a banner that disappears and will be stored in the Notification Center.
-- **`NSUserNotificationCenter`**: This is the iOS bulletin board in MacOS. The database with the notifications in located in `/var/folders/<user temp>/0/com.apple.notificationcenter/db2/db`
+* **`CFUserNotification`**: These API provides a way to show in the screen a pop-up with a message.
+* **The Bulletin Board**: This shows in iOS a banner that disappears and will be stored in the Notification Center.
+* **`NSUserNotificationCenter`**: This is the iOS bulletin board in MacOS. The database with the notifications in located in `/var/folders/<user temp>/0/com.apple.notificationcenter/db2/db`
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

@@ -1,6 +1,6 @@
 # macOS Process Abuse
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Processes Basic Information
 
@@ -9,17 +9,17 @@ A process is an instance of a running executable, however processes doesn't run 
 Traditionally, processes where started within other processes (except PID 1) by calling **`fork`** which would create a exact copy of the current process and then the **child process** would generally call **`execve`** to load the new executable and run it. Then, **`vfork`** was introduced to make this process faster without any memory copying.\
 Then **`posix_spawn`** was introduced combining **`vfork`** and **`execve`** in one call and accepting flags:
 
-- `POSIX_SPAWN_RESETIDS`: Reset effective ids to real ids
-- `POSIX_SPAWN_SETPGROUP`: Set process group affiliation
-- `POSUX_SPAWN_SETSIGDEF`: Set signal default behaviour
-- `POSIX_SPAWN_SETSIGMASK`: Set signal mask
-- `POSIX_SPAWN_SETEXEC`: Exec in the same process (like `execve` with more options)
-- `POSIX_SPAWN_START_SUSPENDED`: Start suspended
-- `_POSIX_SPAWN_DISABLE_ASLR`: Start without ASLR
-- `_POSIX_SPAWN_NANO_ALLOCATOR:` Use libmalloc's Nano allocator
-- `_POSIX_SPAWN_ALLOW_DATA_EXEC:` Allow `rwx` on data segments
-- `POSIX_SPAWN_CLOEXEC_DEFAULT`: Close all file descriptions on exec(2) by default
-- `_POSIX_SPAWN_HIGH_BITS_ASLR:` Randomize high bits of ASLR slide
+* `POSIX_SPAWN_RESETIDS`: Reset effective ids to real ids
+* `POSIX_SPAWN_SETPGROUP`: Set process group affiliation
+* `POSUX_SPAWN_SETSIGDEF`: Set signal default behaviour
+* `POSIX_SPAWN_SETSIGMASK`: Set signal mask
+* `POSIX_SPAWN_SETEXEC`: Exec in the same process (like `execve` with more options)
+* `POSIX_SPAWN_START_SUSPENDED`: Start suspended
+* `_POSIX_SPAWN_DISABLE_ASLR`: Start without ASLR
+* `_POSIX_SPAWN_NANO_ALLOCATOR:` Use libmalloc's Nano allocator
+* `_POSIX_SPAWN_ALLOW_DATA_EXEC:` Allow `rwx` on data segments
+* `POSIX_SPAWN_CLOEXEC_DEFAULT`: Close all file descriptions on exec(2) by default
+* `_POSIX_SPAWN_HIGH_BITS_ASLR:` Randomize high bits of ASLR slide
 
 Moreover, `posix_spawn` allows to specify an array of **`posix_spawnattr`** that controls some aspects of the spawned process, and **`posix_spawn_file_actions`** to modify the state of the descriptors.
 
@@ -62,7 +62,7 @@ struct kpersona_info { uint32_t persona_info_version;
 
 1. **POSIX Threads (pthreads):** macOS supports POSIX threads (`pthreads`), which are part of a standard threading API for C/C++. The implementation of pthreads in macOS is found in `/usr/lib/system/libsystem_pthread.dylib`, which comes from the publicly available `libpthread` project. This library provides the necessary functions to create and manage threads.
 2. **Creating Threads:** The `pthread_create()` function is used to create new threads. Internally, this function calls `bsdthread_create()`, which is a lower-level system call specific to the XNU kernel (the kernel macOS is based on). This system call takes various flags derived from `pthread_attr` (attributes) that specify thread behavior, including scheduling policies and stack size.
-   - **Default Stack Size:** The default stack size for new threads is 512 KB, which is sufficient for typical operations but can be adjusted via thread attributes if more or less space is needed.
+   * **Default Stack Size:** The default stack size for new threads is 512 KB, which is sufficient for typical operations but can be adjusted via thread attributes if more or less space is needed.
 3. **Thread Initialization:** The `__pthread_init()` function is crucial during thread setup, utilizing the `env[]` argument to parse environment variables that can include details about the stack's location and size.
 
 #### Thread Termination in macOS
@@ -75,19 +75,19 @@ struct kpersona_info { uint32_t persona_info_version;
 To manage access to shared resources and avoid race conditions, macOS provides several synchronization primitives. These are critical in multi-threading environments to ensure data integrity and system stability:
 
 1. **Mutexes:**
-   - **Regular Mutex (Signature: 0x4D555458):** Standard mutex with a memory footprint of 60 bytes (56 bytes for the mutex and 4 bytes for the signature).
-   - **Fast Mutex (Signature: 0x4d55545A):** Similar to a regular mutex but optimized for faster operations, also 60 bytes in size.
+   * **Regular Mutex (Signature: 0x4D555458):** Standard mutex with a memory footprint of 60 bytes (56 bytes for the mutex and 4 bytes for the signature).
+   * **Fast Mutex (Signature: 0x4d55545A):** Similar to a regular mutex but optimized for faster operations, also 60 bytes in size.
 2. **Condition Variables:**
-   - Used for waiting for certain conditions to occur, with a size of 44 bytes (40 bytes plus a 4-byte signature).
-   - **Condition Variable Attributes (Signature: 0x434e4441):** Configuration attributes for condition variables, sized at 12 bytes.
+   * Used for waiting for certain conditions to occur, with a size of 44 bytes (40 bytes plus a 4-byte signature).
+   * **Condition Variable Attributes (Signature: 0x434e4441):** Configuration attributes for condition variables, sized at 12 bytes.
 3. **Once Variable (Signature: 0x4f4e4345):**
-   - Ensures that a piece of initialization code is executed only once. Its size is 12 bytes.
+   * Ensures that a piece of initialization code is executed only once. Its size is 12 bytes.
 4. **Read-Write Locks:**
-   - Allows multiple readers or one writer at a time, facilitating efficient access to shared data.
-   - **Read Write Lock (Signature: 0x52574c4b):** Sized at 196 bytes.
-   - **Read Write Lock Attributes (Signature: 0x52574c41):** Attributes for read-write locks, 20 bytes in size.
+   * Allows multiple readers or one writer at a time, facilitating efficient access to shared data.
+   * **Read Write Lock (Signature: 0x52574c4b):** Sized at 196 bytes.
+   * **Read Write Lock Attributes (Signature: 0x52574c41):** Attributes for read-write locks, 20 bytes in size.
 
-> [!TIP]
+> \[!TIP]\
 > The last 4 bytes of those objects are used to deetct overflows.
 
 ### Thread Local Variables (TLV)
@@ -108,8 +108,8 @@ This snippet defines `tlv_var` as a thread-local variable. Each thread running t
 
 In the Mach-O binary, the data related to thread local variables is organized into specific sections:
 
-- **`__DATA.__thread_vars`**: This section contains the metadata about the thread-local variables, like their types and initialization status.
-- **`__DATA.__thread_bss`**: This section is used for thread-local variables that are not explicitly initialized. It's a part of memory set aside for zero-initialized data.
+* **`__DATA.__thread_vars`**: This section contains the metadata about the thread-local variables, like their types and initialization status.
+* **`__DATA.__thread_bss`**: This section is used for thread-local variables that are not explicitly initialized. It's a part of memory set aside for zero-initialized data.
 
 Mach-O also provides a specific API called **`tlv_atexit`** to manage thread-local variables when a thread exits. This API allows you to **register destructors**—special functions that clean up thread-local data when a thread terminates.
 
@@ -120,24 +120,24 @@ Understanding thread priorities involves looking at how the operating system dec
 #### Nice and Renice
 
 1. **Nice:**
-   - The `nice` value of a process is a number that affects its priority. Every process has a nice value ranging from -20 (the highest priority) to 19 (the lowest priority). The default nice value when a process is created is typically 0.
-   - A lower nice value (closer to -20) makes a process more "selfish," giving it more CPU time compared to other processes with higher nice values.
+   * The `nice` value of a process is a number that affects its priority. Every process has a nice value ranging from -20 (the highest priority) to 19 (the lowest priority). The default nice value when a process is created is typically 0.
+   * A lower nice value (closer to -20) makes a process more "selfish," giving it more CPU time compared to other processes with higher nice values.
 2. **Renice:**
-   - `renice` is a command used to change the nice value of an already running process. This can be used to dynamically adjust the priority of processes, either increasing or decreasing their CPU time allocation based on new nice values.
-   - For example, if a process needs more CPU resources temporarily, you might lower its nice value using `renice`.
+   * `renice` is a command used to change the nice value of an already running process. This can be used to dynamically adjust the priority of processes, either increasing or decreasing their CPU time allocation based on new nice values.
+   * For example, if a process needs more CPU resources temporarily, you might lower its nice value using `renice`.
 
 #### Quality of Service (QoS) Classes
 
 QoS classes are a more modern approach to handling thread priorities, particularly in systems like macOS that support **Grand Central Dispatch (GCD)**. QoS classes allow developers to **categorize** work into different levels based on their importance or urgency. macOS manages thread prioritization automatically based on these QoS classes:
 
 1. **User Interactive:**
-   - This class is for tasks that are currently interacting with the user or require immediate results to provide a good user experience. These tasks are given the highest priority to keep the interface responsive (e.g., animations or event handling).
+   * This class is for tasks that are currently interacting with the user or require immediate results to provide a good user experience. These tasks are given the highest priority to keep the interface responsive (e.g., animations or event handling).
 2. **User Initiated:**
-   - Tasks that the user initiates and expects immediate results, such as opening a document or clicking a button that requires computations. These are high priority but below user interactive.
+   * Tasks that the user initiates and expects immediate results, such as opening a document or clicking a button that requires computations. These are high priority but below user interactive.
 3. **Utility:**
-   - These tasks are long-running and typically show a progress indicator (e.g., downloading files, importing data). They are lower in priority than user-initiated tasks and do not need to finish immediately.
+   * These tasks are long-running and typically show a progress indicator (e.g., downloading files, importing data). They are lower in priority than user-initiated tasks and do not need to finish immediately.
 4. **Background:**
-   - This class is for tasks that operate in the background and are not visible to the user. These can be tasks like indexing, syncing, or backups. They have the lowest priority and minimal impact on system performance.
+   * This class is for tasks that operate in the background and are not visible to the user. These can be tasks like indexing, syncing, or backups. They have the lowest priority and minimal impact on system performance.
 
 Using QoS classes, developers do not need to manage the exact priority numbers but rather focus on the nature of the task, and the system optimizes the CPU resources accordingly.
 
@@ -151,81 +151,81 @@ MacOS, like any other operating system, provides a variety of methods and mechan
 
 Library Injection is a technique wherein an attacker **forces a process to load a malicious library**. Once injected, the library runs in the context of the target process, providing the attacker with the same permissions and access as the process.
 
-{{#ref}}
-macos-library-injection/
-{{#endref}}
+\{{#ref\}}\
+macos-library-injection/\
+\{{#endref\}}
 
 ### Function Hooking
 
 Function Hooking involves **intercepting function calls** or messages within a software code. By hooking functions, an attacker can **modify the behavior** of a process, observe sensitive data, or even gain control over the execution flow.
 
-{{#ref}}
-macos-function-hooking.md
-{{#endref}}
+\{{#ref\}}\
+macos-function-hooking.md\
+\{{#endref\}}
 
 ### Inter Process Communication
 
 Inter Process Communication (IPC) refers to different methods by which separate processes **share and exchange data**. While IPC is fundamental for many legitimate applications, it can also be misused to subvert process isolation, leak sensitive information, or perform unauthorized actions.
 
-{{#ref}}
-macos-ipc-inter-process-communication/
-{{#endref}}
+\{{#ref\}}\
+macos-ipc-inter-process-communication/\
+\{{#endref\}}
 
 ### Electron Applications Injection
 
 Electron applications executed with specific env variables could be vulnerable to process injection:
 
-{{#ref}}
-macos-electron-applications-injection.md
-{{#endref}}
+\{{#ref\}}\
+macos-electron-applications-injection.md\
+\{{#endref\}}
 
 ### Chromium Injection
 
 It's possible to use the flags `--load-extension` and `--use-fake-ui-for-media-stream` to perform a **man in the browser attack** allowing to steal keystrokes, traffic, cookies, inject scripts in pages...:
 
-{{#ref}}
-macos-chromium-injection.md
-{{#endref}}
+\{{#ref\}}\
+macos-chromium-injection.md\
+\{{#endref\}}
 
 ### Dirty NIB
 
 NIB files **define user interface (UI) elements** and their interactions within an application. However, they can **execute arbitrary commands** and **Gatekeeper doesn't stop** an already executed application from being executed if a **NIB file is modified**. Therefore, they could be used to make arbitrary programs execute arbitrary commands:
 
-{{#ref}}
-macos-dirty-nib.md
-{{#endref}}
+\{{#ref\}}\
+macos-dirty-nib.md\
+\{{#endref\}}
 
 ### Java Applications Injection
 
 It's possible to abuse certain java capabilities (like the **`_JAVA_OPTS`** env variable) to make a java application execute **arbitrary code/commands**.
 
-{{#ref}}
-macos-java-apps-injection.md
-{{#endref}}
+\{{#ref\}}\
+macos-java-apps-injection.md\
+\{{#endref\}}
 
 ### .Net Applications Injection
 
 It's possible to inject code into .Net applications by **abusing the .Net debugging functionality** (not protected by macOS protections such as runtime hardening).
 
-{{#ref}}
-macos-.net-applications-injection.md
-{{#endref}}
+\{{#ref\}}\
+macos-.net-applications-injection.md\
+\{{#endref\}}
 
 ### Perl Injection
 
 Check different options to make a Perl script execute arbitrary code in:
 
-{{#ref}}
-macos-perl-applications-injection.md
-{{#endref}}
+\{{#ref\}}\
+macos-perl-applications-injection.md\
+\{{#endref\}}
 
 ### Ruby Injection
 
 I't also possible to abuse ruby env variables to make arbitrary scripts execute arbitrary code:
 
-{{#ref}}
-macos-ruby-applications-injection.md
-{{#endref}}
+\{{#ref\}}\
+macos-ruby-applications-injection.md\
+\{{#endref\}}
 
 ### Python Injection
 
@@ -236,7 +236,7 @@ Other env variables such as **`PYTHONPATH`** and **`PYTHONHOME`** could also be 
 
 Note that executables compiled with **`pyinstaller`** won't use these environmental variables even if they are running using an embedded python.
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Overall I couldn't find a way to make python execute arbitrary code abusing environment variables.\
 > However, most of the people install pyhton using **Hombrew**, which will install pyhton in a **writable location** for the default admin user. You can hijack it with something like:
 >
@@ -258,10 +258,10 @@ Note that executables compiled with **`pyinstaller`** won't use these environmen
 
 [**Shield**](https://theevilbit.github.io/shield/) ([**Github**](https://github.com/theevilbit/Shield)) is an open source application that can **detect and block process injection** actions:
 
-- Using **Environmental Variables**: It will monitor the presence of any of the following environmental variables: **`DYLD_INSERT_LIBRARIES`**, **`CFNETWORK_LIBRARY_PATH`**, **`RAWCAMERA_BUNDLE_PATH`** and **`ELECTRON_RUN_AS_NODE`**
-- Using **`task_for_pid`** calls: To find when one process wants to get the **task port of another** which allows to inject code in the process.
-- **Electron apps params**: Someone can use **`--inspect`**, **`--inspect-brk`** and **`--remote-debugging-port`** command line argument to start an Electron app in debugging mode, and thus inject code to it.
-- Using **symlinks** or **hardlinks**: Typically the most common abuse is to **place a link with our user privileges**, and **point it to a higher privilege** location. The detection is very simple for both hardlink and symlinks. If the process creating the link has a **different privilege level** than the target file, we create an **alert**. Unfortunately in the case of symlinks blocking is not possible, as we don’t have information about the destination of the link prior creation. This is a limitation of Apple’s EndpointSecuriy framework.
+* Using **Environmental Variables**: It will monitor the presence of any of the following environmental variables: **`DYLD_INSERT_LIBRARIES`**, **`CFNETWORK_LIBRARY_PATH`**, **`RAWCAMERA_BUNDLE_PATH`** and **`ELECTRON_RUN_AS_NODE`**
+* Using **`task_for_pid`** calls: To find when one process wants to get the **task port of another** which allows to inject code in the process.
+* **Electron apps params**: Someone can use **`--inspect`**, **`--inspect-brk`** and **`--remote-debugging-port`** command line argument to start an Electron app in debugging mode, and thus inject code to it.
+* Using **symlinks** or **hardlinks**: Typically the most common abuse is to **place a link with our user privileges**, and **point it to a higher privilege** location. The detection is very simple for both hardlink and symlinks. If the process creating the link has a **different privilege level** than the target file, we create an **alert**. Unfortunately in the case of symlinks blocking is not possible, as we don’t have information about the destination of the link prior creation. This is a limitation of Apple’s EndpointSecuriy framework.
 
 ### Calls made by other processes
 
@@ -271,9 +271,7 @@ Note that to call that function you need to be **the same uid** as the one runni
 
 ## References
 
-- [https://theevilbit.github.io/shield/](https://theevilbit.github.io/shield/)
-- [https://medium.com/@metnew/why-electron-apps-cant-store-your-secrets-confidentially-inspect-option-a49950d6d51f](https://medium.com/@metnew/why-electron-apps-cant-store-your-secrets-confidentially-inspect-option-a49950d6d51f)
+* [https://theevilbit.github.io/shield/](https://theevilbit.github.io/shield/)
+* [https://medium.com/@metnew/why-electron-apps-cant-store-your-secrets-confidentially-inspect-option-a49950d6d51f](https://medium.com/@metnew/why-electron-apps-cant-store-your-secrets-confidentially-inspect-option-a49950d6d51f)
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

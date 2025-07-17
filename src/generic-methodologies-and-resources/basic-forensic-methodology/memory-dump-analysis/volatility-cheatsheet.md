@@ -1,9 +1,8 @@
 # Volatility - CheatSheet
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ​
-
 
 If you need a tool that automates memory analysis with different scan levels and runs multiple Volatility3 plugins in parallel, you can use autoVolatility3:: [https://github.com/H3xKatana/autoVolatility3/](https://github.com/H3xKatana/autoVolatility3/)
 
@@ -38,16 +37,16 @@ python3 vol.py —h
 
 ### volatility2
 
-{{#tabs}}
-{{#tab name="Method1"}}
+\{{#tabs\}}\
+\{{#tab name="Method1"\}}
 
 ```
 Download the executable from https://www.volatilityfoundation.org/26
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Method 2"}}
+\{{#tab name="Method 2"\}}
 
 ```bash
 git clone https://github.com/volatilityfoundation/volatility.git
@@ -55,8 +54,8 @@ cd volatility
 python setup.py install
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## Volatility Commands
 
@@ -79,9 +78,9 @@ From: [http://tomchop.me/2016/11/21/tutorial-volatility-plugins-malware-analysis
 As explained inside the readme you need to put the **symbol table of the OS** you want to support inside _volatility3/volatility/symbols_.\
 Symbol table packs for the various operating systems are available for **download** at:
 
-- [https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip](https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip)
-- [https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip](https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip)
-- [https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip](https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip)
+* [https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip](https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip)
+* [https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip](https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip)
+* [https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip](https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip)
 
 ### Volatility2
 
@@ -157,8 +156,8 @@ The plugin `banners.Banners` can be used in **vol3 to try to find linux banners*
 
 Extract SAM hashes, [domain cached credentials](../../../windows-hardening/stealing-credentials/credentials-protections.md#cached-credentials) and [lsa secrets](../../../windows-hardening/authentication-credentials-uac-and-efs/index.html#lsa-secrets).
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.hashdump.Hashdump #Grab common windows hashes (SAM+SYSTEM)
@@ -166,9 +165,9 @@ Extract SAM hashes, [domain cached credentials](../../../windows-hardening/steal
 ./vol.py -f file.dmp windows.lsadump.Lsadump #Grab lsa secrets
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 hashdump -f file.dmp #Grab common windows hashes (SAM+SYSTEM)
@@ -176,8 +175,8 @@ volatility --profile=Win7SP1x86_23418 cachedump -f file.dmp #Grab domain cache h
 volatility --profile=Win7SP1x86_23418 lsadump -f file.dmp #Grab lsa secrets
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## Memory Dump
 
@@ -194,8 +193,8 @@ volatility -f file.dmp --profile=Win7SP1x86 memdump -p 2168 -D conhost/
 Try to find **suspicious** processes (by name) or **unexpected** child **processes** (for example a cmd.exe as a child of iexplorer.exe).\
 It could be interesting to **compare** the result of pslist with the one of psscan to identify hidden processes.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 python3 vol.py -f file.dmp windows.pstree.PsTree # Get processes tree (not hidden)
@@ -203,9 +202,9 @@ python3 vol.py -f file.dmp windows.pslist.PsList # Get process list (EPROCESS)
 python3 vol.py -f file.dmp windows.psscan.PsScan # Get hidden process list(malware)
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=PROFILE pstree -f file.dmp # Get process tree (not hidden)
@@ -214,51 +213,51 @@ volatility --profile=PROFILE psscan -f file.dmp # Get hidden process list(malwar
 volatility --profile=PROFILE psxview -f file.dmp # Get hidden process list
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Dump proc
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.dumpfiles.DumpFiles --pid <pid> #Dump the .exe and dlls of the process in the current directory
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 procdump --pid=3152 -n --dump-dir=. -f file.dmp
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Command line
 
 Anything suspicious was executed?
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 python3 vol.py -f file.dmp windows.cmdline.CmdLine #Display process command-line arguments
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=PROFILE cmdline -f file.dmp #Display process command-line arguments
 volatility --profile=PROFILE consoles -f file.dmp #command history by scanning for _CONSOLE_INFORMATION
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 Commands executed in `cmd.exe` are managed by **`conhost.exe`** (or `csrss.exe` on systems before Windows 7). This means that if **`cmd.exe`** is terminated by an attacker before a memory dump is obtained, it's still possible to recover the session's command history from the memory of **`conhost.exe`**. To do this, if unusual activity is detected within the console's modules, the memory of the associated **`conhost.exe`** process should be dumped. Then, by searching for **strings** within this dump, command lines used in the session can potentially be extracted.
 
@@ -266,16 +265,16 @@ Commands executed in `cmd.exe` are managed by **`conhost.exe`** (or `csrss.exe` 
 
 Get the env variables of each running process. There could be some interesting values.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 python3 vol.py -f file.dmp windows.envars.Envars [--pid <pid>] #Display process environment variables
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=PROFILE envars -f file.dmp [--pid <pid>] #Display process environment variables
@@ -283,16 +282,16 @@ volatility --profile=PROFILE envars -f file.dmp [--pid <pid>] #Display process e
 volatility --profile=PROFILE -f file.dmp linux_psenv [-p <pid>] #Get env of process. runlevel var means the runlevel where the proc is initated
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Token privileges
 
 Check for privileges tokens in unexpected services.\
 It could be interesting to list the processes using some privileged token.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 #Get enabled privileges of some processes
@@ -301,9 +300,9 @@ python3 vol.py -f file.dmp windows.privileges.Privs [--pid <pid>]
 python3 vol.py -f file.dmp windows.privileges.Privs | grep "SeImpersonatePrivilege\|SeAssignPrimaryPrivilege\|SeTcbPrivilege\|SeBackupPrivilege\|SeRestorePrivilege\|SeCreateTokenPrivilege\|SeLoadDriverPrivilege\|SeTakeOwnershipPrivilege\|SeDebugPrivilege"
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 #Get enabled privileges of some processes
@@ -312,93 +311,93 @@ volatility --profile=Win7SP1x86_23418 privs --pid=3152 -f file.dmp | grep Enable
 volatility --profile=Win7SP1x86_23418 privs -f file.dmp | grep "SeImpersonatePrivilege\|SeAssignPrimaryPrivilege\|SeTcbPrivilege\|SeBackupPrivilege\|SeRestorePrivilege\|SeCreateTokenPrivilege\|SeLoadDriverPrivilege\|SeTakeOwnershipPrivilege\|SeDebugPrivilege"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### SIDs
 
 Check each SSID owned by a process.\
 It could be interesting to list the processes using a privileges SID (and the processes using some service SID).
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.getsids.GetSIDs [--pid <pid>] #Get SIDs of processes
 ./vol.py -f file.dmp windows.getservicesids.GetServiceSIDs #Get the SID of services
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 getsids -f file.dmp #Get the SID owned by each process
 volatility --profile=Win7SP1x86_23418 getservicesids -f file.dmp #Get the SID of each service
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Handles
 
 Useful to know to which other files, keys, threads, processes... a **process has a handle** for (has opened)
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 vol.py -f file.dmp windows.handles.Handles [--pid <pid>]
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 -f file.dmp handles [--pid=<pid>]
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### DLLs
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.dlllist.DllList [--pid <pid>] #List dlls used by each
 ./vol.py -f file.dmp windows.dumpfiles.DumpFiles --pid <pid> #Dump the .exe and dlls of the process in the current directory process
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 dlllist --pid=3152 -f file.dmp #Get dlls of a proc
 volatility --profile=Win7SP1x86_23418 dlldump --pid=3152 --dump-dir=. -f file.dmp #Dump dlls of a proc
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Strings per processes
 
 Volatility allows us to check which process a string belongs to.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 strings file.dmp > /tmp/strings.txt
 ./vol.py -f /tmp/file.dmp windows.strings.Strings --strings-file /tmp/strings.txt
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 strings file.dmp > /tmp/strings.txt
@@ -408,68 +407,67 @@ volatility -f /tmp/file.dmp --profile=Win81U1x64 memdump -p 3532 --dump-dir .
 strings 3532.dmp > strings_file
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 It also allows to search for strings inside a process using the yarascan module:
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.vadyarascan.VadYaraScan --yara-rules "https://" --pid 3692 3840 3976 3312 3084 2784
 ./vol.py -f file.dmp yarascan.YaraScan --yara-rules "https://"
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 yarascan -Y "https://" -p 3692,3840,3976,3312,3084,2784
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### UserAssist
 
 **Windows** keeps track of programs you run using a feature in the registry called **UserAssist keys**. These keys record how many times each program is executed and when it was last run.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.registry.userassist.UserAssist
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```
 volatility --profile=Win7SP1x86_23418 -f file.dmp userassist
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ​
 
-
 ## Services
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.svcscan.SvcScan #List services
 ./vol.py -f file.dmp windows.getservicesids.GetServiceSIDs #Get the SID of services
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 #Get services and binary path
@@ -478,22 +476,22 @@ volatility --profile=Win7SP1x86_23418 svcscan -f file.dmp
 volatility --profile=Win7SP1x86_23418 getservicesids -f file.dmp
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## Network
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.netscan.NetScan
 #For network info of linux use volatility2
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 netscan -f file.dmp
@@ -510,45 +508,45 @@ volatility --profile=SomeLinux -f file.dmp linux_list_raw #Processes using promi
 volatility --profile=SomeLinux -f file.dmp linux_route_cache
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## Registry hive
 
 ### Print available hives
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.registry.hivelist.HiveList #List roots
 ./vol.py -f file.dmp windows.registry.printkey.PrintKey #List roots and get initial subkeys
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 -f file.dmp hivelist #List roots
 volatility --profile=Win7SP1x86_23418 -f file.dmp printkey #List roots and get initial subkeys
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Get a value
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.registry.printkey.PrintKey --key "Software\Microsoft\Windows NT\CurrentVersion"
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 printkey -K "Software\Microsoft\Windows NT\CurrentVersion" -f file.dmp
@@ -556,8 +554,8 @@ volatility --profile=Win7SP1x86_23418 printkey -K "Software\Microsoft\Windows NT
 volatility -f file.dmp --profile=Win7SP1x86 printkey -o 0x9670e9d0 -K 'Software\Microsoft\Windows\CurrentVersion\Run'
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Dump
 
@@ -572,38 +570,38 @@ volatility --profile=Win7SP1x86_23418 hivedump -f file.dmp
 
 ### Mount
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 #See vol2
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=SomeLinux -f file.dmp linux_mount
 volatility --profile=SomeLinux -f file.dmp linux_recover_filesystem #Dump the entire filesystem (if possible)
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Scan/dump
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.filescan.FileScan #Scan for files inside the dump
 ./vol.py -f file.dmp windows.dumpfiles.DumpFiles --physaddr <0xAAAAA> #Offset from previous command
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 filescan -f file.dmp #Scan for files inside the dump
@@ -615,44 +613,44 @@ volatility --profile=SomeLinux -f file.dmp linux_find_file -F /path/to/file
 volatility --profile=SomeLinux -f file.dmp linux_find_file -i 0xINODENUMBER -O /path/to/dump/file
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Master File Table
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 # I couldn't find any plugin to extract this information in volatility3
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 mftparser -f file.dmp
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 The **NTFS file system** uses a critical component known as the _master file table_ (MFT). This table includes at least one entry for every file on a volume, covering the MFT itself too. Vital details about each file, such as **size, timestamps, permissions, and actual data**, are encapsulated within the MFT entries or in areas external to the MFT but referenced by these entries. More details can be found in the [official documentation](https://docs.microsoft.com/en-us/windows/win32/fileio/master-file-table).
 
 ### SSL Keys/Certs
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 #vol3 allows to search for certificates inside the registry
 ./vol.py -f file.dmp windows.registry.certificates.Certificates
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 #vol2 allos you to search and dump certificates from memory
@@ -660,13 +658,13 @@ The **NTFS file system** uses a critical component known as the _master file tab
 volatility --profile=Win7SP1x86_23418 dumpcerts --dump-dir=. -f file.dmp
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## Malware
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.malfind.Malfind [--dump] #Find hidden and injected code, [dump each suspicious section]
@@ -682,9 +680,9 @@ volatility --profile=Win7SP1x86_23418 dumpcerts --dump-dir=. -f file.dmp
 ./vol.py -f file.dmp linux.tty_check.tty_check #Checks tty devices for hooks
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 -f file.dmp malfind [-D /tmp] #Find hidden and injected code [dump each suspicious section]
@@ -702,16 +700,16 @@ volatility --profile=SomeLinux -f file.dmp linux_check_tty
 volatility --profile=SomeLinux -f file.dmp linux_keyboard_notifiers #Keyloggers
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Scanning with yara
 
 Use this script to download and merge all the yara malware rules from github: [https://gist.github.com/andreafortuna/29c6ea48adf3d45a979a78763cdc7ce9](https://gist.github.com/andreafortuna/29c6ea48adf3d45a979a78763cdc7ce9)\
-Create the _**rules**_ directory and execute it. This will create a file called _**malware_rules.yar**_ which contains all the yara rules for malware.
+Create the _**rules**_ directory and execute it. This will create a file called _**malware\_rules.yar**_ which contains all the yara rules for malware.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 wget https://gist.githubusercontent.com/andreafortuna/29c6ea48adf3d45a979a78763cdc7ce9/raw/4ec711d37f1b428b63bed1f786b26a0654aa2f31/malware_yara_rules.py
@@ -723,9 +721,9 @@ python malware_yara_rules.py
 ./vol.py -f file.dmp yarascan.YaraScan --yara-file /tmp/malware_rules.yar
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 wget https://gist.githubusercontent.com/andreafortuna/29c6ea48adf3d45a979a78763cdc7ce9/raw/4ec711d37f1b428b63bed1f786b26a0654aa2f31/malware_yara_rules.py
@@ -734,8 +732,8 @@ python malware_yara_rules.py
 volatility --profile=Win7SP1x86_23418 yarascan -y malware_rules.yar -f ch2.dmp | grep "Rule:" | grep -v "Str_Win32" | sort | uniq
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## MISC
 
@@ -743,23 +741,23 @@ volatility --profile=Win7SP1x86_23418 yarascan -y malware_rules.yar -f ch2.dmp |
 
 If you want to use external plugins make sure that the folders related to the plugins are the first parameter used.
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py --plugin-dirs "/tmp/plugins/" [...]
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
  volatilitye --plugins="/tmp/plugins/" [...]
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 #### Autoruns
 
@@ -771,106 +769,106 @@ Download it from [https://github.com/tomchop/volatility-autoruns](https://github
 
 ### Mutexes
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```
 ./vol.py -f file.dmp windows.mutantscan.MutantScan
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 mutantscan -f file.dmp
 volatility --profile=Win7SP1x86_23418 -f file.dmp handles -p <PID> -t mutant
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Symlinks
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp windows.symlinkscan.SymlinkScan
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 -f file.dmp symlinkscan
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Bash
 
-It's possible to **read from memory the bash history.** You could also dump the _.bash_history_ file, but it was disabled you will be glad you can use this volatility module
+It's possible to **read from memory the bash history.** You could also dump the _.bash\_history_ file, but it was disabled you will be glad you can use this volatility module
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```
 ./vol.py -f file.dmp linux.bash.Bash
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```
 volatility --profile=Win7SP1x86_23418 -f file.dmp linux_bash
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### TimeLine
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```bash
 ./vol.py -f file.dmp timeLiner.TimeLiner
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```
 volatility --profile=Win7SP1x86_23418 -f timeliner
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Drivers
 
-{{#tabs}}
-{{#tab name="vol3"}}
+\{{#tabs\}}\
+\{{#tab name="vol3"\}}
 
 ```
 ./vol.py -f file.dmp windows.driverscan.DriverScan
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="vol2"}}
+\{{#tab name="vol2"\}}
 
 ```bash
 volatility --profile=Win7SP1x86_23418 -f file.dmp driverscan
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Get clipboard
 
@@ -910,13 +908,10 @@ The **Master Boot Record (MBR)** plays a crucial role in managing the logical pa
 
 ## References
 
-- [https://andreafortuna.org/2017/06/25/volatility-my-own-cheatsheet-part-1-image-identification/](https://andreafortuna.org/2017/06/25/volatility-my-own-cheatsheet-part-1-image-identification/)
-- [https://scudette.blogspot.com/2012/11/finding-kernel-debugger-block.html](https://scudette.blogspot.com/2012/11/finding-kernel-debugger-block.html)
-- [https://or10nlabs.tech/cgi-sys/suspendedpage.cgi](https://or10nlabs.tech/cgi-sys/suspendedpage.cgi)
-- [https://www.aldeid.com/wiki/Windows-userassist-keys](https://www.aldeid.com/wiki/Windows-userassist-keys) ​\* [https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table](https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table)
-- [https://answers.microsoft.com/en-us/windows/forum/all/uefi-based-pc-protective-mbr-what-is-it/0fc7b558-d8d4-4a7d-bae2-395455bb19aa](https://answers.microsoft.com/en-us/windows/forum/all/uefi-based-pc-protective-mbr-what-is-it/0fc7b558-d8d4-4a7d-bae2-395455bb19aa)
+* [https://andreafortuna.org/2017/06/25/volatility-my-own-cheatsheet-part-1-image-identification/](https://andreafortuna.org/2017/06/25/volatility-my-own-cheatsheet-part-1-image-identification/)
+* [https://scudette.blogspot.com/2012/11/finding-kernel-debugger-block.html](https://scudette.blogspot.com/2012/11/finding-kernel-debugger-block.html)
+* [https://or10nlabs.tech/cgi-sys/suspendedpage.cgi](https://or10nlabs.tech/cgi-sys/suspendedpage.cgi)
+* [https://www.aldeid.com/wiki/Windows-userassist-keys](https://www.aldeid.com/wiki/Windows-userassist-keys) ​\* [https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table](https://learn.microsoft.com/en-us/windows/win32/fileio/master-file-table)
+* [https://answers.microsoft.com/en-us/windows/forum/all/uefi-based-pc-protective-mbr-what-is-it/0fc7b558-d8d4-4a7d-bae2-395455bb19aa](https://answers.microsoft.com/en-us/windows/forum/all/uefi-based-pc-protective-mbr-what-is-it/0fc7b558-d8d4-4a7d-bae2-395455bb19aa)
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

@@ -1,14 +1,14 @@
 # Abusing Tokens
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Tokens
 
 If you **don't know what are Windows Access Tokens** read this page before continuing:
 
-{{#ref}}
-../access-tokens.md
-{{#endref}}
+\{{#ref\}}\
+../access-tokens.md\
+\{{#endref\}}
 
 **Maybe you could be able to escalate privileges abusing the tokens you already have**
 
@@ -16,13 +16,13 @@ If you **don't know what are Windows Access Tokens** read this page before conti
 
 This is privilege that is held by any process allows the impersonation (but not creation) of any token, given that a handle to it can be obtained. A privileged token can be acquired from a Windows service (DCOM) by inducing it to perform NTLM authentication against an exploit, subsequently enabling the execution of a process with SYSTEM privileges. This vulnerability can be exploited using various tools, such as [juicy-potato](https://github.com/ohpe/juicy-potato), [RogueWinRM](https://github.com/antonioCoco/RogueWinRM) (which requires winrm to be disabled), [SweetPotato](https://github.com/CCob/SweetPotato), [EfsPotato](https://github.com/zcgonvh/EfsPotato), [DCOMPotato](https://github.com/zcgonvh/DCOMPotato) and [PrintSpoofer](https://github.com/itm4n/PrintSpoofer).
 
-{{#ref}}
-../roguepotato-and-printspoofer.md
-{{#endref}}
+\{{#ref\}}\
+../roguepotato-and-printspoofer.md\
+\{{#endref\}}
 
-{{#ref}}
-../juicypotato.md
-{{#endref}}
+\{{#ref\}}\
+../juicypotato.md\
+\{{#endref\}}
 
 ### SeAssignPrimaryPrivilege
 
@@ -32,21 +32,21 @@ With the token, you can create a **new process** with 'CreateProcessAsUser' or c
 
 ### SeTcbPrivilege
 
-If you have enabled this token you can use **KERB_S4U_LOGON** to get an **impersonation token** for any other user without knowing the credentials, **add an arbitrary group** (admins) to the token, set the **integrity level** of the token to "**medium**", and assign this token to the **current thread** (SetThreadToken).
+If you have enabled this token you can use **KERB\_S4U\_LOGON** to get an **impersonation token** for any other user without knowing the credentials, **add an arbitrary group** (admins) to the token, set the **integrity level** of the token to "**medium**", and assign this token to the **current thread** (SetThreadToken).
 
 ### SeBackupPrivilege
 
 The system is caused to **grant all read access** control to any file (limited to read operations) by this privilege. It is utilized for **reading the password hashes of local Administrator** accounts from the registry, following which, tools like "**psexec**" or "**wmiexec**" can be used with the hash (Pass-the-Hash technique). However, this technique fails under two conditions: when the Local Administrator account is disabled, or when a policy is in place that removes administrative rights from Local Administrators connecting remotely.\
 You can **abuse this privilege** with:
 
-- [https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1)
-- [https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug](https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug)
-- following **IppSec** in [https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab_channel=IppSec](https://www.youtube.com/watch?v=IfCysW0Od8w&t=2610&ab_channel=IppSec)
-- Or as explained in the **escalating privileges with Backup Operators** section of:
+* [https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1](https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1)
+* [https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug](https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug)
+* following **IppSec** in [https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab\_channel=IppSec](https://www.youtube.com/watch?v=IfCysW0Od8w\&t=2610\&ab_channel=IppSec)
+* Or as explained in the **escalating privileges with Backup Operators** section of:
 
-{{#ref}}
-../../active-directory-methodology/privileged-groups-and-token-privileges.md
-{{#endref}}
+\{{#ref\}}\
+../../active-directory-methodology/privileged-groups-and-token-privileges.md\
+\{{#endref\}}
 
 ### SeRestorePrivilege
 
@@ -58,18 +58,18 @@ SeCreateTokenPrivilege is a powerful permission, especially useful when a user p
 
 **Key Points:**
 
-- **Impersonation without SeImpersonatePrivilege:** It's possible to leverage SeCreateTokenPrivilege for EoP by impersonating tokens under specific conditions.
-- **Conditions for Token Impersonation:** Successful impersonation requires the target token to belong to the same user and have an integrity level that is less or equal to the integrity level of the process attempting impersonation.
-- **Creation and Modification of Impersonation Tokens:** Users can create an impersonation token and enhance it by adding a privileged group's SID (Security Identifier).
+* **Impersonation without SeImpersonatePrivilege:** It's possible to leverage SeCreateTokenPrivilege for EoP by impersonating tokens under specific conditions.
+* **Conditions for Token Impersonation:** Successful impersonation requires the target token to belong to the same user and have an integrity level that is less or equal to the integrity level of the process attempting impersonation.
+* **Creation and Modification of Impersonation Tokens:** Users can create an impersonation token and enhance it by adding a privileged group's SID (Security Identifier).
 
 ### SeLoadDriverPrivilege
 
-Thi privilege allows to **load and unload device drivers** with the creation of a registry entry with specific values for `ImagePath` and `Type`. Since direct write access to `HKLM` (HKEY_LOCAL_MACHINE) is restricted, `HKCU` (HKEY_CURRENT_USER) must be utilized instead. However, to make `HKCU` recognizable to the kernel for driver configuration, a specific path must be followed.
+Thi privilege allows to **load and unload device drivers** with the creation of a registry entry with specific values for `ImagePath` and `Type`. Since direct write access to `HKLM` (HKEY\_LOCAL\_MACHINE) is restricted, `HKCU` (HKEY\_CURRENT\_USER) must be utilized instead. However, to make `HKCU` recognizable to the kernel for driver configuration, a specific path must be followed.
 
 This path is `\Registry\User\<RID>\System\CurrentControlSet\Services\DriverName`, where `<RID>` is the Relative Identifier of the current user. Inside `HKCU`, this entire path must be created, and two values need to be set:
 
-- `ImagePath`, which is the path to the binary to be executed
-- `Type`, with a value of `SERVICE_KERNEL_DRIVER` (`0x00000001`).
+* `ImagePath`, which is the path to the binary to be executed
+* `Type`, with a value of `SERVICE_KERNEL_DRIVER` (`0x00000001`).
 
 **Steps to Follow:**
 
@@ -94,7 +94,7 @@ More ways to abuse this privilege in [https://www.ired.team/offensive-security-e
 
 ### SeTakeOwnershipPrivilege
 
-This is similar to to **SeRestorePrivilege**. Its primary function allows a process to **assume ownership of an object**, circumventing the requirement for explicit discretionary access through the provision of WRITE_OWNER access rights. The process involves first securing ownership of the intended registry key for writing purposes, then altering the DACL to enable write operations.
+This is similar to to **SeRestorePrivilege**. Its primary function allows a process to **assume ownership of an object**, circumventing the requirement for explicit discretionary access through the provision of WRITE\_OWNER access rights. The process involves first securing ownership of the intended registry key for writing purposes, then altering the DACL to enable write operations.
 
 ```bash
 takeown /f 'C:\some\file.txt' #Now the file is owned by you
@@ -118,7 +118,7 @@ This privilege permits the **debug other processes**, including to read and writ
 
 #### Dump memory
 
-You could use [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump) from the [SysInternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite) or [SharpDump](https://github.com/GhostPack/SharpDump) to **capture the memory of a process**. Specifically, this can apply to the **Local Security Authority Subsystem Service ([LSASS](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service))** process, which is responsible for storing user credentials once a user has successfully logged into a system.
+You could use [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump) from the [SysInternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite) or [SharpDump](https://github.com/GhostPack/SharpDump) to **capture the memory of a process**. Specifically, this can apply to the **Local Security Authority Subsystem Service (**[**LSASS**](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service)**)** process, which is responsible for storing user credentials once a user has successfully logged into a system.
 
 You can then load this dump in mimikatz to obtain passwords:
 
@@ -133,9 +133,9 @@ mimikatz # sekurlsa::logonpasswords
 
 If you want to get a `NT SYSTEM` shell you could use:
 
-- [**SeDebugPrivilege-Exploit (C++)**](https://github.com/bruno-1337/SeDebugPrivilege-Exploit)
-- [**SeDebugPrivilegePoC (C#)**](https://github.com/daem0nc0re/PrivFu/tree/main/PrivilegedOperations/SeDebugPrivilegePoC)
-- [**psgetsys.ps1 (Powershell Script)**](https://raw.githubusercontent.com/decoder-it/psgetsystem/master/psgetsys.ps1)
+* [**SeDebugPrivilege-Exploit (C++)**](https://github.com/bruno-1337/SeDebugPrivilege-Exploit)
+* [**SeDebugPrivilegePoC (C#)**](https://github.com/daem0nc0re/PrivFu/tree/main/PrivilegedOperations/SeDebugPrivilegePoC)
+* [**psgetsys.ps1 (Powershell Script)**](https://raw.githubusercontent.com/decoder-it/psgetsystem/master/psgetsys.ps1)
 
 ```bash
 # Get the PID of a process running as NT SYSTEM
@@ -146,9 +146,9 @@ import-module psgetsys.ps1; [MyProcess]::CreateProcessFromParent(<system_pid>,<c
 
 The `SeManageVolumePrivilege` is a Windows user right that allows users to manage disk volumes, including creating and deleting them. While intended for administrators, if granted to non-admin users, it can be exploited for privilege escalation.
 
-It's possible to leverage this privilege to manipulate volumes, leading to full volume access. The [SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit) can be used to give full access to all users for C:\
+It's possible to leverage this privilege to manipulate volumes, leading to full volume access. The [SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit) can be used to give full access to all users for C:\\
 
-Additionally, the process outlined in [this Medium article](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37) describes using DLL hijacking in conjunction with `SeManageVolumePrivilege` to escalate privileges.
+Additionally, the process outlined in [this Medium article](https://medium.com/@raphaeltzy13/exploiting-semanagevolumeprivilege-with-dll-hijacking-windows-privilege-escalation-1a4f28372d37) describes using DLL hijacking in conjunction with `SeManageVolumePrivilege` to escalate privileges.\
 By placing a payload DLL `C:\Windows\System32\wbem\tzres.dll` and calling `systeminfo` the dll is executed.
 
 ## Check privileges
@@ -187,10 +187,7 @@ Full token privileges cheatsheet at [https://github.com/gtworek/Priv2Admin](http
 
 ## Reference
 
-- Take a look to this table defining Windows tokens: [https://github.com/gtworek/Priv2Admin](https://github.com/gtworek/Priv2Admin)
-- Take a look to [**this paper**](https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt) about privesc with tokens.
+* Take a look to this table defining Windows tokens: [https://github.com/gtworek/Priv2Admin](https://github.com/gtworek/Priv2Admin)
+* Take a look to [**this paper**](https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt) about privesc with tokens.
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

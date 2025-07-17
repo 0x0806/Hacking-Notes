@@ -1,6 +1,6 @@
 # Writable Sys Path +Dll Hijacking Privesc
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Introduction
 
@@ -10,9 +10,9 @@ In order to do that you can abuse a **Dll Hijacking** where you are going to **h
 
 For more info about **what is Dll Hijackig** check:
 
-{{#ref}}
-./
-{{#endref}}
+\{{#ref\}}\
+./\
+\{{#endref\}}
 
 ## Privesc with Dll Hijacking
 
@@ -22,7 +22,7 @@ The first thing you need is to **identify a process** running with **more privil
 
 The problem in this cases is that probably thoses processes are already running. To find which Dlls are lacking the services you need to launch procmon as soon as possible (before processes are loaded). So, to find lacking .dlls do:
 
-- **Create** the folder `C:\privesc_hijacking` and add the path `C:\privesc_hijacking` to **System Path env variable**. You can do this **manually** or with **PS**:
+* **Create** the folder `C:\privesc_hijacking` and add the path `C:\privesc_hijacking` to **System Path env variable**. You can do this **manually** or with **PS**:
 
 ```bash
 # Set the folder path to create and check events for
@@ -41,11 +41,11 @@ if ($envPath -notlike "*$folderPath*") {
 }
 ```
 
-- Launch **`procmon`** and go to **`Options`** --> **`Enable boot logging`** and press **`OK`** in the prompt.
-- Then, **reboot**. When the computer is restarted **`procmon`** will start **recording** events asap.
-- Once **Windows** is **started execute `procmon`** again, it'll tell you that it has been running and will **ask you if you want to store** the events in a file. Say **yes** and **store the events in a file**.
-- **After** the **file** is **generated**, **close** the opened **`procmon`** window and **open the events file**.
-- Add these **filters** and you will find all the Dlls that some **proccess tried to load** from the writable System Path folder:
+* Launch **`procmon`** and go to **`Options`** --> **`Enable boot logging`** and press **`OK`** in the prompt.
+* Then, **reboot**. When the computer is restarted **`procmon`** will start **recording** events asap.
+* Once **Windows** is **started execute `procmon`** again, it'll tell you that it has been running and will **ask you if you want to store** the events in a file. Say **yes** and **store the events in a file**.
+* **After** the **file** is **generated**, **close** the opened **`procmon`** window and **open the events file**.
+* Add these **filters** and you will find all the Dlls that some **proccess tried to load** from the writable System Path folder:
 
 <figure><img src="../../../images/image (945).png" alt=""><figcaption></figcaption></figure>
 
@@ -69,9 +69,9 @@ After finding this, I found this interesting blog post that also explains how to
 
 So, to **escalate privileges** we are going to hijack the library **WptsExtensions.dll**. Having the **path** and the **name** we just need to **generate the malicious dll**.
 
-You can [**try to use any of these examples**](#creating-and-compiling-dlls). You could run payloads such as: get a rev shell, add a user, execute a beacon...
+You can [**try to use any of these examples**](writable-sys-path-+dll-hijacking-privesc.md#creating-and-compiling-dlls). You could run payloads such as: get a rev shell, add a user, execute a beacon...
 
-> [!WARNING]
+> \[!WARNING]\
 > Note that **not all the service are run** with **`NT AUTHORITY\SYSTEM`** some are also run with **`NT AUTHORITY\LOCAL SERVICE`** which has **less privileges** and you **won't be able to create a new user** abuse its permissions.\
 > However, that user has the **`seImpersonate`** privilege, so you can use the[ **potato suite to escalate privileges**](../roguepotato-and-printspoofer.md). So, in this case a rev shell is a better option that trying to create a user.
 
@@ -81,7 +81,4 @@ Having **generated the malicious Dll** (_in my case I used x64 rev shell and I g
 
 When the service is re-started, the **dll should be loaded and executed** (you can **reuse** the **procmon** trick to check if the **library was loaded as expected**).
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

@@ -1,6 +1,6 @@
 # macOS IOKit
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -10,7 +10,7 @@ IOKit drivers will basically **export functions from the kernel**. These functio
 
 **IOKit XNU kernel code** is opensourced by Apple in [https://github.com/apple-oss-distributions/xnu/tree/main/iokit](https://github.com/apple-oss-distributions/xnu/tree/main/iokit). Moreover, the user space IOKit components are also opensource [https://github.com/opensource-apple/IOKitUser](https://github.com/opensource-apple/IOKitUser).
 
-However, **no IOKit drivers** are opensource. Anyway, from time to time a release of a driver might come with symbols that makes it easier to debug it. Check how to [**get the driver extensions from the firmware here**](#ipsw)**.**
+However, **no IOKit drivers** are opensource. Anyway, from time to time a release of a driver might come with symbols that makes it easier to debug it. Check how to [**get the driver extensions from the firmware here**](macos-iokit.md#ipsw)**.**
 
 It's written in **C++**. You can get demangled C++ symbols with:
 
@@ -24,21 +24,21 @@ __ZN16IOUserClient202222dispatchExternalMethodEjP31IOExternalMethodArgumentsOpaq
 IOUserClient2022::dispatchExternalMethod(unsigned int, IOExternalMethodArgumentsOpaque*, IOExternalMethodDispatch2022 const*, unsigned long, OSObject*, void*)
 ```
 
-> [!CAUTION]
+> \[!CAUTION]\
 > IOKit **exposed functions** could perform **additional security checks** when a client tries to call a function but note that the apps are usually **limited** by the **sandbox** to which IOKit functions they can interact with.
 
 ## Drivers
 
 In macOS they are located in:
 
-- **`/System/Library/Extensions`**
-  - KEXT files built into the OS X operating system.
-- **`/Library/Extensions`**
-  - KEXT files installed by 3rd party software
+* **`/System/Library/Extensions`**
+  * KEXT files built into the OS X operating system.
+* **`/Library/Extensions`**
+  * KEXT files installed by 3rd party software
 
 In iOS they are located in:
 
-- **`/System/Library/Extensions`**
+* **`/System/Library/Extensions`**
 
 ```bash
 #Use kextstat to print the loaded drivers
@@ -103,9 +103,9 @@ In IORegistryExplorer, "planes" are used to organize and display the relationshi
 
 The following code connects to the IOKit service `"YourServiceNameHere"` and calls the function inside the selector 0. For it:
 
-- it first calls **`IOServiceMatching`** and **`IOServiceGetMatchingServices`** to get the service.
-- It then establish a connection calling **`IOServiceOpen`**.
-- And it finally calls a function with **`IOConnectCallScalarMethod`** indicating the selector 0 (the selector is the number the function you want to call has assigned).
+* it first calls **`IOServiceMatching`** and **`IOServiceGetMatchingServices`** to get the service.
+* It then establish a connection calling **`IOServiceOpen`**.
+* And it finally calls a function with **`IOConnectCallScalarMethod`** indicating the selector 0 (the selector is the number the function you want to call has assigned).
 
 ```objectivec
 #import <Foundation/Foundation.h>
@@ -166,7 +166,7 @@ There are **other** functions that can be used to call IOKit functions apart of 
 
 ## Reversing driver entrypoint
 
-You could obtain these for example from a [**firmware image (ipsw)**](#ipsw). Then, load it into your favourite decompiler.
+You could obtain these for example from a [**firmware image (ipsw)**](macos-iokit.md#ipsw). Then, load it into your favourite decompiler.
 
 You could start decompiling the **`externalMethod`** function as this is the driver function that will be receiving the call and calling the correct function:
 
@@ -226,10 +226,7 @@ After the array is created you can see all the exported functions:
 
 <figure><img src="../../../images/image (1181).png" alt=""><figcaption></figcaption></figure>
 
-> [!TIP]
+> \[!TIP]\
 > If you remember, to **call** an **exported** function from user space we don't need to call the name of the function, but the **selector number**. Here you can see that the selector **0** is the function **`initializeDecoder`**, the selector **1** is **`startDecoder`**, the selector **2** **`initializeEncoder`**...
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

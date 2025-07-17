@@ -1,6 +1,6 @@
 # macOS Dyld Process
 
-{{#include ../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -10,7 +10,7 @@ This linker will need to locate all the executables libraries, map them in memor
 
 Of course, **`dyld`** doesn't have any dependencies (it uses syscalls and libSystem excerpts).
 
-> [!CAUTION]
+> \[!CAUTION]\
 > If this linker contains any vulnerability, as it's being executed before executing any binary (even highly privileged ones), it would be possible to **escalate privileges**.
 
 ### Flow
@@ -19,9 +19,9 @@ Dyld will be loaded by **`dyldboostrap::start`**, which will also load things su
 
 **`dyls::_main()`** is the entry point of dyld and it's first task is to run `configureProcessRestrictions()`, which usually restricts **`DYLD_*`** environment variables explained in:
 
-{{#ref}}
-./
-{{#endref}}
+\{{#ref\}}\
+./\
+\{{#endref\}}
 
 Then, it maps the dyld shared cache which prelinks all the important system libraries and then it maps the libraries the binary depends on and continues recursively until all the needed libraries are loaded. Therefore:
 
@@ -40,13 +40,13 @@ All binaries sin macOS are dynamically linked. Therefore, they contain some stub
 
 Som stub sections in the binary:
 
-- **`__TEXT.__[auth_]stubs`**: Pointers from `__DATA` sections
-- **`__TEXT.__stub_helper`**: Small code invoking dynamic linking with info on the function to call
-- **`__DATA.__[auth_]got`**: Global Offset Table (addresses to imported functions, when resolved, (bound during load time as it's marked with flag `S_NON_LAZY_SYMBOL_POINTERS`)
-- **`__DATA.__nl_symbol_ptr`**: Non-lazy symbol pointers (bound during load time as it's marked with flag `S_NON_LAZY_SYMBOL_POINTERS`)
-- **`__DATA.__la_symbol_ptr`**: Lazy symbols pointers (bound on first access)
+* **`__TEXT.__[auth_]stubs`**: Pointers from `__DATA` sections
+* **`__TEXT.__stub_helper`**: Small code invoking dynamic linking with info on the function to call
+* **`__DATA.__[auth_]got`**: Global Offset Table (addresses to imported functions, when resolved, (bound during load time as it's marked with flag `S_NON_LAZY_SYMBOL_POINTERS`)
+* **`__DATA.__nl_symbol_ptr`**: Non-lazy symbol pointers (bound during load time as it's marked with flag `S_NON_LAZY_SYMBOL_POINTERS`)
+* **`__DATA.__la_symbol_ptr`**: Lazy symbols pointers (bound on first access)
 
-> [!WARNING]
+> \[!WARNING]\
 > Note that the pointers with the prefix "auth\_" are using one in-process encryption key to protect it (PAC). Moreover, It's possible to use the arm64 instruction `BLRA[A/B]` to verify the pointer before following it. And the RETA\[A/B] can be used instead of a RET address.\
 > Actually, the code in **`__TEXT.__auth_stubs`** will use **`braa`** instead of **`bl`** to call the requested function to authenticate the pointer.
 >
@@ -108,7 +108,7 @@ you can see that we are **jumping to the address of the GOT**, which in this cas
 In other situations instead of directly jumping to the GOT, it could jump to **`__DATA.__la_symbol_ptr`** which will load a value that represents the function that it's trying to load, then jump to **`__TEXT.__stub_helper`** which jumps the **`__DATA.__nl_symbol_ptr`** which contains the address of **`dyld_stub_binder`** which takes as parameters the number of the function and an address.\
 This last function, after finding the address of the searched function writes it in the corresponding location in **`__TEXT.__stub_helper`** to avoid doing lookups in the future.
 
-> [!TIP]
+> \[!TIP]\
 > However notice taht current dyld versions load everything as non-lazy.
 
 #### Dyld opcodes
@@ -146,7 +146,7 @@ Result:
 11: th_port=
 ```
 
-> [!TIP]
+> \[!TIP]\
 > By the time these values reaches the main function, sensitive information has already been removed from them or it would have been a data leak.
 
 it's possible to see all these interesting values debugging before getting into main with:
@@ -190,9 +190,9 @@ it's possible to see all these interesting values debugging before getting into 
 0x16fdffffb: ""
 </code></pre>
 
-## dyld_all_image_infos
+## dyld\_all\_image\_infos
 
-This is a structure exported by dyld with information about the dyld state which can be found in the [**source code**](https://opensource.apple.com/source/dyld/dyld-852.2/include/mach-o/dyld_images.h.auto.html) with information like the version, pointer to dyld_image_info array, to dyld_image_notifier, if proc is detached from shared cache, if libSystem initializer was called, pointer to dyls's own Mach header, pointer to dyld version string...
+This is a structure exported by dyld with information about the dyld state which can be found in the [**source code**](https://opensource.apple.com/source/dyld/dyld-852.2/include/mach-o/dyld_images.h.auto.html) with information like the version, pointer to dyld\_image\_info array, to dyld\_image\_notifier, if proc is detached from shared cache, if libSystem initializer was called, pointer to dyls's own Mach header, pointer to dyld version string...
 
 ## dyld env variables
 
@@ -200,7 +200,7 @@ This is a structure exported by dyld with information about the dyld state which
 
 Interesting env variables that helps to understand what is dyld doing:
 
-- **DYLD_PRINT_LIBRARIES**
+* **DYLD\_PRINT\_LIBRARIES**
 
 Check each library that is loaded:
 
@@ -220,7 +220,7 @@ dyld[19948]: <1A7038EC-EE49-35AE-8A3C-C311083795FB> /usr/lib/system/libmacho.dyl
 [...]
 ```
 
-- **DYLD_PRINT_SEGMENTS**
+* **DYLD\_PRINT\_SEGMENTS**
 
 Check how is each library loaded:
 
@@ -259,7 +259,7 @@ dyld[21147]:     __LINKEDIT (r..) 0x000239574000->0x000270BE4000
 [...]
 ```
 
-- **DYLD_PRINT_INITIALIZERS**
+* **DYLD\_PRINT\_INITIALIZERS**
 
 Print when each library initializer is running:
 
@@ -271,31 +271,31 @@ dyld[21623]: running initializer 0x18e59e5c0 in /usr/lib/libSystem.B.dylib
 
 ### Others
 
-- `DYLD_BIND_AT_LAUNCH`: Lazy bindings are resolved with non lazy ones
-- `DYLD_DISABLE_PREFETCH`: DIsable pre-fetching of \_\_DATA and \_\_LINKEDIT content
-- `DYLD_FORCE_FLAT_NAMESPACE`: Single-level bindings
-- `DYLD_[FRAMEWORK/LIBRARY]_PATH | DYLD_FALLBACK_[FRAMEWORK/LIBRARY]_PATH | DYLD_VERSIONED_[FRAMEWORK/LIBRARY]_PATH`: Resolution paths
-- `DYLD_INSERT_LIBRARIES`: Load an specifc library
-- `DYLD_PRINT_TO_FILE`: Write dyld debug in a file
-- `DYLD_PRINT_APIS`: Print libdyld API calls
-- `DYLD_PRINT_APIS_APP`: Print libdyld API calls made by main
-- `DYLD_PRINT_BINDINGS`: Print symbols when bound
-- `DYLD_WEAK_BINDINGS`: Only print weak symbols when bound
-- `DYLD_PRINT_CODE_SIGNATURES`: Print code signature registration operations
-- `DYLD_PRINT_DOFS`: Print D-Trace object format sections as loaded
-- `DYLD_PRINT_ENV`: Print env seen by dyld
-- `DYLD_PRINT_INTERPOSTING`: Print interposting operations
-- `DYLD_PRINT_LIBRARIES`: Print librearies loaded
-- `DYLD_PRINT_OPTS`: Print load options
-- `DYLD_REBASING`: Print symbol rebasing operations
-- `DYLD_RPATHS`: Print expansions of @rpath
-- `DYLD_PRINT_SEGMENTS`: Print mappings of Mach-O segments
-- `DYLD_PRINT_STATISTICS`: Print timing statistics
-- `DYLD_PRINT_STATISTICS_DETAILS`: Print detailed timing statistics
-- `DYLD_PRINT_WARNINGS`: Print warning messages
-- `DYLD_SHARED_CACHE_DIR`: Path to use for shared library cache
-- `DYLD_SHARED_REGION`: "use", "private", "avoid"
-- `DYLD_USE_CLOSURES`: Enable closures
+* `DYLD_BIND_AT_LAUNCH`: Lazy bindings are resolved with non lazy ones
+* `DYLD_DISABLE_PREFETCH`: DIsable pre-fetching of \_\_DATA and \_\_LINKEDIT content
+* `DYLD_FORCE_FLAT_NAMESPACE`: Single-level bindings
+* `DYLD_[FRAMEWORK/LIBRARY]_PATH | DYLD_FALLBACK_[FRAMEWORK/LIBRARY]_PATH | DYLD_VERSIONED_[FRAMEWORK/LIBRARY]_PATH`: Resolution paths
+* `DYLD_INSERT_LIBRARIES`: Load an specifc library
+* `DYLD_PRINT_TO_FILE`: Write dyld debug in a file
+* `DYLD_PRINT_APIS`: Print libdyld API calls
+* `DYLD_PRINT_APIS_APP`: Print libdyld API calls made by main
+* `DYLD_PRINT_BINDINGS`: Print symbols when bound
+* `DYLD_WEAK_BINDINGS`: Only print weak symbols when bound
+* `DYLD_PRINT_CODE_SIGNATURES`: Print code signature registration operations
+* `DYLD_PRINT_DOFS`: Print D-Trace object format sections as loaded
+* `DYLD_PRINT_ENV`: Print env seen by dyld
+* `DYLD_PRINT_INTERPOSTING`: Print interposting operations
+* `DYLD_PRINT_LIBRARIES`: Print librearies loaded
+* `DYLD_PRINT_OPTS`: Print load options
+* `DYLD_REBASING`: Print symbol rebasing operations
+* `DYLD_RPATHS`: Print expansions of @rpath
+* `DYLD_PRINT_SEGMENTS`: Print mappings of Mach-O segments
+* `DYLD_PRINT_STATISTICS`: Print timing statistics
+* `DYLD_PRINT_STATISTICS_DETAILS`: Print detailed timing statistics
+* `DYLD_PRINT_WARNINGS`: Print warning messages
+* `DYLD_SHARED_CACHE_DIR`: Path to use for shared library cache
+* `DYLD_SHARED_REGION`: "use", "private", "avoid"
+* `DYLD_USE_CLOSURES`: Enable closures
 
 It's possible to find more with someting like:
 
@@ -311,9 +311,6 @@ find . -type f | xargs grep strcmp| grep key,\ \" | cut -d'"' -f2 | sort -u
 
 ## References
 
-- [**\*OS Internals, Volume I: User Mode. By Jonathan Levin**](https://www.amazon.com/MacOS-iOS-Internals-User-Mode/dp/099105556X)
+* [**\*OS Internals, Volume I: User Mode. By Jonathan Levin**](https://www.amazon.com/MacOS-iOS-Internals-User-Mode/dp/099105556X)
 
-{{#include ../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../banners/hacktricks-training.md\}}

@@ -1,6 +1,6 @@
 # Python Internal Read Gadgets
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Basic Information
 
@@ -27,21 +27,18 @@ __init__.__globals__.__loader__.__init__.__globals__.sys.modules.__main__.app.se
 
 Use this payload to **change `app.secret_key`** (the name in your app might be different) to be able to sign new and more privileges flask cookies.
 
-### Werkzeug - machine_id and node uuid
+### Werkzeug - machine\_id and node uuid
 
-[**Using these payload from this writeup**](https://vozec.fr/writeups/tweedle-dum-dee/) you will be able to access the **machine_id** and the **uuid** node, which are the **main secrets** you need to [**generate the Werkzeug pin**](../../network-services-pentesting/pentesting-web/werkzeug.md) you can use to access the python console in `/console` if the **debug mode is enabled:**
+[**Using these payload from this writeup**](https://vozec.fr/writeups/tweedle-dum-dee/) you will be able to access the **machine\_id** and the **uuid** node, which are the **main secrets** you need to [**generate the Werkzeug pin**](../../network-services-pentesting/pentesting-web/werkzeug.md) you can use to access the python console in `/console` if the **debug mode is enabled:**
 
 ```python
 {ua.__class__.__init__.__globals__[t].sys.modules[werkzeug.debug]._machine_id}
 {ua.__class__.__init__.__globals__[t].sys.modules[werkzeug.debug].uuid._node}
 ```
 
-> [!WARNING]
+> \[!WARNING]\
 > Note that you can get the **servers local path to the `app.py`** generating some **error** in the web page which will **give you the path**.
 
 If the vulnerability is in a different python file, check the previous Flask trick to access the objects from the main python file.
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

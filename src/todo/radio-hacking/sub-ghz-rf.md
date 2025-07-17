@@ -1,6 +1,6 @@
 # Sub-GHz RF
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Garage Doors
 
@@ -33,9 +33,9 @@ Requiring **a preamble will avoid the De Bruijn Sequence** optimization and **ro
 
 To attack these signals with Flipper Zero check:
 
-{{#ref}}
-flipper-zero/fz-sub-ghz.md
-{{#endref}}
+\{{#ref\}}\
+flipper-zero/fz-sub-ghz.md\
+\{{#endref\}}
 
 ## Rolling Codes Protection
 
@@ -57,8 +57,7 @@ An attacker could **jam the signal near the vehicle or receive**r so the **recei
 
 The victim at some point will use the **keys to lock the car**, but then the attack will have **recorded enough "close door" codes** that hopefully could be resent to open the door (a **change of frequency might be needed** as there are cars that use the same codes to open and close but listens for both commands in different frequencies).
 
-> [!WARNING]
-> **Jamming works**, but it's noticeable as if the **person locking the car simply tests the doors** to ensure they are locked they would notice the car unlocked. Additionally if they were aware of such attacks they could even listen to the fact that the doors never made the lock **sound** or the cars **lights** never flashed when they pressed the ‘lock’ button.
+> \[!WARNING]**Jamming works**, but it's noticeable as if the **person locking the car simply tests the doors** to ensure they are locked they would notice the car unlocked. Additionally if they were aware of such attacks they could even listen to the fact that the doors never made the lock **sound** or the cars **lights** never flashed when they pressed the ‘lock’ button.
 
 ### **Code Grabbing Attack ( aka ‘RollJam’ )**
 
@@ -67,10 +66,10 @@ Instantly after this the **attacker can send the first code** and the **car will
 
 The attacker can **jam the car receiver and not his receiver** because if the car receiver is listening in for example a 1MHz broadband, the attacker won't **jam** the exact frequency used by the remote but **a close one in that spectrum** while the **attackers receiver will be listening in a smaller range** where he can listen the remote signal **without the jam signal**.
 
-> [!WARNING]
+> \[!WARNING]\
 > Other implementations seen in specifications show that the **rolling code is a portion** of the total code sent. Ie the code sent is a **24 bit key** where the first **12 are the rolling code**, the **second 8 are the command** (such as lock or unlock) and the last 4 is the **checksum**. Vehicles implementing this type are also naturally susceptible as the attacker merely needs to replace the rolling code segment to be able to **use any rolling code on both frequencies**.
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that if the victim sends a third code while the attacker is sending the first one, the first and second code will be invalidated.
 
 ### Alarm Sounding Jamming Attack
@@ -79,12 +78,9 @@ Testing against an aftermarket rolling code system installed on a car, **sending
 
 ## References
 
-- [https://www.americanradioarchives.com/what-radio-frequency-does-car-key-fobs-run-on/](https://www.americanradioarchives.com/what-radio-frequency-does-car-key-fobs-run-on/)
-- [https://www.andrewmohawk.com/2016/02/05/bypassing-rolling-code-systems/](https://www.andrewmohawk.com/2016/02/05/bypassing-rolling-code-systems/)
-- [https://samy.pl/defcon2015/](https://samy.pl/defcon2015/)
-- [https://hackaday.io/project/164566-how-to-hack-a-car/details](https://hackaday.io/project/164566-how-to-hack-a-car/details)
+* [https://www.americanradioarchives.com/what-radio-frequency-does-car-key-fobs-run-on/](https://www.americanradioarchives.com/what-radio-frequency-does-car-key-fobs-run-on/)
+* [https://www.andrewmohawk.com/2016/02/05/bypassing-rolling-code-systems/](https://www.andrewmohawk.com/2016/02/05/bypassing-rolling-code-systems/)
+* [https://samy.pl/defcon2015/](https://samy.pl/defcon2015/)
+* [https://hackaday.io/project/164566-how-to-hack-a-car/details](https://hackaday.io/project/164566-how-to-hack-a-car/details)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

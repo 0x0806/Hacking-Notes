@@ -1,15 +1,15 @@
 # macOS Objective-C
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Objective-C
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that programs written in Objective-C **retain** their class declarations **when** **compiled** into [Mach-O binaries](macos-files-folders-and-binaries/universal-binaries-and-mach-o-format.md). Such class declarations **include** the name and type of:
 
-- The class
-- The class methods
-- The class instance variables
+* The class
+* The class methods
+* The class instance variables
 
 You can get this information using [**class-dump**](https://github.com/nygard/class-dump):
 
@@ -345,7 +345,4 @@ It's also possible to manage files **using `NSURL` objects instead of `NSString`
 
 ```
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

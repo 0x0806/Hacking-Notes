@@ -1,14 +1,14 @@
 # macOS TCC Payloads
 
-{{#include ../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../banners/hacktricks-training.md\}}
 
 ### Desktop
 
-- **Entitlement**: None
-- **TCC**: kTCCServiceSystemPolicyDesktopFolder
+* **Entitlement**: None
+* **TCC**: kTCCServiceSystemPolicyDesktopFolder
 
-{{#tabs}}
-{{#tab name="ObjetiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC"\}}\
 Copy `$HOME/Desktop` to `/tmp/desktop`.
 
 ```objectivec
@@ -43,25 +43,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Copy `$HOME/Desktop` to `/tmp/desktop`.
 
 ```bash
 cp -r "$HOME/Desktop" "/tmp/desktop"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Documents
 
-- **Entitlement**: None
-- **TCC**: `kTCCServiceSystemPolicyDocumentsFolder`
+* **Entitlement**: None
+* **TCC**: `kTCCServiceSystemPolicyDocumentsFolder`
 
-{{#tabs}}
-{{#tab name="ObjetiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC"\}}\
 Copy `$HOME/Documents` to `/tmp/documents`.
 
 ```objectivec
@@ -96,25 +96,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Copy `$HOME/`Documents to `/tmp/documents`.
 
 ```bash
 cp -r "$HOME/Documents" "/tmp/documents"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Downloads
 
-- **Entitlement**: None
-- **TCC**: `kTCCServiceSystemPolicyDownloadsFolder`
+* **Entitlement**: None
+* **TCC**: `kTCCServiceSystemPolicyDownloadsFolder`
 
-{{#tabs}}
-{{#tab name="ObjetiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC"\}}\
 Copy `$HOME/Downloads` to `/tmp/downloads`.
 
 ```objectivec
@@ -149,25 +149,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Copy `$HOME/Dowloads` to `/tmp/downloads`.
 
 ```bash
 cp -r "$HOME/Downloads" "/tmp/downloads"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Photos Library
 
-- **Entitlement**: `com.apple.security.personal-information.photos-library`
-- **TCC**: `kTCCServicePhotos`
+* **Entitlement**: `com.apple.security.personal-information.photos-library`
+* **TCC**: `kTCCServicePhotos`
 
-{{#tabs}}
-{{#tab name="ObjetiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC"\}}\
 Copy `$HOME/Pictures/Photos Library.photoslibrary` to `/tmp/photos`.
 
 ```objectivec
@@ -202,25 +202,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Copy `$HOME/Pictures/Photos Library.photoslibrary` to `/tmp/photos`.
 
 ```bash
 cp -r "$HOME/Pictures/Photos Library.photoslibrary" "/tmp/photos"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Contacts
 
-- **Entitlement**: `com.apple.security.personal-information.addressbook`
-- **TCC**: `kTCCServiceAddressBook`
+* **Entitlement**: `com.apple.security.personal-information.addressbook`
+* **TCC**: `kTCCServiceAddressBook`
 
-{{#tabs}}
-{{#tab name="ObjetiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC"\}}\
 Copy `$HOME/Library/Application Support/AddressBook` to `/tmp/contacts`.
 
 ```objectivec
@@ -255,25 +255,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Copy `$HOME/Library/Application Support/AddressBook` to `/tmp/contacts`.
 
 ```bash
 cp -r "$HOME/Library/Application Support/AddressBook" "/tmp/contacts"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Calendar
 
-- **Entitlement**: `com.apple.security.personal-information.calendars`
-- **TCC**: `kTCCServiceCalendar`
+* **Entitlement**: `com.apple.security.personal-information.calendars`
+* **TCC**: `kTCCServiceCalendar`
 
-{{#tabs}}
-{{#tab name="ObjectiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjectiveC"\}}\
 Copy `$HOME/Library/Calendars` to `/tmp/calendars`.
 
 ```objectivec
@@ -308,25 +308,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Copy `$HOME/Library/Calendars` to `/tmp/calendars`.
 
 ```bash
 cp -r "$HOME/Library/Calendars" "/tmp/calendars"
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Camera
 
-- **Entitlement**: `com.apple.security.device.camera`
-- **TCC**: `kTCCServiceCamera`
+* **Entitlement**: `com.apple.security.device.camera`
+* **TCC**: `kTCCServiceCamera`
 
-{{#tabs}}
-{{#tab name="ObjetiveC - Record"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC - Record"\}}\
 Record a 3s video and save it in **`/tmp/recording.mov`**
 
 ```objectivec
@@ -405,9 +405,9 @@ static void myconstructor(int argc, const char **argv) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="ObjectiveC - Check"}}
+\{{#tab name="ObjectiveC - Check"\}}\
 Check if the program has access to the camera.
 
 ```objectivec
@@ -440,25 +440,25 @@ static void telegram(int argc, const char **argv) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Take a photo with the camera
 
 ```bash
 ffmpeg -framerate 30 -f avfoundation -i "0" -frames:v 1 /tmp/capture.jpg
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Microphone
 
-- **Entitlement**: **com.apple.security.device.audio-input**
-- **TCC**: `kTCCServiceMicrophone`
+* **Entitlement**: **com.apple.security.device.audio-input**
+* **TCC**: `kTCCServiceMicrophone`
 
-{{#tabs}}
-{{#tab name="ObjetiveC - Record"}}
+\{{#tabs\}}\
+\{{#tab name="ObjetiveC - Record"\}}\
 Record 5s of audio an store it in `/tmp/recording.m4a`
 
 ```objectivec
@@ -558,9 +558,9 @@ static void myconstructor(int argc, const char **argv) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="ObjectiveC - Check"}}
+\{{#tab name="ObjectiveC - Check"\}}\
 Check if the app has access to the mricrophone.
 
 ```objectivec
@@ -591,9 +591,9 @@ static void telegram(int argc, const char **argv) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Record a 5s audio and store it in `/tmp/recording.wav`
 
 ```bash
@@ -603,19 +603,19 @@ ffmpeg -f avfoundation -list_devices true -i ""
 ffmpeg -f avfoundation -i ":1" -t 5 /tmp/recording.wav
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Location
 
-> [!TIP]
+> \[!TIP]\
 > For an app to get the location, **Location Services** (from Privacy & Security) **must be enabled,** if not it won't be able to access it.
 
-- **Entitlement**: `com.apple.security.personal-information.location`
-- **TCC**: Granted in `/var/db/locationd/clients.plist`
+* **Entitlement**: `com.apple.security.personal-information.location`
+* **TCC**: Granted in `/var/db/locationd/clients.plist`
 
-{{#tabs}}
-{{#tab name="ObjectiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjectiveC"\}}\
 Write the location in `/tmp/logs.txt`
 
 ```objectivec
@@ -665,25 +665,25 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Get access to the location
 
 ```
 ???
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Screen Recording
 
-- **Entitlement**: None
-- **TCC**: `kTCCServiceScreenCapture`
+* **Entitlement**: None
+* **TCC**: `kTCCServiceScreenCapture`
 
-{{#tabs}}
-{{#tab name="ObjectiveC"}}
+\{{#tabs\}}\
+\{{#tab name="ObjectiveC"\}}\
 Record the main screen for 5s in `/tmp/screen.mov`
 
 ```objectivec
@@ -740,27 +740,27 @@ void myconstructor(int argc, const char **argv)
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Shell"}}
+\{{#tab name="Shell"\}}\
 Record the main screen for 5s
 
 ```bash
 screencapture -V 5 /tmp/screen.mov
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Accessibility
 
-- **Entitlement**: None
-- **TCC**: `kTCCServiceAccessibility`
+* **Entitlement**: None
+* **TCC**: `kTCCServiceAccessibility`
 
 Use the TCC privilege to accept the control of Finder pressing enter and bypass TCC that way
 
-{{#tabs}}
-{{#tab name="Accept TCC"}}
+\{{#tabs\}}\
+\{{#tab name="Accept TCC"\}}
 
 ```objectivec
 #import <Foundation/Foundation.h>
@@ -813,9 +813,9 @@ int main() {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Keylogger"}}
+\{{#tab name="Keylogger"\}}\
 Store the pressed keys in **`/tmp/keystrokes.txt`**
 
 ```objectivec
@@ -922,11 +922,9 @@ int main() {
 }
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
-> [!CAUTION] > **Accessibility is a very powerful permission**, you could abuse it in other ways, for example you could perform the **keystrokes attack** just from it without needed to call System Events.
+> \[!CAUTION] > **Accessibility is a very powerful permission**, you could abuse it in other ways, for example you could perform the **keystrokes attack** just from it without needed to call System Events.
 
-{{#include ../../../../banners/hacktricks-training.md}}
-
-
+\{{#include ../../../../banners/hacktricks-training.md\}}

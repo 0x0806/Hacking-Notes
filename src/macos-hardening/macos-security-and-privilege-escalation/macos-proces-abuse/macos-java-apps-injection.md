@@ -1,6 +1,6 @@
 # macOS Java Applications Injection
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Enumeration
 
@@ -14,7 +14,7 @@ sudo find /Applications -name 'Info.plist' -exec grep -l "java\." {} \; 2>/dev/n
 sudo find / -name 'Info.plist' -exec grep -l "java\." {} \; 2>/dev/null
 ```
 
-## \_JAVA_OPTIONS
+## \_JAVA\_OPTIONS
 
 The env variable **`_JAVA_OPTIONS`** can be used to inject arbitrary java parameters in the execution of a java compiled app:
 
@@ -90,12 +90,12 @@ export _JAVA_OPTIONS='-javaagent:/tmp/Agent.jar'
 open --env "_JAVA_OPTIONS='-javaagent:/tmp/Agent.jar'" -a "Burp Suite Professional"
 ```
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Creating the agent with a **different Java version** from the application can crash the execution of both the agent and the application
 
 Where the agent can be:
 
-```java:Agent.java
+```java:agent.java
 import java.io.*;
 import java.lang.instrument.*;
 
@@ -171,7 +171,4 @@ sudo eslogger lookup | grep vmoption # Give FDA to the Terminal
 
 Note how interesting is that Android Studio in this example is trying to load the file **`/Applications/Android Studio.app.vmoptions`**, a place where any user from the **`admin` group has write access.**
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

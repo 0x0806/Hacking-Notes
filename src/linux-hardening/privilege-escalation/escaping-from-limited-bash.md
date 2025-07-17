@@ -1,6 +1,6 @@
 # Escaping from Jails
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## **GTFOBins**
 
@@ -11,12 +11,12 @@
 From [wikipedia](https://en.wikipedia.org/wiki/Chroot#Limitations): The chroot mechanism is **not intended to defend** against intentional tampering by **privileged** (**root**) **users**. On most systems, chroot contexts do not stack properly and chrooted programs **with sufficient privileges may perform a second chroot to break out**.\
 Usually this means that to escape you need to be root inside the chroot.
 
-> [!TIP]
+> \[!TIP]\
 > The **tool** [**chw00t**](https://github.com/earthquake/chw00t) was created to abuse the following escenarios and scape from `chroot`.
 
 ### Root + CWD
 
-> [!WARNING]
+> \[!WARNING]\
 > If you are **root** inside a chroot you **can escape** creating **another chroot**. This because 2 chroots cannot coexists (in Linux), so if you create a folder and then **create a new chroot** on that new folder being **you outside of it**, you will now be **outside of the new chroot** and therefore you will be in the FS.
 >
 > This occurs because usually chroot DOESN'T move your working directory to the indicated one, so you can create a chroot but e outside of it.
@@ -84,7 +84,7 @@ system("/bin/bash");
 
 ### Root + Saved fd
 
-> [!WARNING]
+> \[!WARNING]\
 > This is similar to the previous case, but in this case the **attacker stores a file descriptor to the current directory** and then **creates the chroot in a new folder**. Finally, as he has **access** to that **FD** **outside** of the chroot, he access it and he **escapes**.
 
 <details>
@@ -116,47 +116,47 @@ int main(void)
 
 ### Root + Fork + UDS (Unix Domain Sockets)
 
-> [!WARNING]
+> \[!WARNING]\
 > FD can be passed over Unix Domain Sockets, so:
 >
-> - Create a child process (fork)
-> - Create UDS so parent and child can talk
-> - Run chroot in child process in a different folder
-> - In parent proc, create a FD of a folder that is outside of new child proc chroot
-> - Pass to child procc that FD using the UDS
-> - Child process chdir to that FD, and because it's ouside of its chroot, he will escape the jail
+> * Create a child process (fork)
+> * Create UDS so parent and child can talk
+> * Run chroot in child process in a different folder
+> * In parent proc, create a FD of a folder that is outside of new child proc chroot
+> * Pass to child procc that FD using the UDS
+> * Child process chdir to that FD, and because it's ouside of its chroot, he will escape the jail
 
 ### Root + Mount
 
-> [!WARNING]
+> \[!WARNING]
 >
-> - Mounting root device (/) into a directory inside the chroot
-> - Chrooting into that directory
+> * Mounting root device (/) into a directory inside the chroot
+> * Chrooting into that directory
 >
 > This is possible in Linux
 
 ### Root + /proc
 
-> [!WARNING]
+> \[!WARNING]
 >
-> - Mount procfs into a directory inside the chroot (if it isn't yet)
-> - Look for a pid that has a different root/cwd entry, like: /proc/1/root
-> - Chroot into that entry
+> * Mount procfs into a directory inside the chroot (if it isn't yet)
+> * Look for a pid that has a different root/cwd entry, like: /proc/1/root
+> * Chroot into that entry
 
 ### Root(?) + Fork
 
-> [!WARNING]
+> \[!WARNING]
 >
-> - Create a Fork (child proc) and chroot into a different folder deeper in the FS and CD on it
-> - From the parent process, move the folder where the child process is in a folder previous to the chroot of the children
-> - This children process will find himself outside of the chroot
+> * Create a Fork (child proc) and chroot into a different folder deeper in the FS and CD on it
+> * From the parent process, move the folder where the child process is in a folder previous to the chroot of the children
+> * This children process will find himself outside of the chroot
 
 ### ptrace
 
-> [!WARNING]
+> \[!WARNING]
 >
-> - Time ago users could debug its own processes from a process of itself... but this is not possible by default anymore
-> - Anyway, if it's possible, you could ptrace into a process and execute a shellcode inside of it ([see this example](linux-capabilities.md#cap_sys_ptrace)).
+> * Time ago users could debug its own processes from a process of itself... but this is not possible by default anymore
+> * Anyway, if it's possible, you could ptrace into a process and execute a shellcode inside of it ([see this example](linux-capabilities.md#cap_sys_ptrace)).
 
 ## Bash Jails
 
@@ -227,25 +227,25 @@ wget http://127.0.0.1:8080/sudoers -O /etc/sudoers
 ### Other tricks
 
 [**https://fireshellsecurity.team/restricted-linux-shell-escaping-techniques/**](https://fireshellsecurity.team/restricted-linux-shell-escaping-techniques/)\
-[https://pen-testing.sans.org/blog/2012/0**b**6/06/escaping-restricted-linux-shells](https://pen-testing.sans.org/blog/2012/06/06/escaping-restricted-linux-shells**](https://pen-testing.sans.org/blog/2012/06/06/escaping-restricted-linux-shells)\
-[https://gtfobins.github.io](https://gtfobins.github.io/**](https/gtfobins.github.io)\
+\[https://pen-testing.sans.org/blog/2012/0**b**6/06/escaping-restricted-linux-shells]\(https://pen-testing.sans.org/blog/2012/06/06/escaping-restricted-linux-shells\*\*]\(https://pen-testing.sans.org/blog/2012/06/06/escaping-restricted-linux-shells)\
+\[https://gtfobins.github.io]\(https://gtfobins.github.io/\*\*]\(https/gtfobins.github.io)\
 **It could also be interesting the page:**
 
-{{#ref}}
-../bypass-bash-restrictions/
-{{#endref}}
+\{{#ref\}}\
+../bypass-bash-restrictions/\
+\{{#endref\}}
 
 ## Python Jails
 
 Tricks about escaping from python jails in the following page:
 
-{{#ref}}
-../../generic-methodologies-and-resources/python/bypass-python-sandboxes/
-{{#endref}}
+\{{#ref\}}\
+../../generic-methodologies-and-resources/python/bypass-python-sandboxes/\
+\{{#endref\}}
 
 ## Lua Jails
 
-In this page you can find the global functions you have access to inside lua: [https://www.gammon.com.au/scripts/doc.php?general=lua_base](https://www.gammon.com.au/scripts/doc.php?general=lua_base)
+In this page you can find the global functions you have access to inside lua: [https://www.gammon.com.au/scripts/doc.php?general=lua\_base](https://www.gammon.com.au/scripts/doc.php?general=lua_base)
 
 **Eval with command execution:**
 
@@ -287,9 +287,6 @@ debug.debug()
 
 ## References
 
-- [https://www.youtube.com/watch?v=UO618TeyCWo](https://www.youtube.com/watch?v=UO618TeyCWo) (Slides: [https://deepsec.net/docs/Slides/2015/Chw00t_How_To_Break%20Out_from_Various_Chroot_Solutions\_-_Bucsay_Balazs.pdf](https://deepsec.net/docs/Slides/2015/Chw00t_How_To_Break%20Out_from_Various_Chroot_Solutions_-_Bucsay_Balazs.pdf))
+* [https://www.youtube.com/watch?v=UO618TeyCWo](https://www.youtube.com/watch?v=UO618TeyCWo) (Slides: [https://deepsec.net/docs/Slides/2015/Chw00t\_How\_To\_Break%20Out\_from\_Various\_Chroot\_Solutions\_-\_Bucsay\_Balazs.pdf](https://deepsec.net/docs/Slides/2015/Chw00t_How_To_Break%20Out_from_Various_Chroot_Solutions_-_Bucsay_Balazs.pdf))
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

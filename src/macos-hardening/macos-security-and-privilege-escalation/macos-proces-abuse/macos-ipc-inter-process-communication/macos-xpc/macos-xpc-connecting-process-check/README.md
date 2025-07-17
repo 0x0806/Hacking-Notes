@@ -1,40 +1,40 @@
 # macOS XPC Connecting Process Check
 
-{{#include ../../../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../../../banners/hacktricks-training.md\}}
 
 ## XPC Connecting Process Check
 
 When a connection is stablished to an XPC service, the server will check if the connection is allowed. These are the checks it would usually perform:
 
 1. Check if the connecting **process is signed with an Apple-signed** certificate (only given out by Apple).
-   - If this **isn't verified**, an attacker could create a **fake certificate** to match any other check.
+   * If this **isn't verified**, an attacker could create a **fake certificate** to match any other check.
 2. Check if the connecting process is signed with the **organization’s certificate**, (team ID verification).
-   - If this **isn't verified**, **any developer certificate** from Apple can be used for signing, and connect to the service.
+   * If this **isn't verified**, **any developer certificate** from Apple can be used for signing, and connect to the service.
 3. Check if the connecting process **contains a proper bundle ID**.
-   - If this **isn't verified**, any tool **signed by the same org** could be used to interact with the XPC service.
+   * If this **isn't verified**, any tool **signed by the same org** could be used to interact with the XPC service.
 4. (4 or 5) Check if the connecting process has a **proper software version number**.
-   - If this **isn't verified,** an old, insecure clients, vulnerable to process injection could be used to connect to the XPC service even with the other checks in place.
+   * If this **isn't verified,** an old, insecure clients, vulnerable to process injection could be used to connect to the XPC service even with the other checks in place.
 5. (4 or 5) Check if the connecting process has hardened runtime without dangerous entitlements (like the ones that allows to load arbitrary libraries or use DYLD env vars)
    1. If this **isn't verified,** the client might be **vulnerable to code injection**
 6. Check if the connecting process has an **entitlement** that allows it to connect to the service. This is applicable for Apple binaries.
 7. The **verification** must be **based** on the connecting **client’s audit token** **instead** of its process ID (**PID**) since the former prevents **PID reuse attacks**.
-   - Developers **rarely use the audit token** API call since it’s **private**, so Apple could **change** at any time. Additionally, private API usage is not allowed in Mac App Store apps.
-     - If the method **`processIdentifier`** is used, it might be vulnerable
-     - **`xpc_dictionary_get_audit_token`** should be used instead of **`xpc_connection_get_audit_token`**, as the latest could also be [vulnerable in certain situations](https://sector7.computest.nl/post/2023-10-xpc-audit-token-spoofing/).
+   * Developers **rarely use the audit token** API call since it’s **private**, so Apple could **change** at any time. Additionally, private API usage is not allowed in Mac App Store apps.
+     * If the method **`processIdentifier`** is used, it might be vulnerable
+     * **`xpc_dictionary_get_audit_token`** should be used instead of **`xpc_connection_get_audit_token`**, as the latest could also be [vulnerable in certain situations](https://sector7.computest.nl/post/2023-10-xpc-audit-token-spoofing/).
 
 ### Communication Attacks
 
 For more information about the PID reuse attack check:
 
-{{#ref}}
-macos-pid-reuse.md
-{{#endref}}
+\{{#ref\}}\
+macos-pid-reuse.md\
+\{{#endref\}}
 
 For more information **`xpc_connection_get_audit_token`** attack check:
 
-{{#ref}}
-macos-xpc_connection_get_audit_token-attack.md
-{{#endref}}
+\{{#ref\}}\
+macos-xpc\_connection\_get\_audit\_token-attack.md\
+\{{#endref\}}
 
 ### Trustcache - Downgrade Attacks Prevention
 
@@ -92,7 +92,4 @@ if ((csFlags & (cs_hard | cs_require_lv)) {
 }
 ```
 
-{{#include ../../../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../../../banners/hacktricks-training.md\}}

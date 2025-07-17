@@ -1,6 +1,6 @@
 # Cheat Engine
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 [**Cheat Engine**](https://www.cheatengine.org/downloads.php) is a useful program to find where important values are saved inside the memory of a running game and change them.\
 When you download and run it, you are **presented** with a **tutorial** of how to use the tool. If you want to learn how to use the tool it's highly recommended to complete it.
@@ -55,7 +55,7 @@ Then, you do something so that **value changes**, and you **stop** the game and 
 ![](<../../images/image (684).png>)
 
 Cheat Engine will search for the **values** that **went from 100 to the new value**. Congrats, you **found** the **address** of the value you were looking for, you can now modify it.\
-_If you still have several values, do something to modify again that value, and perform another "next scan" to filter the addresses._
+&#xNAN;_&#x49;f you still have several values, do something to modify again that value, and perform another "next scan" to filter the addresses._
 
 ### Unknown Value, known change
 
@@ -150,7 +150,7 @@ A template will be generated:
 
 ![](<../../images/image (944).png>)
 
-So, insert your new assembly code in the "**newmem**" section and remove the original code from the "**originalcode**" if you don't want it to be executed**.** In this example the injected code will add 2 points instead of substracting 1:
+So, insert your new assembly code in the "**newmem**" section and remove the original code from the "**originalcode**" if you don't want it to be executed\*\*.\*\* In this example the injected code will add 2 points instead of substracting 1:
 
 ![](<../../images/image (521).png>)
 
@@ -158,9 +158,6 @@ So, insert your new assembly code in the "**newmem**" section and remove the ori
 
 ## **References**
 
-- **Cheat Engine tutorial, complete it to learn how to start with Cheat Engine**
+* **Cheat Engine tutorial, complete it to learn how to start with Cheat Engine**
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

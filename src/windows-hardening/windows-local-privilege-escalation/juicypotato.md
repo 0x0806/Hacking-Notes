@@ -1,12 +1,12 @@
 # JuicyPotato
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
-> [!WARNING] > **JuicyPotato doesn't work** on Windows Server 2019 and Windows 10 build 1809 onwards. However, [**PrintSpoofer**](https://github.com/itm4n/PrintSpoofer)**,** [**RoguePotato**](https://github.com/antonioCoco/RoguePotato)**,** [**SharpEfsPotato**](https://github.com/bugch3ck/SharpEfsPotato) can be used to **leverage the same privileges and gain `NT AUTHORITY\SYSTEM`** level access. _**Check:**_
+> \[!WARNING] > **JuicyPotato doesn't work** on Windows Server 2019 and Windows 10 build 1809 onwards. However, [**PrintSpoofer**](https://github.com/itm4n/PrintSpoofer)**,** [**RoguePotato**](https://github.com/antonioCoco/RoguePotato)**,** [**SharpEfsPotato**](https://github.com/bugch3ck/SharpEfsPotato) can be used to **leverage the same privileges and gain `NT AUTHORITY\SYSTEM`** level access. _**Check:**_
 
-{{#ref}}
-roguepotato-and-printspoofer.md
-{{#endref}}
+\{{#ref\}}\
+roguepotato-and-printspoofer.md\
+\{{#endref\}}
 
 ## Juicy Potato (abusing the golden privileges) <a href="#juicy-potato-abusing-the-golden-privileges" id="juicy-potato-abusing-the-golden-privileges"></a>
 
@@ -18,7 +18,7 @@ _A sugared version of_ [_RottenPotatoNG_](https://github.com/breenmachine/Rotten
 
 [**From juicy-potato Readme**](https://github.com/ohpe/juicy-potato/blob/master/README.md)**:**
 
-[RottenPotatoNG](https://github.com/breenmachine/RottenPotatoNG) and its [variants](https://github.com/decoder-it/lonelypotato) leverages the privilege escalation chain based on [`BITS`](<https://msdn.microsoft.com/en-us/library/windows/desktop/bb968799(v=vs.85).aspx>) [service](https://github.com/breenmachine/RottenPotatoNG/blob/4eefb0dd89decb9763f2bf52c7a067440a9ec1f0/RottenPotatoEXE/MSFRottenPotato/MSFRottenPotato.cpp#L126) having the MiTM listener on `127.0.0.1:6666` and when you have `SeImpersonate` or `SeAssignPrimaryToken` privileges. During a Windows build review we found a setup where `BITS` was intentionally disabled and port `6666` was taken.
+[RottenPotatoNG](https://github.com/breenmachine/RottenPotatoNG) and its [variants](https://github.com/decoder-it/lonelypotato) leverages the privilege escalation chain based on [`BITS`](https://msdn.microsoft.com/en-us/library/windows/desktop/bb968799\(v=vs.85\).aspx) [service](https://github.com/breenmachine/RottenPotatoNG/blob/4eefb0dd89decb9763f2bf52c7a067440a9ec1f0/RottenPotatoEXE/MSFRottenPotato/MSFRottenPotato.cpp#L126) having the MiTM listener on `127.0.0.1:6666` and when you have `SeImpersonate` or `SeAssignPrimaryToken` privileges. During a Windows build review we found a setup where `BITS` was intentionally disabled and port `6666` was taken.
 
 We decided to weaponize [RottenPotatoNG](https://github.com/breenmachine/RottenPotatoNG): **Say hello to Juicy Potato**.
 
@@ -36,18 +36,18 @@ After some testing we obtained and tested an extensive list of [interesting CLSI
 
 JuicyPotato allows you to:
 
-- **Target CLSID** _pick any CLSID you want._ [_Here_](http://ohpe.it/juicy-potato/CLSID/) _you can find the list organized by OS._
-- **COM Listening port** _define COM listening port you prefer (instead of the marshalled hardcoded 6666)_
-- **COM Listening IP address** _bind the server on any IP_
-- **Process creation mode** _depending on the impersonated user’s privileges you can choose from:_
-  - `CreateProcessWithToken` (needs `SeImpersonate`)
-  - `CreateProcessAsUser` (needs `SeAssignPrimaryToken`)
-  - `both`
-- **Process to launch** _launch an executable or script if the exploitation succeeds_
-- **Process Argument** _customize the launched process arguments_
-- **RPC Server address** _for a stealthy approach you can authenticate to an external RPC server_
-- **RPC Server port** _useful if you want to authenticate to an external server and firewall is blocking port `135`…_
-- **TEST mode** _mainly for testing purposes, i.e. testing CLSIDs. It creates the DCOM and prints the user of token. See_ [_here for testing_](http://ohpe.it/juicy-potato/Test/)
+* **Target CLSID** _pick any CLSID you want._ [_Here_](http://ohpe.it/juicy-potato/CLSID/) _you can find the list organized by OS._
+* **COM Listening port** _define COM listening port you prefer (instead of the marshalled hardcoded 6666)_
+* **COM Listening IP address** _bind the server on any IP_
+* **Process creation mode** _depending on the impersonated user’s privileges you can choose from:_
+  * `CreateProcessWithToken` (needs `SeImpersonate`)
+  * `CreateProcessAsUser` (needs `SeAssignPrimaryToken`)
+  * `both`
+* **Process to launch** _launch an executable or script if the exploitation succeeds_
+* **Process Argument** _customize the launched process arguments_
+* **RPC Server address** _for a stealthy approach you can authenticate to an external RPC server_
+* **RPC Server port** _useful if you want to authenticate to an external server and firewall is blocking port `135`…_
+* **TEST mode** _mainly for testing purposes, i.e. testing CLSIDs. It creates the DCOM and prints the user of token. See_ [_here for testing_](http://ohpe.it/juicy-potato/Test/)
 
 ### Usage <a href="#usage" id="usage"></a>
 
@@ -113,9 +113,9 @@ c:\Users\Public>
 
 Oftentimes, the default CLSID that JuicyPotato uses **doesn't work** and the exploit fails. Usually, it takes multiple attempts to find a **working CLSID**. To get a list of CLSIDs to try for a specific operating system, you should visit this page:
 
-{{#ref}}
-https://ohpe.it/juicy-potato/CLSID/
-{{#endref}}
+\{{#ref\}}\
+https://ohpe.it/juicy-potato/CLSID/\
+\{{#endref\}}
 
 ### **Checking CLSIDs**
 
@@ -123,12 +123,12 @@ First, you will need some executables apart from juicypotato.exe.
 
 Download [Join-Object.ps1](https://github.com/ohpe/juicy-potato/blob/master/CLSID/utils/Join-Object.ps1) and load it into your PS session, and download and execute [GetCLSID.ps1](https://github.com/ohpe/juicy-potato/blob/master/CLSID/GetCLSID.ps1). That script will create a list of possible CLSIDs to test.
 
-Then download [test_clsid.bat ](https://github.com/ohpe/juicy-potato/blob/master/Test/test_clsid.bat)(change the path to the CLSID list and to the juicypotato executable) and execute it. It will start trying every CLSID, and **when the port number changes, it will mean that the CLSID worked**.
+Then download [test\_clsid.bat ](https://github.com/ohpe/juicy-potato/blob/master/Test/test_clsid.bat)(change the path to the CLSID list and to the juicypotato executable) and execute it. It will start trying every CLSID, and **when the port number changes, it will mean that the CLSID worked**.
 
 **Check** the working CLSIDs **using the parameter -c**
 
 ## References
 
-- [https://github.com/ohpe/juicy-potato/blob/master/README.md](https://github.com/ohpe/juicy-potato/blob/master/README.md)
+* [https://github.com/ohpe/juicy-potato/blob/master/README.md](https://github.com/ohpe/juicy-potato/blob/master/README.md)
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}

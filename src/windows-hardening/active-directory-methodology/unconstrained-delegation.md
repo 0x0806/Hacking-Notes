@@ -1,6 +1,6 @@
 # Unconstrained Delegation
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Unconstrained delegation
 
@@ -8,8 +8,7 @@ This a feature that a Domain Administrator can set to any **Computer** inside th
 
 So if a domain admin logins inside a Computer with "Unconstrained Delegation" feature activated, and you have local admin privileges inside that machine, you will be able to dump the ticket and impersonate the Domain Admin anywhere (domain privesc).
 
-You can **find Computer objects with this attribute** checking if the [userAccountControl](<https://msdn.microsoft.com/en-us/library/ms680832(v=vs.85).aspx>) attribute contains [ADS_UF_TRUSTED_FOR_DELEGATION](<https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx>). You can do this with an LDAP filter of ‘(userAccountControl:1.2.840.113556.1.4.803:=524288)’, which is what powerview does:
-
+You can **find Computer objects with this attribute** checking if the [userAccountControl](https://msdn.microsoft.com/en-us/library/ms680832\(v=vs.85\).aspx) attribute contains [ADS\_UF\_TRUSTED\_FOR\_DELEGATION](https://msdn.microsoft.com/en-us/library/aa772300\(v=vs.85\).aspx). You can do this with an LDAP filter of ‘(userAccountControl:1.2.840.113556.1.4.803:=524288)’, which is what powerview does:
 
 ```bash
 # List unconstrained computers
@@ -53,16 +52,13 @@ If the TGT if from a domain controller, you could perform a [**DCSync attack**](
 
 Find here other ways to **force an authentication:**
 
-{{#ref}}
-printers-spooler-service-abuse.md
-{{#endref}}
+\{{#ref\}}\
+printers-spooler-service-abuse.md\
+\{{#endref\}}
 
 ### Mitigation
 
-- Limit DA/Admin logins to specific services
-- Set "Account is sensitive and cannot be delegated" for privileged accounts.
+* Limit DA/Admin logins to specific services
+* Set "Account is sensitive and cannot be delegated" for privileged accounts.
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

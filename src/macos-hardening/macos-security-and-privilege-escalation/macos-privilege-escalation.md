@@ -1,22 +1,22 @@
 # macOS Privilege Escalation
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## TCC Privilege Escalation
 
 If you came here looking for TCC privilege escalation go to:
 
-{{#ref}}
-macos-security-protections/macos-tcc/
-{{#endref}}
+\{{#ref\}}\
+macos-security-protections/macos-tcc/\
+\{{#endref\}}
 
 ## Linux Privesc
 
 Please note that **most of the tricks about privilege escalation affecting Linux/Unix will affect also MacOS** machines. So see:
 
-{{#ref}}
-../../linux-hardening/privilege-escalation/
-{{#endref}}
+\{{#ref\}}\
+../../linux-hardening/privilege-escalation/\
+\{{#endref\}}
 
 ## User Interaction
 
@@ -47,11 +47,11 @@ Note that a user that uses the terminal will highly probable have **Homebrew ins
 
 Using some **social engineering** you could **impersonate for example Google Chrome** inside the dock and actually execute your own script:
 
-{{#tabs}}
-{{#tab name="Chrome Impersonation"}}
+\{{#tabs\}}\
+\{{#tab name="Chrome Impersonation"\}}\
 Some suggestions:
 
-- Check in the Dock if there is a Chrome, and in that case **remove** that entry and **add** the **fake** **Chrome entry in the same position** in the Dock array.
+* Check in the Dock if there is a Chrome, and in that case **remove** that entry and **add** the **fake** **Chrome entry in the same position** in the Dock array.
 
 ```bash
 #!/bin/sh
@@ -123,16 +123,16 @@ sleep 0.1
 killall Dock
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Finder Impersonation"}}
+\{{#tab name="Finder Impersonation"\}}\
 Some suggestions:
 
-- You **cannot remove Finder from the Dock**, so if you are going to add it to the Dock, you could put the fake Finder just next to the real one. For this you need to **add the fake Finder entry at the beginning of the Dock array**.
-- Another option is to not place it in the Dock and just open it, "Finder asking to control Finder" is not that weird.
-- Another options to **escalate to root without asking** the password with a horrible box, is make Finder really ask for the password to perform a privileged action:
-  - Ask Finder to copy to **`/etc/pam.d`** a new **`sudo`** file (The prompt asking for the password will indicate that "Finder wants to copy sudo")
-  - Ask Finder to copy a new **Authorization Plugin** (You could control the file name so the prompt asking for the password will indicate that "Finder wants to copy Finder.bundle")
+* You **cannot remove Finder from the Dock**, so if you are going to add it to the Dock, you could put the fake Finder just next to the real one. For this you need to **add the fake Finder entry at the beginning of the Dock array**.
+* Another option is to not place it in the Dock and just open it, "Finder asking to control Finder" is not that weird.
+* Another options to **escalate to root without asking** the password with a horrible box, is make Finder really ask for the password to perform a privileged action:
+  * Ask Finder to copy to **`/etc/pam.d`** a new **`sudo`** file (The prompt asking for the password will indicate that "Finder wants to copy sudo")
+  * Ask Finder to copy a new **Authorization Plugin** (You could control the file name so the prompt asking for the password will indicate that "Finder wants to copy Finder.bundle")
 
 ```bash
 #!/bin/sh
@@ -204,12 +204,12 @@ sleep 0.1
 killall Dock
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## TCC - Root Privilege Escalation
 
-### CVE-2020-9771 - mount_apfs TCC bypass and privilege escalation
+### CVE-2020-9771 - mount\_apfs TCC bypass and privilege escalation
 
 **Any user** (even unprivileged ones) can create and mount a time machine snapshot an **access ALL the files** of that snapshot.\
 The **only privileged** needed is for the application used (like `Terminal`) to have **Full Disk Access** (FDA) access (`kTCCServiceSystemPolicyAllfiles`) which need to be granted by an admin.
@@ -240,11 +240,8 @@ A more detailed explanation can be [**found in the original report**](https://th
 
 This can be useful to escalate privileges:
 
-{{#ref}}
-macos-files-folders-and-binaries/macos-sensitive-locations.md
-{{#endref}}
+\{{#ref\}}\
+macos-files-folders-and-binaries/macos-sensitive-locations.md\
+\{{#endref\}}
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}

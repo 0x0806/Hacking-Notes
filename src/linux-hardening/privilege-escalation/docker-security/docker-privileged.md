@@ -1,6 +1,6 @@
 # Docker --privileged
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## What Affects
 
@@ -10,8 +10,8 @@ When you run a container as privileged these are the protections you are disabli
 
 In a privileged container, all the **devices can be accessed in `/dev/`**. Therefore you can **escape** by **mounting** the disk of the host.
 
-{{#tabs}}
-{{#tab name="Inside default container"}}
+\{{#tabs\}}\
+\{{#tab name="Inside default container"\}}
 
 ```bash
 # docker run --rm -it alpine sh
@@ -20,9 +20,9 @@ console  fd       mqueue   ptmx     random   stderr   stdout   urandom
 core     full     null     pts      shm      stdin    tty      zero
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Inside Privileged Container"}}
+\{{#tab name="Inside Privileged Container"\}}
 
 ```bash
 # docker run --rm --privileged -it alpine sh
@@ -34,15 +34,15 @@ cpu              nbd0             pts              stdout           tty27       
 [...]
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Read-only kernel file systems
 
 Kernel file systems provide a mechanism for a process to modify the behavior of the kernel. However, when it comes to container processes, we want to prevent them from making any changes to the kernel. Therefore, we mount kernel file systems as **read-only** within the container, ensuring that the container processes cannot modify the kernel.
 
-{{#tabs}}
-{{#tab name="Inside default container"}}
+\{{#tabs\}}\
+\{{#tab name="Inside default container"\}}
 
 ```bash
 # docker run --rm -it alpine sh
@@ -53,26 +53,26 @@ cpu on /sys/fs/cgroup/cpu type cgroup (ro,nosuid,nodev,noexec,relatime,cpu)
 cpuacct on /sys/fs/cgroup/cpuacct type cgroup (ro,nosuid,nodev,noexec,relatime,cpuacct)
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Inside Privileged Container"}}
+\{{#tab name="Inside Privileged Container"\}}
 
 ```bash
 # docker run --rm --privileged -it alpine sh
 mount  | grep '(ro'
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Masking over kernel file systems
 
 The **/proc** file system is selectively writable but for security, certain parts are shielded from write and read access by overlaying them with **tmpfs**, ensuring container processes can't access sensitive areas.
 
-> [!NOTE] > **tmpfs** is a file system that stores all the files in virtual memory. tmpfs doesn't create any files on your hard drive. So if you unmount a tmpfs file system, all the files residing in it are lost for ever.
+> \[!NOTE] > **tmpfs** is a file system that stores all the files in virtual memory. tmpfs doesn't create any files on your hard drive. So if you unmount a tmpfs file system, all the files residing in it are lost for ever.
 
-{{#tabs}}
-{{#tab name="Inside default container"}}
+\{{#tabs\}}\
+\{{#tab name="Inside default container"\}}
 
 ```bash
 # docker run --rm -it alpine sh
@@ -82,28 +82,28 @@ tmpfs on /proc/kcore type tmpfs (rw,nosuid,size=65536k,mode=755)
 tmpfs on /proc/keys type tmpfs (rw,nosuid,size=65536k,mode=755)
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Inside Privileged Container"}}
+\{{#tab name="Inside Privileged Container"\}}
 
 ```bash
 # docker run --rm --privileged -it alpine sh
 mount  | grep /proc.*tmpfs
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### Linux capabilities
 
 Container engines launch the containers with a **limited number of capabilities** to control what goes on inside of the container by default. **Privileged** ones have **all** the **capabilities** accesible. To learn about capabilities read:
 
-{{#ref}}
-../linux-capabilities.md
-{{#endref}}
+\{{#ref\}}\
+../linux-capabilities.md\
+\{{#endref\}}
 
-{{#tabs}}
-{{#tab name="Inside default container"}}
+\{{#tabs\}}\
+\{{#tab name="Inside default container"\}}
 
 ```bash
 # docker run --rm -it alpine sh
@@ -114,9 +114,9 @@ Bounding set =cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setg
 [...]
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Inside Privileged Container"}}
+\{{#tab name="Inside Privileged Container"\}}
 
 ```bash
 # docker run --rm --privileged -it alpine sh
@@ -127,8 +127,8 @@ Bounding set =cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fset
 [...]
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 You can manipulate the capabilities available to a container without running in `--privileged` mode by using the `--cap-add` and `--cap-drop` flags.
 
@@ -136,12 +136,12 @@ You can manipulate the capabilities available to a container without running in 
 
 **Seccomp** is useful to **limit** the **syscalls** a container can call. A default seccomp profile is enabled by default when running docker containers, but in privileged mode it is disabled. Learn more about Seccomp here:
 
-{{#ref}}
-seccomp.md
-{{#endref}}
+\{{#ref\}}\
+seccomp.md\
+\{{#endref\}}
 
-{{#tabs}}
-{{#tab name="Inside default container"}}
+\{{#tabs\}}\
+\{{#tab name="Inside default container"\}}
 
 ```bash
 # docker run --rm -it alpine sh
@@ -150,9 +150,9 @@ Seccomp:	2
 Seccomp_filters:	1
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Inside Privileged Container"}}
+\{{#tab name="Inside Privileged Container"\}}
 
 ```bash
 # docker run --rm --privileged -it alpine sh
@@ -161,8 +161,8 @@ Seccomp:	0
 Seccomp_filters:	0
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ```bash
 # You can manually disable seccomp in docker with
@@ -175,9 +175,9 @@ Also, note that when Docker (or other CRIs) are used in a **Kubernetes** cluster
 
 **AppArmor** is a kernel enhancement to confine **containers** to a **limited** set of **resources** with **per-program profiles**. When you run with the `--privileged` flag, this protection is disabled.
 
-{{#ref}}
-apparmor.md
-{{#endref}}
+\{{#ref\}}\
+apparmor.md\
+\{{#endref\}}
 
 ```bash
 # You can manually disable seccomp in docker with
@@ -188,9 +188,9 @@ apparmor.md
 
 Running a container with the `--privileged` flag disables **SELinux labels**, causing it to inherit the label of the container engine, typically `unconfined`, granting full access similar to the container engine. In rootless mode, it uses `container_runtime_t`, while in root mode, `spc_t` is applied.
 
-{{#ref}}
-../selinux.md
-{{#endref}}
+\{{#ref\}}\
+../selinux.md\
+\{{#endref\}}
 
 ```bash
 # You can manually disable selinux in docker with
@@ -203,8 +203,8 @@ Running a container with the `--privileged` flag disables **SELinux labels**, ca
 
 Namespaces are **NOT affected** by the `--privileged` flag. Even though they don't have the security constraints enabled, they **do not see all of the processes on the system or the host network, for example**. Users can disable individual namespaces by using the **`--pid=host`, `--net=host`, `--ipc=host`, `--uts=host`** container engines flags.
 
-{{#tabs}}
-{{#tab name="Inside default privileged container"}}
+\{{#tabs\}}\
+\{{#tab name="Inside default privileged container"\}}
 
 ```bash
 # docker run --rm --privileged -it alpine sh
@@ -214,9 +214,9 @@ PID   USER     TIME  COMMAND
    18 root      0:00 ps -ef
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="Inside --pid=host Container"}}
+\{{#tab name="Inside --pid=host Container"\}}
 
 ```bash
 # docker run --rm --privileged --pid=host -it alpine sh
@@ -228,8 +228,8 @@ PID   USER     TIME  COMMAND
 [...]
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ### User namespace
 
@@ -237,9 +237,6 @@ PID   USER     TIME  COMMAND
 
 ## References
 
-- [https://www.redhat.com/sysadmin/privileged-flag-container-engines](https://www.redhat.com/sysadmin/privileged-flag-container-engines)
+* [https://www.redhat.com/sysadmin/privileged-flag-container-engines](https://www.redhat.com/sysadmin/privileged-flag-container-engines)
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

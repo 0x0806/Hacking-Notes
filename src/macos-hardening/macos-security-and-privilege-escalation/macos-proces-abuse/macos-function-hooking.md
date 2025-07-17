@@ -1,6 +1,6 @@
 # macOS Function Hooking
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Function Interposing
 
@@ -10,10 +10,10 @@ Then, **inject** the dylib with **`DYLD_INSERT_LIBRARIES`** (the interposing nee
 
 ### Interpose printf
 
-{{#tabs}}
-{{#tab name="interpose.c"}}
+\{{#tabs\}}\
+\{{#tab name="interpose.c"\}}
 
-```c:interpose.c" overflow="wrap
+```c:interpose.c"
 // gcc -dynamiclib interpose.c -o interpose.dylib
 #include <stdio.h>
 #include <stdarg.h>
@@ -32,9 +32,9 @@ __attribute__((used)) static struct { const void *replacement; const void *repla
 __attribute__ ((section ("__DATA,__interpose"))) = { (const void *)(unsigned long)&my_printf, (const void *)(unsigned long)&printf };
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="hello.c"}}
+\{{#tab name="hello.c"\}}
 
 ```c
 //gcc hello.c -o hello
@@ -46,9 +46,9 @@ int main() {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="interpose2.c"}}
+\{{#tab name="interpose2.c"\}}
 
 ```c
 // Just another way to define an interpose
@@ -74,8 +74,8 @@ int my_printf(const char *format, ...)
 DYLD_INTERPOSE(my_printf,printf);
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ```bash
 DYLD_INSERT_LIBRARIES=./interpose.dylib ./hello
@@ -85,7 +85,7 @@ DYLD_INSERT_LIBRARIES=./interpose2.dylib ./hello
 Hello from interpose
 ```
 
-> [!WARNING]
+> \[!WARNING]\
 > The **`DYLD_PRINT_INTERPOSTING`** env variable can be used to debug interposing and will print the interpose process.
 
 Also note that **interposing occurs between the process and the loaded libraries**, it doesn't work with the shared library cache.
@@ -115,7 +115,7 @@ The object is **`someObject`**, the method is **`@selector(method1p1:p2:)`** and
 
 Following the object structures, it's possible to reach an **array of methods** where the **names** and **pointers** to the method code are **located**.
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that because methods and classes are accessed based on their names, this information is store in the binary, so it's possible to retrieve it with `otool -ov </path/bin>` or [`class-dump </path/bin>`](https://github.com/nygard/class-dump)
 
 ### Accessing the raw methods
@@ -188,11 +188,11 @@ int main() {
 }
 ```
 
-### Method Swizzling with method_exchangeImplementations
+### Method Swizzling with method\_exchangeImplementations
 
 The function **`method_exchangeImplementations`** allows to **change** the **address** of the **implementation** of **one function for the other**.
 
-> [!CAUTION]
+> \[!CAUTION]\
 > So when a function is called what is **executed is the other one**.
 
 ```objectivec
@@ -239,12 +239,12 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-> [!WARNING]
+> \[!WARNING]\
 > In this case if the **implementation code of the legit** method **verifies** the **method** **name** it could **detect** this swizzling and prevent it from running.
 >
 > The following technique doesn't have this restriction.
 
-### Method Swizzling with method_setImplementation
+### Method Swizzling with method\_setImplementation
 
 The previous format is weird because you are changing the implementation of 2 methods one from the other. Using the function **`method_setImplementation`** you can **change** the **implementation** of a **method for the other one**.
 
@@ -330,7 +330,7 @@ and then **re-register** the application:
 
 Add in that library the hooking code to exfiltrate the information: Passwords, messages...
 
-> [!CAUTION]
+> \[!CAUTION]\
 > Note that in newer versions of macOS if you **strip the signature** of the application binary and it was previously executed, macOS **won't be executing the application** anymore.
 
 #### Library example
@@ -373,8 +373,6 @@ static void customConstructor(int argc, const char **argv) {
 
 ## References
 
-- [https://nshipster.com/method-swizzling/](https://nshipster.com/method-swizzling/)
+* [https://nshipster.com/method-swizzling/](https://nshipster.com/method-swizzling/)
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

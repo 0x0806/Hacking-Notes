@@ -1,6 +1,6 @@
 # macOS Perl Applications Injection
 
-{{#include ../../../banners/hacktricks-training.md}}
+\{{#include ../../../banners/hacktricks-training.md\}}
 
 ## Via `PERL5OPT` & `PERL5LIB` env variable
 
@@ -58,7 +58,7 @@ Which will return something like:
 
 Some of the returned folders doesn't even exist, however, **`/Library/Perl/5.30`** does **exist**, it's **not** **protected** by **SIP** and it's **before** the folders **protected by SIP**. Therefore, someone could abuse that folder to add script dependencies in there so a high privilege Perl script will load it.
 
-> [!WARNING]
+> \[!WARNING]\
 > However, note that you **need to be root to write in that folder** and nowadays you will get this **TCC prompt**:
 
 <figure><img src="../../../images/image (28).png" alt="" width="244"><figcaption></figcaption></figure>
@@ -67,9 +67,6 @@ For example, if a script is importing **`use File::Basename;`** it would be poss
 
 ## References
 
-- [https://www.youtube.com/watch?v=zxZesAN-TEk](https://www.youtube.com/watch?v=zxZesAN-TEk)
+* [https://www.youtube.com/watch?v=zxZesAN-TEk](https://www.youtube.com/watch?v=zxZesAN-TEk)
 
-{{#include ../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../banners/hacktricks-training.md\}}

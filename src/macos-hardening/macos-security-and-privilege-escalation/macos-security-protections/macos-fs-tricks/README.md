@@ -1,24 +1,24 @@
 # macOS FS Tricks
 
-{{#include ../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../banners/hacktricks-training.md\}}
 
 ## POSIX permissions combinations
 
 Permissions in a **directory**:
 
-- **read** - you can **enumerate** the directory entries
-- **write** - you can **delete/write** **files** in the directory and you can **delete empty folders**.
-  - But you **cannot delete/modify non-empty folders** unless you have write permissions over it.
-  - You **cannot modify the name of a folder** unless you own it.
-- **execute** - you are **allowed to traverse** the directory - if you don’t have this right, you can’t access any files inside it, or in any subdirectories.
+* **read** - you can **enumerate** the directory entries
+* **write** - you can **delete/write** **files** in the directory and you can **delete empty folders**.
+  * But you **cannot delete/modify non-empty folders** unless you have write permissions over it.
+  * You **cannot modify the name of a folder** unless you own it.
+* **execute** - you are **allowed to traverse** the directory - if you don’t have this right, you can’t access any files inside it, or in any subdirectories.
 
 ### Dangerous Combinations
 
 **How to overwrite a file/folder owned by root**, but:
 
-- One parent **directory owner** in the path is the user
-- One parent **directory owner** in the path is a **users group** with **write access**
-- A users **group** has **write** access to the **file**
+* One parent **directory owner** in the path is the user
+* One parent **directory owner** in the path is a **users group** with **write access**
+* A users **group** has **write** access to the **file**
 
 With any of the previous combinations, an attacker could **inject** a **sym/hard link** the expected path to obtain a privileged arbitrary write.
 
@@ -26,7 +26,7 @@ With any of the previous combinations, an attacker could **inject** a **sym/hard
 
 If there are files in a **directory** where **only root has R+X access**, those are **not accessible to anyone else**. So a vulnerability allowing to **move a file readable by a user**, that cannot be read because of that **restriction**, from this folder **to a different one**, could be abuse to read these files.
 
-Example in: [https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/#nix-directory-permissions](https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/#nix-directory-permissions)
+Example in: [https://theevilbit.github.io/posts/exploiting\_directory\_permissions\_on\_macos/#nix-directory-permissions](https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/#nix-directory-permissions)
 
 ## Symbolic Link / Hard Link
 
@@ -160,9 +160,9 @@ ls -le test
 
 Not really needed but I leave it there just in case:
 
-{{#ref}}
-macos-xattr-acls-extra-stuff.md
-{{#endref}}
+\{{#ref\}}\
+macos-xattr-acls-extra-stuff.md\
+\{{#endref\}}
 
 ## Bypass signature checks
 
@@ -186,8 +186,6 @@ csops(pid, 9, &status, 4); // CS_OPS_SET_STATUS
 status = SecTaskGetCodeSignStatus(SecTaskCreateFromSelf(0));
 NSLog(@"=====Inject successfully into %d(%@), csflags=0x%x", pid, exePath, status);
 ```
-
-
 
 ## Bypass Code Signatures
 
@@ -458,15 +456,12 @@ int main() {
 
 This feature is particularly useful for preventing certain classes of security vulnerabilities such as **unauthorized file access** or **race conditions**. These vulnerabilities occurs when for example a thread is accessing a file description giving **another vulnerable thread access over it** or when a file descriptor is **inherited** by a vulnerable child process. Some functions related to this functionality are:
 
-- `guarded_open_np`: Opend a FD with a guard
-- `guarded_close_np`: Close it
-- `change_fdguard_np`: Change guard flags on a descriptor (even removing the guard protection)
+* `guarded_open_np`: Opend a FD with a guard
+* `guarded_close_np`: Close it
+* `change_fdguard_np`: Change guard flags on a descriptor (even removing the guard protection)
 
 ## References
 
-- [https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/](https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/)
+* [https://theevilbit.github.io/posts/exploiting\_directory\_permissions\_on\_macos/](https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/)
 
-{{#include ../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../banners/hacktricks-training.md\}}

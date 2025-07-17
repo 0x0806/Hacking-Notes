@@ -1,6 +1,6 @@
 # macOS PID Reuse
 
-{{#include ../../../../../../banners/hacktricks-training.md}}
+\{{#include ../../../../../../banners/hacktricks-training.md\}}
 
 ## PID Reuse
 
@@ -17,10 +17,10 @@ Like for example in this image (taken from the reference):
 
 Check this example exploit (again, taken from the reference) to see the 2 parts of the exploit:
 
-- One that **generates several forks**
-- **Each fork** will **send** the **payload** to the XPC service while executing **`posix_spawn`** just after sending the message.
+* One that **generates several forks**
+* **Each fork** will **send** the **payload** to the XPC service while executing **`posix_spawn`** just after sending the message.
 
-> [!CAUTION]
+> \[!CAUTION]\
 > For the exploit to work it's important to ` export`` `` `**`OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES`** or to put inside the exploit:
 >
 > ```objectivec
@@ -29,8 +29,8 @@ Check this example exploit (again, taken from the reference) to see the 2 parts 
 > ".no_dead_strip empty\n");
 > ```
 
-{{#tabs}}
-{{#tab name="NSTasks"}}
+\{{#tabs\}}\
+\{{#tab name="NSTasks"\}}\
 First option using **`NSTasks`** and argument to launch the children to exploit the RC
 
 ```objectivec
@@ -139,9 +139,9 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-{{#endtab}}
+\{{#endtab\}}
 
-{{#tab name="fork"}}
+\{{#tab name="fork"\}}\
 This example uses a raw **`fork`** to launch **children that will exploit the PID race condition** and then exploit **another race condition via a Hard link:**
 
 ```objectivec
@@ -277,19 +277,16 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-{{#endtab}}
-{{#endtabs}}
+\{{#endtab\}}\
+\{{#endtabs\}}
 
 ## Other examples
 
-- [https://gergelykalman.com/why-you-shouldnt-use-a-commercial-vpn-amateur-hour-with-windscribe.html](https://gergelykalman.com/why-you-shouldnt-use-a-commercial-vpn-amateur-hour-with-windscribe.html)
+* [https://gergelykalman.com/why-you-shouldnt-use-a-commercial-vpn-amateur-hour-with-windscribe.html](https://gergelykalman.com/why-you-shouldnt-use-a-commercial-vpn-amateur-hour-with-windscribe.html)
 
 ## Refereces
 
-- [https://wojciechregula.blog/post/learn-xpc-exploitation-part-2-say-no-to-the-pid/](https://wojciechregula.blog/post/learn-xpc-exploitation-part-2-say-no-to-the-pid/)
-- [https://saelo.github.io/presentations/warcon18_dont_trust_the_pid.pdf](https://saelo.github.io/presentations/warcon18_dont_trust_the_pid.pdf)
+* [https://wojciechregula.blog/post/learn-xpc-exploitation-part-2-say-no-to-the-pid/](https://wojciechregula.blog/post/learn-xpc-exploitation-part-2-say-no-to-the-pid/)
+* [https://saelo.github.io/presentations/warcon18\_dont\_trust\_the\_pid.pdf](https://saelo.github.io/presentations/warcon18_dont_trust_the_pid.pdf)
 
-{{#include ../../../../../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../../../../../banners/hacktricks-training.md\}}
