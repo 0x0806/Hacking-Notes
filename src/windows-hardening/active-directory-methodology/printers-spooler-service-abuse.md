@@ -1,6 +1,6 @@
 # Force NTLM Privileged Authentication
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## SharpSystemTriggers
 
@@ -55,9 +55,7 @@ If an attacker has already compromised a computer with [Unconstrained Delegation
 
 ## RCP Force authentication
 
-{{#ref}}
-https://github.com/p0dalirius/Coercer
-{{#endref}}
+\{{#ref\}} https://github.com/p0dalirius/Coercer \{{#endref\}}
 
 ## PrivExchange
 
@@ -126,13 +124,11 @@ If you can perform a MitM attack to a computer and inject HTML in a page he will
 
 ## Other ways to force and phish NTLM authentication
 
-{{#ref}}
-../ntlm/places-to-steal-ntlm-creds.md
-{{#endref}}
+\{{#ref\}} ../ntlm/places-to-steal-ntlm-creds.md \{{#endref\}}
 
 ## Cracking NTLMv1
 
 If you can capture [NTLMv1 challenges read here how to crack them](../ntlm/index.html#ntlmv1-attack).\
-_Remember that in order to crack NTLMv1 you need to set Responder challenge to "1122334455667788"_
+&#xNAN;_&#x52;emember that in order to crack NTLMv1 you need to set Responder challenge to "1122334455667788"_
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}

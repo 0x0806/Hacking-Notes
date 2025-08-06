@@ -1,6 +1,6 @@
 # Phishing Files & Documents
 
-{{#include ../../banners/hacktricks-training.md}}
+\{{#include ../../banners/hacktricks-training.md\}}
 
 ## Office Documents
 
@@ -21,7 +21,7 @@ DOCX files referencing a remote template (File –Options –Add-ins –Manage: 
 ### External Image Load
 
 Go to: _Insert --> Quick Parts --> Field_\
-_**Categories**: Links and References, **Filed names**: includePicture, and **Filename or URL**:_ http://\<ip>/whatever
+&#xNAN;_**Categories**: Links and References, **Filed names**: includePicture, and **Filename or URL**:_ http://\<ip>/whatever
 
 ![](<../../images/image (155).png>)
 
@@ -33,8 +33,8 @@ It's possible to use macros to run arbitrary code from the document.
 
 The more common they are, the more probable the AV will detect them.
 
-- AutoOpen()
-- Document_Open()
+* AutoOpen()
+* Document\_Open()
 
 #### Macros Code Examples
 
@@ -79,9 +79,9 @@ Do this because you **can't save macro's inside a `.docx`** and there's a **stig
 
 #### Malicious Macros Generators
 
-- MacOS
-  - [**macphish**](https://github.com/cldrn/macphish)
-  - [**Mythic Macro Generator**](https://github.com/cedowens/Mythic-Macro-Generator)
+* MacOS
+  * [**macphish**](https://github.com/cldrn/macphish)
+  * [**Mythic Macro Generator**](https://github.com/cedowens/Mythic-Macro-Generator)
 
 ## HTA Files
 
@@ -150,22 +150,15 @@ There are several ways to **force NTLM authentication "remotely"**, for example,
 
 **Check these ideas and more in the following pages:**
 
-{{#ref}}
-../../windows-hardening/active-directory-methodology/printers-spooler-service-abuse.md
-{{#endref}}
+\{{#ref\}} ../../windows-hardening/active-directory-methodology/printers-spooler-service-abuse.md \{{#endref\}}
 
-{{#ref}}
-../../windows-hardening/ntlm/places-to-steal-ntlm-creds.md
-{{#endref}}
+\{{#ref\}} ../../windows-hardening/ntlm/places-to-steal-ntlm-creds.md \{{#endref\}}
 
 ### NTLM Relay
 
 Don't forget that you cannot only steal the hash or the authentication but also **perform NTLM relay attacks**:
 
-- [**NTLM Relay attacks**](../pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md#ntml-relay-attack)
-- [**AD CS ESC8 (NTLM relay to certificates)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
+* [**NTLM Relay attacks**](../pentesting-network/spoofing-llmnr-nbt-ns-mdns-dns-and-wpad-and-relay-attacks.md#ntml-relay-attack)
+* [**AD CS ESC8 (NTLM relay to certificates)**](../../windows-hardening/active-directory-methodology/ad-certificates/domain-escalation.md#ntlm-relay-to-ad-cs-http-endpoints-esc8)
 
-{{#include ../../banners/hacktricks-training.md}}
-
-
-
+\{{#include ../../banners/hacktricks-training.md\}}
