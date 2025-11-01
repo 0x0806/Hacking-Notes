@@ -1,11 +1,6 @@
 # Table of contents
 
-* [Untitled](README.md)
-* [.github](.github/README.md)
-  * [pull\_request\_template](.github/pull_request_template.md)
-* [HackTricks](src/README.md)
-  * [LICENSE](src/LICENSE.md)
-  * [SUMMARY](src/SUMMARY.md)
+* [HackTricks](README.md)
   * [AI in Cybersecurity](src/AI/README.md)
     * [AI-Assisted Fuzzing & Automated Vulnerability Discovery](src/AI/AI-Assisted-Fuzzing-and-Vulnerability-Discovery.md)
     * [Deep Learning](src/AI/AI-Deep-Learning.md)
