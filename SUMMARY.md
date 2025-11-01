@@ -1,6 +1,6 @@
 # Table of contents
 
-* [HackTricks](README.md)
+* [Notes](README.md)
   * [AI in Cybersecurity](src/AI/README.md)
     * [AI-Assisted Fuzzing & Automated Vulnerability Discovery](src/AI/AI-Assisted-Fuzzing-and-Vulnerability-Discovery.md)
     * [Deep Learning](src/AI/AI-Deep-Learning.md)
